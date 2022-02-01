@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32120.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasa Projects", "Kasa Projects\Kasa Projects.csproj", "{7592CB10-A82C-4312-B215-7BDF720382C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7592CB10-A82C-4312-B215-7BDF720382C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7592CB10-A82C-4312-B215-7BDF720382C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7592CB10-A82C-4312-B215-7BDF720382C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7592CB10-A82C-4312-B215-7BDF720382C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE5ED755-AFF4-47CD-B97E-0195E73B351D}
+	EndGlobalSection
+EndGlobal
