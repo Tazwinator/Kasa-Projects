@@ -1,9 +1,8 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+    <SideBar />
+    <TopBar />
 
     <main>
         <div class="top-row px-4">
@@ -12,6 +11,9 @@
 
         <article class="content px-4">
             @Body
+            <Footer />
         </article>
     </main>
+
+    <LogoutModal />
 </div>
