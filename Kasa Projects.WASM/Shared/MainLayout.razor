@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+<div class="wrapper d-flex">
+    <SideBar />
+  
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <main id="content">
+            <TopBar />
+
+            <div class="container-fluid">
+                @Body
+                <Footer />
+            </div>
+      
+        </main>
+    </div>
+
+    <LogoutModal />
+</div>

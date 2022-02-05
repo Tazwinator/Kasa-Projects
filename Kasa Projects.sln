@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32120.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kasa Projects", "Kasa Projects\Kasa Projects.csproj", "{7592CB10-A82C-4312-B215-7BDF720382C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kasa Projects.WASM", "Kasa Projects.WASM\Kasa Projects.WASM.csproj", "{7592CB10-A82C-4312-B215-7BDF720382C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

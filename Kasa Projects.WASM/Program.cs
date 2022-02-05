@@ -1,4 +1,4 @@
-using Kasa_Projects;
+using Kasa_Projects.WASM;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
