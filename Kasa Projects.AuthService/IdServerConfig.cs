@@ -2,7 +2,7 @@
 
 namespace Kasa_Projects.AuthServer;
 
-public static class Config
+public static class IdServerConfig
 {
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
