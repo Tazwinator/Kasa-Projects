@@ -4,9 +4,9 @@ using Kasa_Projects.AuthServer.Models;
 
 namespace Kasa_Projects.AuthServer.Data;
 
-public class AspNetidentityDbContext : IdentityDbContext<KasaUser>
+public class AspNetIdentityDbContext : IdentityDbContext<KasaUser>
 {
-    public AspNetidentityDbContext(DbContextOptions<AspNetidentityDbContext> options)
+    public AspNetIdentityDbContext(DbContextOptions<AspNetIdentityDbContext> options)
         : base(options)
     {
     }

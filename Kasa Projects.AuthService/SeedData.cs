@@ -14,7 +14,7 @@ public class SeedData
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
-            var context = scope.ServiceProvider.GetService<AspNetidentityDbContext>();
+            var context = scope.ServiceProvider.GetService<AspNetIdentityDbContext>();
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<KasaUser>>();

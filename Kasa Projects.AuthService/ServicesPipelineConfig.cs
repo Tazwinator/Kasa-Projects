@@ -16,15 +16,15 @@ internal static class ServicesPipelineConfig
         var assembly = typeof(Program).Assembly.GetName().Name;
         var defaultConnString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-        builder.Services.AddRazorPages();
-
-        builder.Services.AddDbContext<AspNetidentityDbContext>(options =>
-            options.UseSqlServer(defaultConnString, sqlServerOptions => sqlServerOptions.MigrationsAssembly(assembly)));
+        // ASP.NET Identity
+        builder.Services.AddDbContext<AspNetIdentityDbContext>(options =>
+            options.UseSqlServer(defaultConnString, b => b.MigrationsAssembly(assembly)));
 
         builder.Services.AddIdentity<KasaUser, IdentityRole>()
-            .AddEntityFrameworkStores<AspNetidentityDbContext>()
+            .AddEntityFrameworkStores<AspNetIdentityDbContext>()
             .AddDefaultTokenProviders();
 
+        // Duende Identity Server
         builder.Services
             .AddIdentityServer(options =>
             {
@@ -34,12 +34,23 @@ internal static class ServicesPipelineConfig
                 options.Events.RaiseSuccessEvents = true;
                 options.EmitStaticAudienceClaim = true;
             })
+            .AddConfigurationStore(options =>
+            {
+                options.ConfigureDbContext = b =>
+                b.UseSqlServer(defaultConnString, opt => opt.MigrationsAssembly(assembly));
+            })
+            .AddOperationalStore(options =>
+            {
+                options.ConfigureDbContext = b =>
+                b.UseSqlServer(defaultConnString, opt => opt.MigrationsAssembly(assembly));
+            })
             .AddInMemoryIdentityResources(IdServerConfig.IdentityResources)
             .AddInMemoryApiScopes(IdServerConfig.ApiScopes)
             .AddInMemoryClients(IdServerConfig.Clients)
-            .AddAspNetIdentity<KasaUser>()
-            .AddApiAuthorization<KasaUser, AspNetidentityDbContext>();
+            .AddInMemoryCaching()
+            .AddAspNetIdentity<KasaUser>();
 
+        // Extra Auth Methods
         //builder.Services.AddAuthentication()
         //    .AddIdentityServerJwt()
         //    .AddGoogle(options =>
@@ -53,7 +64,7 @@ internal static class ServicesPipelineConfig
         //        options.ClientSecret = "copy client secret from Google here";
         //    });
 
-        builder.Services.AddControllersWithViews();
+        builder.Services.AddMvc();
 
         return builder.Build();
     }
