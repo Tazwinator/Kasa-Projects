@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Kasa_Projects.AuthServer.Models;
+using Kasa_Projects.AuthService.Models;
 
-namespace Kasa_Projects.AuthServer.Data;
+namespace Kasa_Projects.AuthService.Data;
 
 public class AspNetIdentityDbContext : IdentityDbContext<KasaUser>
 {

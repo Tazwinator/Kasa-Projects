@@ -2,7 +2,7 @@
 // See LICENSE in the project root for license information.
 
 
-namespace Kasa_Projects.AuthServer.Pages.Device;
+namespace Kasa_Projects.AuthService.Pages.Device;
 
 public class DeviceOptions
 {

@@ -1,6 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
 
-namespace Kasa_Projects.AuthServer;
+namespace Kasa_Projects.AuthService;
 
 public static class IdServerConfig
 {
@@ -39,14 +39,14 @@ public static class IdServerConfig
                 ClientId = "wasmClient",
                 ClientSecrets = { new Secret("ClientSecret1".Sha256()) },
 
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                AllowedGrantTypes = GrantTypes.Code,
 
-                RedirectUris = { "https://localhost:5000/signin-oidc" },
-                FrontChannelLogoutUri = "https://localhost:5000/signout-oidc",
-                PostLogoutRedirectUris = { "https://localhost:5000/signout-callback-oidc" },
+                RedirectUris = { "https://localhost:5331/dashboard" },
+                FrontChannelLogoutUri = "https://localhost:5331/signout-oidc",
+                PostLogoutRedirectUris = { "https://localhost:5331/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile", "scope2" },
+                AllowedScopes = { "openid", "profile" },
 
                 RequirePkce = true,
                 RequireConsent = true,

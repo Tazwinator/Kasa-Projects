@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace Kasa_Projects.AuthServer.Pages.Ciba;
+namespace Kasa_Projects.AuthService.Pages.Ciba;
 
 public class InputModel
 {

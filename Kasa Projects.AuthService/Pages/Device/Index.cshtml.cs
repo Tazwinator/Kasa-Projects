@@ -8,14 +8,14 @@ using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
-using Kasa_Projects.AuthServer.Pages.Consent;
+using Kasa_Projects.AuthService.Pages.Consent;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Kasa_Projects.AuthServer.Pages.Device;
+namespace Kasa_Projects.AuthService.Pages.Device;
 
 [SecurityHeaders]
 [Authorize]

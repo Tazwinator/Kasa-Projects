@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace Kasa_Projects.AuthServer.Pages.Consent;
+namespace Kasa_Projects.AuthService.Pages.Consent;
 
 public class InputModel
 {

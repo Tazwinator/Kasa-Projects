@@ -1,4 +1,4 @@
-﻿using Kasa_Projects.AuthServer;
+﻿using Kasa_Projects.AuthService;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -25,7 +25,7 @@ try
     if (args.Contains("/seed"))
     {
         Log.Information("Seeding database...");
-        SeedData.EnsureSeedData(app);
+        SeedIdentityUserData.EnsureSeedData(app);
         Log.Information("Done seeding database. Exiting.");
         return;
     }

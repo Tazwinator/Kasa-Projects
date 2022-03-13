@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Kasa_Projects.AuthServer.Pages.Diagnostics;
+namespace Kasa_Projects.AuthService.Pages.Diagnostics;
 
 [SecurityHeaders]
 [Authorize]

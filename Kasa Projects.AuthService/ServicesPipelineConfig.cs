@@ -1,13 +1,14 @@
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
-using Kasa_Projects.AuthServer.Data;
-using Kasa_Projects.AuthServer.Models;
+using Duende.IdentityServer.Services;
+using Kasa_Projects.AuthService.Data;
+using Kasa_Projects.AuthService.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace Kasa_Projects.AuthServer;
+namespace Kasa_Projects.AuthService;
 
 internal static class ServicesPipelineConfig
 {
@@ -34,6 +35,7 @@ internal static class ServicesPipelineConfig
                 options.Events.RaiseSuccessEvents = true;
                 options.EmitStaticAudienceClaim = true;
             })
+            .AddAspNetIdentity<KasaUser>()
             .AddConfigurationStore(options =>
             {
                 options.ConfigureDbContext = b =>
@@ -47,8 +49,15 @@ internal static class ServicesPipelineConfig
             .AddInMemoryIdentityResources(IdServerConfig.IdentityResources)
             .AddInMemoryApiScopes(IdServerConfig.ApiScopes)
             .AddInMemoryClients(IdServerConfig.Clients)
-            .AddInMemoryCaching()
-            .AddAspNetIdentity<KasaUser>();
+            .AddInMemoryCaching();
+
+        builder.Services.AddSingleton<ICorsPolicyService>((container) => {
+            var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+            return new DefaultCorsPolicyService(logger)
+            {
+                AllowedOrigins = { "https://localhost:5331" }
+            };
+        });
 
         // Extra Auth Methods
         //builder.Services.AddAuthentication()
@@ -81,14 +90,12 @@ internal static class ServicesPipelineConfig
         
         app.UseStaticFiles();
         app.UseRouting();
-        app.UseIdentityServer();
+        
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseIdentityServer();
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapDefaultControllerRoute();
-        });
+        app.MapRazorPages();
 
         return app;
     }

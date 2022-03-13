@@ -1,14 +1,14 @@
 ﻿using System.Security.Claims;
 using IdentityModel;
-using Kasa_Projects.AuthServer.Data;
-using Kasa_Projects.AuthServer.Models;
+using Kasa_Projects.AuthService.Data;
+using Kasa_Projects.AuthService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace Kasa_Projects.AuthServer;
+namespace Kasa_Projects.AuthService;
 
-public class SeedData
+public class SeedIdentityUserData
 {
     public static void EnsureSeedData(WebApplication app)
     {

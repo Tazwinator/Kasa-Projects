@@ -1,5 +1,5 @@
 
-namespace Kasa_Projects.AuthServer.Pages.Logout;
+namespace Kasa_Projects.AuthService.Pages.Logout;
 
 public class LogoutOptions
 {

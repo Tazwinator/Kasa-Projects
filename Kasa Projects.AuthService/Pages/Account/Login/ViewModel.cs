@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Kasa_Projects.AuthServer.Pages.Login;
+namespace Kasa_Projects.AuthService.Pages.Login;
 
 public class ViewModel
 {

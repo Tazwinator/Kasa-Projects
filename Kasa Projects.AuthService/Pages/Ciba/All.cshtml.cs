@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kasa_Projects.AuthServer.Pages.Ciba;
+namespace Kasa_Projects.AuthService.Pages.Ciba;
 
 [SecurityHeaders]
 [Authorize]

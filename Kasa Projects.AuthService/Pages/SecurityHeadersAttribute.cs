@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kasa_Projects.AuthServer.Pages;
+namespace Kasa_Projects.AuthService.Pages;
 
 public class SecurityHeadersAttribute : ActionFilterAttribute
 {

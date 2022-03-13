@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Kasa_Projects.AuthServer.Pages.Grants;
+namespace Kasa_Projects.AuthService.Pages.Grants;
 
 public class ViewModel
 {

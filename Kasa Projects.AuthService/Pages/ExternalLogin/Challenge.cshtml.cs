@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kasa_Projects.AuthServer.Pages.ExternalLogin;
+namespace Kasa_Projects.AuthService.Pages.ExternalLogin;
 
 [AllowAnonymous]
 [SecurityHeaders]

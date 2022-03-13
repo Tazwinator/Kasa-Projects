@@ -3,7 +3,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kasa_Projects.AuthServer.Pages.Home;
+namespace Kasa_Projects.AuthService.Pages.Home;
 
 [AllowAnonymous]
 public class Index : PageModel

@@ -5,14 +5,14 @@ using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
-using Kasa_Projects.AuthServer.Models;
+using Kasa_Projects.AuthService.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kasa_Projects.AuthServer.Pages.Login;
+namespace Kasa_Projects.AuthService.Pages.Login;
 
 [SecurityHeaders]
 [AllowAnonymous]

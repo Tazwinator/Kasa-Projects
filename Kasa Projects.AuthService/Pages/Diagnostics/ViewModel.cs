@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
-namespace Kasa_Projects.AuthServer.Pages.Diagnostics;
+namespace Kasa_Projects.AuthService.Pages.Diagnostics;
 
 public class ViewModel
 {

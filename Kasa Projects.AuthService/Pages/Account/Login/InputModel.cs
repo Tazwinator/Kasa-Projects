@@ -4,7 +4,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Kasa_Projects.AuthServer.Pages.Login;
+namespace Kasa_Projects.AuthService.Pages.Login;
 
 public class InputModel
 {

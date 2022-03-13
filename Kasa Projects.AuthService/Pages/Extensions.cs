@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasa_Projects.AuthServer.Pages;
+namespace Kasa_Projects.AuthService.Pages;
 
 public static class Extensions
 {

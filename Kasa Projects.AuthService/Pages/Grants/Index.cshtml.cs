@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Kasa_Projects.AuthServer.Pages.Grants;
+namespace Kasa_Projects.AuthService.Pages.Grants;
 
 [SecurityHeaders]
 [Authorize]

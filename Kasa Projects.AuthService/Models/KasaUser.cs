@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Identity;
 
-namespace Kasa_Projects.AuthServer.Models;
+namespace Kasa_Projects.AuthService.Models;
 
 // Add profile data for application users by adding properties to the ApplicationUser class
 public class KasaUser : IdentityUser

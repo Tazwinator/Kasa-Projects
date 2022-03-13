@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
 
-namespace Kasa_Projects.AuthServer.Pages.Error;
+namespace Kasa_Projects.AuthService.Pages.Error;
 
 [AllowAnonymous]
 [SecurityHeaders]

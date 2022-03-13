@@ -3,7 +3,7 @@
 
 using Duende.IdentityServer.Models;
 
-namespace Kasa_Projects.AuthServer.Pages.Error;
+namespace Kasa_Projects.AuthService.Pages.Error;
 
 public class ViewModel
 {

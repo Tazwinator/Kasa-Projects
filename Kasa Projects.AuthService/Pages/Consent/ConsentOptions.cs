@@ -2,7 +2,7 @@
 // See LICENSE in the project root for license information.
 
 
-namespace Kasa_Projects.AuthServer.Pages.Consent;
+namespace Kasa_Projects.AuthService.Pages.Consent;
 
 public class ConsentOptions
 {

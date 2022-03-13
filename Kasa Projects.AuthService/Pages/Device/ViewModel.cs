@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Kasa_Projects.AuthServer.Pages.Device;
+namespace Kasa_Projects.AuthService.Pages.Device;
 
 public class ViewModel
 {
