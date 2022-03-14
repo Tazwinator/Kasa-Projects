@@ -20,7 +20,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddOidcAuthentication(options =>
 {
-    builder.Configuration.Bind("InteractiveServiceSettings", options.ProviderOptions);
+    builder.Configuration.Bind("oidc", options.ProviderOptions);
     //options.ProviderOptions.DefaultScopes.Add("openid");
 });
 

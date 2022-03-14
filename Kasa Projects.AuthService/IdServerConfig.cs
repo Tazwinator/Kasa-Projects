@@ -41,7 +41,7 @@ public static class IdServerConfig
 
                 AllowedGrantTypes = GrantTypes.Code,
 
-                RedirectUris = { "https://localhost:5331/dashboard" },
+                RedirectUris = { "https://localhost:5331/signin-oidc" },
                 FrontChannelLogoutUri = "https://localhost:5331/signout-oidc",
                 PostLogoutRedirectUris = { "https://localhost:5331/signout-callback-oidc" },
 
