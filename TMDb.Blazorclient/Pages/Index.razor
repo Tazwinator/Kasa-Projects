@@ -1,9 +1,67 @@
 ﻿@page "/"
+@inject IJSRuntime JS
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<HomepageBanner/>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<!-- Section-->
+<section class="py-5">
+    <Switch TValue="bool" Checked="@isChecked" >Light/Dark Mode</Switch>
+    <input type="checkbox" class="themeSwitch">
+    <label>Check me bitch</label>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+            @for (var num = 1; num <= 10; num++)
+            {
+                <MovieItem/>
+            }
+
+        </div>
+    </div>
+</section>
+
+
+
+@code {
+    private static bool isChecked;
+
+    //[JSInvokable]
+    //public static Task UpdateThemeSwitch(string themeType)
+    //{
+    //    var jsCall = new (JS.InvokeAsync<string>("updateThemeSwitch"));
+
+    //    if (themeType == "dark")
+    //    {
+    //        isChecked = true;
+    //    }
+    //    else if (themeType == "light")
+    //    {
+    //        isChecked = false;
+    //    }
+
+    //    return Task.CompletedTask;
+    //}
+
+    //Task OnThemeColorChanged( string value1, string value2 )
+    //{
+    //    if ( Theme?.ColorOptions != null )
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    if ( Theme?.BackgroundOptions != null )
+    //    {
+    //        Theme.BackgroundOptions.Primary = value1;
+    //        Theme.BackgroundOptions.Secondary = value2;
+    //    }
+
+    //    Theme.ThemeHasChanged();
+
+    //    return Task.CompletedTask;
+    //}
+
+   // [CascadingParameter] Theme Theme { get; set; }
+
+}

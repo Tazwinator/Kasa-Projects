@@ -1,0 +1,14 @@
+﻿
+@media (prefers-color-scheme: dark) {
+    body, navTheme {
+        background-color: #000000;
+        color: var(--b-theme-light);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body, navTheme {
+        background-color: #ffffff;
+        color: var(--b-theme-dark);
+    }
+}

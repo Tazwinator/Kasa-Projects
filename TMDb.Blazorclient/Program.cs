@@ -3,12 +3,24 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Blazorise;
+using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Services Config
+
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrap5Providers()
+    .AddFontAwesomeIcons();
 
 builder.Services.AddHttpClient();
 
@@ -38,6 +50,8 @@ builder.Services.AddAuthentication(options =>
     );
 
 var app = builder.Build();
+
+// Pipeline Config
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
