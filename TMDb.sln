@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDb.AuthService", "TMDb.Au
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDb.BlazorClient", "TMDb.BlazorClient\TMDb.BlazorClient.csproj", "{BC679440-193F-4081-AD70-F41654AC508A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDb.AppDataAPI", "TMDb.AppDataAPI\TMDb.AppDataAPI.csproj", "{3EE67D69-9E73-4488-A4DE-F83F47C74F32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDb.DataAccess", "TMDb.DataAccess\TMDb.DataAccess.csproj", "{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{BC679440-193F-4081-AD70-F41654AC508A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC679440-193F-4081-AD70-F41654AC508A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC679440-193F-4081-AD70-F41654AC508A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EE67D69-9E73-4488-A4DE-F83F47C74F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EE67D69-9E73-4488-A4DE-F83F47C74F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EE67D69-9E73-4488-A4DE-F83F47C74F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EE67D69-9E73-4488-A4DE-F83F47C74F32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
