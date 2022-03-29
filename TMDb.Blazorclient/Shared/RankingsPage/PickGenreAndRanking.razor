@@ -1,0 +1,57 @@
+﻿
+@* Genre Picker *@
+<Form hidden="@hideGenrePicker">
+
+    @foreach (GenresEnum genreValue in Enum.GetValues(typeof(GenresEnum)))
+    {
+         <Button @onclick="() => PickGenre(genreValue)" >@genreValue</Button>   
+    }
+    <p>@Genre</p>
+</Form>
+
+@* Ranking Picker *@
+<Form hidden="@hideRankingPicker">
+
+    @foreach (RankingsEnum rankingValue in Enum.GetValues(typeof(RankingsEnum)))
+    {
+         <Button @onclick="() => PickRanking(rankingValue)" >@rankingValue</Button>   
+    }
+    <p>@Ranking</p>
+</Form>
+
+
+@code {
+    [Inject]
+    private NavigationManager Navigation { get; set; }
+
+    private bool hideGenrePicker = false;
+    private bool hideRankingPicker = true;
+
+    private GenresEnum genre;
+    [Parameter]
+    public GenresEnum Genre 
+    {
+        get => genre;
+        set
+        {
+            hideGenrePicker = true;
+            genre = value;
+        }
+    }
+
+    public RankingsEnum Ranking { get; set; }
+
+    private void PickGenre(GenresEnum genreValue)
+    {
+        Genre = genreValue;
+        hideRankingPicker = false;
+    }
+
+    private void PickRanking(RankingsEnum rankingValue)
+    {
+        Ranking = rankingValue;
+
+        Navigation.NavigateTo($"{Navigation.BaseUri}movies/{Genre}/{Ranking}");
+    }
+
+}

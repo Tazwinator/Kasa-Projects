@@ -1,0 +1,71 @@
+﻿@page "/movies/{GenreUriParam?}/{RankingUriParam?}"
+
+
+@foreach (GenresEnum gValue in Enum.GetValues(typeof(GenresEnum)))
+{
+    @foreach (RankingsEnum rValue in Enum.GetValues(typeof(RankingsEnum)))
+    {
+        @if (GenreUriParam == gValue.ToString() && RankingUriParam == rValue.ToString())
+        {
+            Genre = gValue;
+            Ranking = rValue;
+            CorrectParams = true;
+        }
+        else if (GenreUriParam == gValue.ToString())
+        {
+            Genre = gValue;
+        }
+        else if (GenreUriParam == null || RankingUriParam == null)
+        {
+            NoParams = true;
+        }
+        else
+        {
+            IncorrectParams = true;
+        }
+    }
+}
+
+@if (CorrectParams)
+{
+    <Rankings Genre="@Genre" Ranking="@Ranking" />
+}
+else if (NoParams || IncorrectParams)
+{
+    <PickGenreAndRanking />
+}
+else if (OnlyGenreParam)
+{
+    <PickGenreAndRanking Genre="@Genre" />
+}
+
+<p>@Genre</p>
+<p>@GenreUriParam</p>
+
+@code {
+
+    public bool IncorrectParams { get; set; } = false;
+
+    public bool CorrectParams { get; set; } = false;
+
+    public bool NoParams { get; set; } = false;
+
+    public bool OnlyGenreParam { get; set; } = false;
+
+    public GenresEnum Genre { get; set; }
+
+    public RankingsEnum Ranking { get; set; }
+
+    [Parameter]
+    public string GenreUriParam { get; set; }
+
+    [Parameter]
+    public string RankingUriParam  { get; set; }
+
+    [Inject]
+    private NavigationManager Navigation { get; set; }
+
+    
+
+
+}

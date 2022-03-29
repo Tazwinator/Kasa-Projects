@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDb.AuthService", "TMDb.Au
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDb.BlazorClient", "TMDb.BlazorClient\TMDb.BlazorClient.csproj", "{BC679440-193F-4081-AD70-F41654AC508A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDb.AppDataAPI", "TMDb.AppDataAPI\TMDb.AppDataAPI.csproj", "{3EE67D69-9E73-4488-A4DE-F83F47C74F32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDb.AppDataAPI", "TMDb.AppDataAPI\TMDb.AppDataAPI.csproj", "{3EE67D69-9E73-4488-A4DE-F83F47C74F32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDb.DataAccess", "TMDb.DataAccess\TMDb.DataAccess.csproj", "{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDb.DataAccess", "TMDb.DataAccess\TMDb.DataAccess.csproj", "{C77AFA0D-8E28-4C9A-B2F6-443E2F2CB097}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
