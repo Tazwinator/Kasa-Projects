@@ -1,0 +1,45 @@
+﻿<link href="css/custom/movie.css" rel="stylesheet" />  
+
+@if (MovieData?.Count() > 0)
+{
+    <div class="container">
+        <ul class="list-group">
+            @foreach (MovieModel movie in MovieData)
+            {
+                <li class="list-group-item">
+                    <div class="container">
+
+                        <div class="row">
+
+                            <div class="col-4">
+                                <img class="movieItemImg" src="testmovieThings/testImage.jpg" alt="..."/>
+                            </div>
+
+                            <div class="col-8">
+                                <div class="d-inline-block">
+                                    <h3>@movie.Title</h3>
+                                    <p>@movie.Overview.Substring(0,75)...</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    
+}
+else
+{
+    <h3>No movies pal</h3>
+}
+
+@code {
+
+    [Parameter]
+    public List<MovieModel> MovieData { get; set; }
+
+
+}

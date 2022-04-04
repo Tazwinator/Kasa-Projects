@@ -1,4 +1,4 @@
-﻿namespace TMDb.AppDataAPI.Models
+﻿namespace TMDb.BlazorClient.Models
 {
     public class MovieModel
     {

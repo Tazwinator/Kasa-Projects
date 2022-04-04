@@ -1,0 +1,90 @@
+﻿@using System.Timers;
+@implements IDisposable;
+
+ <EditForm Model="FormModel" OnSubmit="@(() => Search())">
+
+    <datalist id="suggestions">
+        @if (MovieData?.Count() > 0)
+        {
+            @foreach (var movie in MovieData)
+            {
+                <option value="@movie.Title">@movie.Overview</option>
+            }
+        }
+    </datalist>
+    <input autoComplete="on" list="suggestions" @bind="searchValue" @bind:event="oninput" @onfocusin="StartTimer" @onkeyup="HandleKeyUp" />
+    
+    <button type="submit"> Search </button>
+</EditForm>
+
+
+@code {
+    [Inject]
+    private HttpClient Http { get; set; }
+
+    [Inject]
+    NavigationManager NavManager { get; set; }
+
+    private MovieModel Movie { get; set; }
+    private List<MovieModel> MovieData { get; set; }
+
+    private MovieModel FormModel = new MovieModel();
+
+    private string searchValue { get; set; }
+    private string previousSearchValue { get; set; }
+
+    private Timer aTimer;
+
+    private async void GetMovies(Object source, ElapsedEventArgs e)
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<List<MovieModel>>($"https://localhost:5333/api/search/search-suggestions/{searchValue}");
+            previousSearchValue = searchValue;
+            MovieData = result;
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+    }
+
+    private void Search()
+    {
+        NavManager.NavigateTo($"{NavManager.BaseUri}search/{searchValue}");
+    }
+
+    void StartTimer(FocusEventArgs e)
+    {
+        aTimer = new Timer(1000);
+        aTimer.Elapsed += (Object source, ElapsedEventArgs e) =>
+        {
+            if (searchValue != null && searchValue != previousSearchValue)
+            {
+                GetMovies(source, e);
+            }
+            else
+            {
+                aTimer.Start();
+            }
+            
+        };
+        aTimer.AutoReset = false;
+    }
+
+    void HandleKeyUp(KeyboardEventArgs e)
+    {
+        // remove previous one
+        aTimer.Stop();
+
+        // new timer
+        aTimer.Start();        
+    }    
+
+    void IDisposable.Dispose()
+    {
+        aTimer?.Dispose();
+    }
+}

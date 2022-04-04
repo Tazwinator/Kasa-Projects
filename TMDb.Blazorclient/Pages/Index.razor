@@ -6,17 +6,47 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-            @for (var num = 1; num <= 10; num++)
+            @if (receivedMovies)
             {
-                <MovieItem/>
+                @if (MovieData?.Count() > 0)
+                {
+                    @foreach (MovieModel movie in MovieData)
+                    { 
+                        <MovieItem Movie="movie"/>
+                    }
+                }
+                
             }
-
         </div>
     </div>
 </section>
 
 @code{
 
-    
+    [Inject]
+    private HttpClient Http { get; set; }
+
+    [Inject]
+    NavigationManager NavManager { get; set; }
+
+    private MovieModel Movie { get; set; }
+    private List<MovieModel> MovieData { get; set; }
+
+    private bool receivedMovies = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<List<MovieModel>>("https://localhost:5333/api/movies/featured");
+            MovieData = result;
+            receivedMovies = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+    }
+
 }

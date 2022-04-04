@@ -8,6 +8,7 @@ namespace TMDb.DataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // This migration has been used to create test data sued during the development of the apps
 
             migrationBuilder.Sql("INSERT INTO " +
                 "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
@@ -35,11 +36,37 @@ namespace TMDb.DataAccess.Migrations
 
                 );
 
+            migrationBuilder.Sql("INSERT INTO " +
+                "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
+                "VALUES ('The Rock: Taking The World'," +
+                "'How the rock became Chancellor of Earth'," +
+                "'1111'," +
+                "'11111'," +
+                "'11111'," +
+                "'https://www.themoviedb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg'," +
+                "'1994'," +
+                "'142' )"
+
+                );
+
+            migrationBuilder.Sql("INSERT INTO " +
+                "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
+                "VALUES ('Smith Slap'," +
+                "'How the world was shocked by a simple slap'," +
+                "'1111'," +
+                "'11111'," +
+                "'11111'," +
+                "'https://www.themoviedb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg'," +
+                "'1994'," +
+                "'142' )"
+
+                );
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.Sql("DELETE FROM [Movies]");
         }
     }
 }

@@ -1,0 +1,53 @@
+﻿@page "/search/{searchValue}"
+
+<h3>Your results for: @searchValue</h3>
+
+<div class="container" >
+    <div class="row">
+        <div class="col-8">
+            @if (receivedMovies) {
+                <MovieColumn MovieData="MovieData" />
+            }
+        </div>
+        <div class="col-4">
+
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string searchValue { get; set; }
+
+    private string previousSearchValue { get; set; }
+
+    [Inject]
+    private HttpClient Http { get; set; }
+
+    [Inject]
+    NavigationManager NavManager { get; set; }
+
+    private MovieModel Movie { get; set; }
+    private List<MovieModel> MovieData { get; set; }
+
+    private bool receivedMovies = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<List<MovieModel>>($"https://localhost:5333/api/search/{searchValue}");
+            previousSearchValue = searchValue;
+            MovieData = result;
+            receivedMovies = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+    }
+
+}
