@@ -1,9 +1,26 @@
-﻿.movieItemImg {
+﻿.movieColumnImg {
     width: 50%;
     object-fit: contain;
 }
+
+.movieItem {
+    width: 24.5%;
+    display: inline-block;
+}
+
+.movieItemBody {
+    height: 100px;
+}
+
+@media only screen and (max-width: 768px) {
+    .movieItem {
+        width: 49%;
+    }
+}
+
 
 .movieItemImg:hover {
     filter: blur(5px);
     cursor: pointer;
 }
+

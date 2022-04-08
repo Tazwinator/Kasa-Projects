@@ -52,7 +52,46 @@ namespace TMDb.DataAccess.Migrations
             migrationBuilder.Sql("INSERT INTO " +
                 "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
                 "VALUES ('Smith Slap'," +
-                "'How the world was shocked by a simple slap'," +
+                "'How the world was shocked by a simple slap.'," +
+                "'1111'," +
+                "'11111'," +
+                "'11111'," +
+                "'https://www.themoviedb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg'," +
+                "'1994'," +
+                "'142' )"
+
+                );
+
+            migrationBuilder.Sql("INSERT INTO " +
+                "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
+                "VALUES ('Lethal Weapon 9'," +
+                "'He was too old for this s**t.'," +
+                "'1111'," +
+                "'11111'," +
+                "'11111'," +
+                "'https://www.themoviedb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg'," +
+                "'1994'," +
+                "'142' )"
+
+                );
+
+            migrationBuilder.Sql("INSERT INTO " +
+                "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
+                "VALUES ('Fast 29'," +
+                "'Paul Walker never died, and now he wants to kill Dom.'," +
+                "'1111'," +
+                "'11111'," +
+                "'11111'," +
+                "'https://www.themoviedb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg'," +
+                "'1994'," +
+                "'142' )"
+
+                );
+
+            migrationBuilder.Sql("INSERT INTO " +
+                "Movies (Title, Overview, Budget, Revenue, ImdbId, PosterPath, ReleaseDate, Runtime) " +
+                "VALUES ('Transformers: Little Prime'," +
+                "'Little Optimus Prime Jr gets bullied by Chad the decepticon.'," +
                 "'1111'," +
                 "'11111'," +
                 "'11111'," +

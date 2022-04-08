@@ -24,7 +24,7 @@ namespace TMDb.AppDataAPI.Controllers
             try
             {
                 // Getting featured movies not yet implemented, sort by popularity
-                var movie = dbContext.Movies.Take(5).ToList();
+                var movie = dbContext.Movies.Take(20).ToList();
                 return Ok(movie);
             }
             catch (Exception ex)
@@ -41,8 +41,8 @@ namespace TMDb.AppDataAPI.Controllers
         public IActionResult GetMovie(int id)
         {
             try
-            {
-                var movie = dbContext.Movies.FindAsync(id);
+            {    
+                var movie = dbContext.Movies.Where(x => x.Id == id).FirstOrDefault();
                 return Ok(movie);
             }
             catch (Exception ex)
