@@ -6,26 +6,29 @@
         <ul class="list-group">
             @foreach (MovieModel movie in MovieData)
             {
-                <li class="list-group-item">
-                    <div class="container">
+                <a href="/movie/@movie.Id">
+                    <li class="list-group-item">
+                        <div class="container">
 
-                        <div class="row">
+                            <div class="row">
 
-                            <div class="col-4">
-                                <img class="movieColumnImg" src="testmovieThings/testImage.jpg" alt="..."/>
-                            </div>
-
-                            <div class="col-8">
-                                <div class="d-inline-block">
-                                    <h3>@movie.Title</h3>
-                                    <p>@movie.Overview.Substring(0,75)...</p>
+                                <div class="col-4">
+                                    <img class="movieColumnImg" src="testmovieThings/testImage.jpg" alt="..."/>
                                 </div>
+
+                                <div class="col-8">
+                                    <div class="d-inline-block">
+                                        <h3>@movie.Title</h3>
+                                        <p>@movie.Overview</p>
+                                    
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
-
-                    </div>
-                </li>
+                    </li>
+                </a>
             }
         </ul>
     </div>
@@ -41,5 +44,16 @@ else
     [Parameter]
     public List<MovieModel> MovieData { get; set; }
 
+    protected override void OnInitialized()
+    {
 
+        foreach(MovieModel movie in MovieData)
+        {
+            if (movie.Overview.Length > 30)
+            {
+                movie.Overview.Substring(0, 30);
+            }
+        }
+
+    }
 }
