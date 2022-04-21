@@ -26,9 +26,6 @@ namespace TMDb.AppDataAPI.Controllers
             try
             {
 
-                //var movies = dbContext.Movies.Where(x => x.Id == 1).ToList<Movie>();
-                //var movie = movies.FirstOrDefault();
-                //return Ok($"Here are your movies: {movie.Title}{movie.Overview}");
                 var movie = dbContext.Movies.Where(m => m.Title.Contains(searchQuery)).Take(25).ToList();
                 if (movie.Count() > 0)
                 {
@@ -49,9 +46,6 @@ namespace TMDb.AppDataAPI.Controllers
             try
             {
 
-                //var movies = dbContext.Movies.Where(x => x.Id == 1).ToList<Movie>();
-                //var movie = movies.FirstOrDefault();
-                //return Ok($"Here are your movies: {movie.Title}{movie.Overview}");
                 var movie = dbContext.Movies.Where(m => m.Title.Contains(searchQuery)).Select(m => new { m.Title, m.Overview }).Take(5).ToList();
                 if (movie.Count() > 0)
                 {

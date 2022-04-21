@@ -1,0 +1,33 @@
+﻿
+
+@* Login / Logout / Register Btn *@
+<AuthorizeView>
+    <Authorized>
+        <div class="nav-item">
+            <NavLink class="nav-link text-reset" href="logout" Match="NavLinkMatch.All">
+                <Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.SignOutAlt"></Icon>
+                <p class="d-inline" >Logout</p>
+            </NavLink>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div class="nav-item">
+            <NavLink class="nav-link text-reset" href="login" Match="NavLinkMatch.All">
+                <Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.SignInAlt"></Icon>
+                <p class="d-inline" >Login</p>
+            </NavLink>
+        </div>
+
+                    
+        <div class="nav-item">
+            <NavLink class="nav-link text-reset" href="register" Match="NavLinkMatch.All">
+                <Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Clipboard" ></Icon>
+                <p class="d-inline" >Register</p>
+            </NavLink>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}

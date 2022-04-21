@@ -3,18 +3,21 @@
 
  <EditForm Model="FormModel" OnSubmit="@(() => Search())">
 
-    <datalist id="suggestions">
-        @if (MovieData?.Count() > 0)
-        {
-            @foreach (var movie in MovieData)
+     <div class="input-group">
+        <datalist id="suggestions">
+            @if (MovieData?.Count() > 0)
             {
-                <option value="@movie.Title">@movie.Overview</option>
+                @foreach (var movie in MovieData)
+                {
+                    <option value="@movie.Title">@movie.Overview</option>
+                }
             }
-        }
-    </datalist>
-    <input autoComplete="on" list="suggestions" @bind="searchValue" @bind:event="oninput" @onfocusin="StartTimer" @onkeyup="HandleKeyUp" />
+        </datalist>
+        <input class="form-control" autoComplete="on" list="suggestions" @bind="searchValue" @bind:event="oninput" @onfocusin="StartTimer" @onkeyup="HandleKeyUp" />
     
-    <button type="submit"> Search </button>
+        <button class="input-group-text btn btn-danger" type="submit"> Search </button>
+     </div>
+
 </EditForm>
 
 

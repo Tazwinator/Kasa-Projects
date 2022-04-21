@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TMDb.DataAccess.Entities;
+using CsvHelper;
+using System.Globalization;
 
 namespace TMDb.DataAccess.Data
 {
@@ -17,6 +19,7 @@ namespace TMDb.DataAccess.Data
         }
 
         public DbSet<Movie> Movies { get; set; }
+
     }
 
 }

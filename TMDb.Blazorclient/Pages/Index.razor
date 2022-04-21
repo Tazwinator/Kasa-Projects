@@ -8,13 +8,6 @@
         <div class="row">
             @if (receivedMovies)
             {
-               @* @if (MovieData?.Count() > 0)
-                {
-                    @foreach (MovieModel movie in MovieData)
-                    { 
-                        <MovieItem Movie="movie"/>
-                    }
-                }*@ 
                <MovieRow MovieData="MovieData" />
             }
             

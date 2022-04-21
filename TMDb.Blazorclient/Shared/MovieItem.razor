@@ -4,7 +4,7 @@
 <div class="card movieItem d-inline-flex">
     
     
-    <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="testmovieThings/testImage.jpg" alt="There should be a movie thumbnail here."/></a>
+    <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{Movie.PosterPath}")" alt="There should be a movie thumbnail here."/></a>
 
     
     <div class="card-body movieItemBody">
@@ -12,6 +12,8 @@
 
             
             <p class="fw-bolder">@Movie?.Title</p>
+            
+               <h1>@Movie.ImdbId</h1>
 
             
            
@@ -31,5 +33,15 @@
 
     [Parameter]
     public MovieModel Movie { get; set; }
+
+    [Inject]
+    private HttpClient Http { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        jsonMovie result = await Http.GetFromJsonAsync<jsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+        Movie.PosterPath = result.poster_path;
+    }
 
 }

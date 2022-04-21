@@ -5,30 +5,31 @@
     <div class="container">
         <ul class="list-group">
             @foreach (MovieModel movie in MovieData)
-            {
-                <a href="/movie/@movie.Id">
-                    <li class="list-group-item">
+            {   
+                <li class="list-group-item">
+                    <a href="/movie/@movie.Id">
+                    
                         <div class="container">
 
                             <div class="row">
 
                                 <div class="col-4">
-                                    <img class="movieColumnImg" src="testmovieThings/testImage.jpg" alt="..."/>
+                                    <img class="movieColumnImg" src="@($"https://www.themoviedb.org/t/p/original{movie.PosterPath}")" alt="..."/>
                                 </div>
 
                                 <div class="col-8">
                                     <div class="d-inline-block">
                                         <h3>@movie.Title</h3>
-                                        <p>@movie.Overview</p>
+                                        <p>@(movie.Overview)...</p>
                                     
                                     </div>
                                 </div>
 
                             </div>
 
-                        </div>
-                    </li>
-                </a>
+                        </div>          
+                    </a>
+                </li>
             }
         </ul>
     </div>
@@ -44,16 +45,31 @@ else
     [Parameter]
     public List<MovieModel> MovieData { get; set; }
 
-    protected override void OnInitialized()
-    {
+    [Inject]
+    private HttpClient Http { get; set; }
 
-        foreach(MovieModel movie in MovieData)
+    protected override async Task OnInitializedAsync()
+    {
+        try
         {
-            if (movie.Overview.Length > 30)
+
+            foreach (MovieModel movie in MovieData)
             {
-                movie.Overview.Substring(0, 30);
+                var jsonMovieResult = await Http.GetFromJsonAsync<jsonMovie>($"https://api.themoviedb.org/3/movie/{movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+                movie.PosterPath = jsonMovieResult.poster_path;
+
+                if (movie.Overview.Length > 100)
+                {
+                    movie.Overview = movie.Overview.Substring(0, 100);
+                }
             }
+
         }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex}");
+        }
+        
 
     }
 }

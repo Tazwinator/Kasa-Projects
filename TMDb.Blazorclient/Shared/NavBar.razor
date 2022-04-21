@@ -1,58 +1,57 @@
-﻿
+﻿<link href="css/custom/NavBar.css" rel="stylesheet" /> 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
+<nav class="navbar navbar-expand-lg navbar-light border-bottom-1">
+    <div class="container-fluid px-4 px-lg-5">
 
         <a class="navbar-brand" href="/">Taylor's Movie Database</a>
+        
+        @* Self explantory *@
+        <SearchBar/>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <div class="collapse navbar-collapse justify-content-between ms-2 border-2 border-top-0 border-bottom-0 border-end-0 border-dark" id="navbarSupportedContent">
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" 
-                    data-bs-toggle="dropdown" aria-expanded="false">MovieRanking</a>
-                   
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/movies">test</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                    </ul>
-                </li>
+            <div  class="nav-item ms-2" >
+                <NavLink class="nav-link text-reset d-inline px-2 border-1 rounded" href="movies" Match="NavLinkMatch.All">Movies</NavLink>
+                <NavLink class="nav-link text-reset d-inline px-2 border-1 rounded ms-1" href="movies" Match="NavLinkMatch.All">Movies</NavLink>
+                <NavLink class="nav-link text-reset d-inline px-2 border-1 rounded ms-1" href="movies" Match="NavLinkMatch.All">Movies</NavLink>
+            </div>
+            
 
-            </ul>
+            <div class="btn-group ">
+              <div class="userMenuVanish" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  <Icon Name="IconName.Users" IconSize="IconSize.x2"></Icon>
+              </div>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
+                <div class="">
 
-            <AuthorizeView>
-                <Authorized>
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="counter" Match="NavLinkMatch.All">
-                            <span class="oi oi-map" aria-hidden="true"></span> Shops
-                        </NavLink>
-                    </div>
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="logout" Match="NavLinkMatch.All">
-                            <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
-                        </NavLink>
-                    </div>
-                </Authorized>
-                <NotAuthorized>
-                    <div class="nav-item px-3">
-                        <NavLink class="nav-link" href="login" Match="NavLinkMatch.All">
-                            <span class="oi oi-account-login" aria-hidden="true"></span> Login
-                        </NavLink>
-                    </div>
-                </NotAuthorized>
-            </AuthorizeView>
+                    <Switch TValue="bool" Checked="@isChecked" CheckedChanged="@OnThemeColorChanged" ></Switch>
+                    <p class="d-inline" >Light/Dark Mode</p>
 
-            <SearchBar/>
+                    <NavBarUserBtns />
 
-            <Switch TValue="bool" Checked="@isChecked" CheckedChanged="@OnThemeColorChanged">Light/Dark Mode</Switch>
+                </div>
+              </div>
+            </div>
+
+
+            @* Light / Dark mode switch *@
+            <div class="d-lg-none card">
+
+                <NavBarUserBtns />
+                
+                <div class="ms-2 card-footer">
+                    <Switch TValue="bool" Checked="@isChecked" CheckedChanged="@OnThemeColorChanged"><p class="d-inline" >Light/Dark Mode</p></Switch>
+                </div>
+                
+
+                
+
+            </div>
 
         </div>
 
