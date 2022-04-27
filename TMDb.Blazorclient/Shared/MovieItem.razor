@@ -1,10 +1,10 @@
-﻿<link href="css/custom/movie.css" rel="stylesheet" />   
+﻿<link href="css/custom/movieItem.css" rel="stylesheet" />   
      
 
 <div class="card movieItem d-inline-flex">
     
     
-    <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{Movie.PosterPath}")" alt="There should be a movie thumbnail here."/></a>
+    <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{moviePosterPath}")" alt="There should be a movie thumbnail here."/></a>
 
     
     <div class="card-body movieItemBody">
@@ -37,11 +37,13 @@
     [Inject]
     private HttpClient Http { get; set; }
 
+    private string moviePosterPath { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
 
-        jsonMovie result = await Http.GetFromJsonAsync<jsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
-        Movie.PosterPath = result.poster_path;
+        JsonMovie result = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+        moviePosterPath = result.poster_path;
     }
 
 }

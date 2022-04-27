@@ -1,21 +1,46 @@
-﻿
-@* Genre Picker *@
-<Form hidden="@hideGenrePicker">
+﻿<link href="css/custom/genreAndRanking.css" rel="stylesheet" />   
 
-    @foreach (GenresEnum genreValue in Enum.GetValues(typeof(GenresEnum)))
-    {
-         <Button @onclick="() => PickGenre(genreValue)" >@genreValue</Button>   
-    }
+ @* Genre Picker *@
+<Form hidden="@hideGenrePicker">
+    <div class="row">
+        @foreach (GenresEnum genreValue in Enum.GetValues(typeof(GenresEnum)))
+        {
+
+            <div class="col-6 col-sm-4 mb-2">
+                <div class="card d-inline-flex p-2 h-100 align-items-center">
+                    <img class="card-img-top" src="@($"/GenresImgs/{genreValue}.jpg")" />
+                    
+                    <div class="card-body">
+                        <Button @onclick="() => PickGenre(genreValue)" ><h1>@genreValue</h1></Button>
+                    </div>
+                </div>
+            </div>
+            
+        }
+        </div>
+    
     <p>@Genre</p>
 </Form>
 
 @* Ranking Picker *@
 <Form hidden="@hideRankingPicker">
+    <div class="row">
+        @foreach (RankingsEnum rankingValue in Enum.GetValues(typeof(RankingsEnum)))
+        {
+            
+            
+            <div class="col-6 col-sm-4 mb-2">
+                <div class="card d-inline-flex p-2 h-100 align-items-center">
+                    
+                    <div class="card-body">
+                        <Button @onclick="() => PickRanking(rankingValue)" >@rankingValue</Button>
+                    </div>
+                </div>
+            </div>
 
-    @foreach (RankingsEnum rankingValue in Enum.GetValues(typeof(RankingsEnum)))
-    {
-         <Button @onclick="() => PickRanking(rankingValue)" >@rankingValue</Button>   
-    }
+        }
+    </div>
+    
     <p>@Ranking</p>
 </Form>
 

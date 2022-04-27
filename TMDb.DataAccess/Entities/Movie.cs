@@ -23,11 +23,11 @@ namespace TMDb.DataAccess.Entities
         [Name("revenue"), Index(0)]
         public string Revenue { get; set; }
 
-        [Name("belongs_to_collection"), Index(0)]
-        public List<BelongsToCollection> BelongsToCollection { get; set; }
+        //[Name("belongs_to_collection"), Index(0)]
+        //public List<BelongsToCollection> BelongsToCollection { get; set; }
 
-        [Name("genres"), Index(0)]
-        public List<Genres> Genres { get; set; }
+        //[Name("genres"), Index(0)]
+        //public List<Genres> Genres { get; set; }
 
         [Name("imdb_id"), Index(0)]
         public string ImdbId { get; set; }
@@ -35,14 +35,11 @@ namespace TMDb.DataAccess.Entities
         [Name("popularity"), Index(0)]
         public string Popularity { get; set; }
 
-        [Name("poster_path"), Index(0)]
-        public string PosterPath { get; set; }
+        //[Name("production_companies"), Index(0)]
+        //public List<ProductionCompanies> ProductionCompanies { get; set; }
 
-        [Name("production_companies"), Index(0)]
-        public List<ProductionCompanies> ProductionCompanies { get; set; }
-
-        [Name("production_countries"), Index(0)]
-        public List<ProductionCountries> ProductionCountries { get; set; }
+        //[Name("production_countries"), Index(0)]
+        //public List<ProductionCountries> ProductionCountries { get; set; }
 
         [Name("release_date"), Index(0)]
         public string ReleaseDate { get; set; }
@@ -53,8 +50,8 @@ namespace TMDb.DataAccess.Entities
         [Name("runtime"), Index(0)]
         public string Runtime { get; set; }
 
-        [Name("spoken_languages"), Index(0)]
-        public List<SpokenLanguages> SpokenLanguages { get; set; }
+        //[Name("spoken_languages"), Index(0)]
+        //public List<SpokenLanguages> SpokenLanguages { get; set; }
 
         [Name("vote_average"), Index(0)]
         public string GlobalRating { get; set; }
@@ -64,40 +61,46 @@ namespace TMDb.DataAccess.Entities
 
     }
 
-    public class BelongsToCollection
-    {
+    //public class BelongsToCollection
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string PosterPath { get; set; }
+    //    public string BackdropPath { get; set; }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
+    //}
 
-    }
+    //public class Genres
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
 
-    public class Genres
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+    //}
 
-    }
+    //public class ProductionCompanies
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string LogoPath { get; set; }
+    //    public string OriginCountry { get; set; }
 
-    public class ProductionCompanies
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+    //}
 
-    }
+    //public class ProductionCountries
+    //{
+    //    public int Id { get; set; }
+    //    public string Iso_3166_1 { get; set; }
+    //    public string Name { get; set; }
 
-    public class ProductionCountries
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+    //}
 
-    }
+    //public class SpokenLanguages
+    //{
+    //    public int Id { get; set; }
+    //    public string EnglishName { get; set; }
+    //    public string Iso_639_1 { get; set; }
+    //    public string Name { get; set; }
 
-    public class SpokenLanguages
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-    }
+    //}
 
 }

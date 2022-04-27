@@ -14,7 +14,7 @@
                             <div class="row">
 
                                 <div class="col-4">
-                                    <img class="movieColumnImg" src="@($"https://www.themoviedb.org/t/p/original{movie.PosterPath}")" alt="..."/>
+                                    <img class="movieColumnImg" src="@($"https://www.themoviedb.org/t/p/original{moviePosterPath}")" alt="..."/>
                                 </div>
 
                                 <div class="col-8">
@@ -48,6 +48,8 @@ else
     [Inject]
     private HttpClient Http { get; set; }
 
+    private string moviePosterPath { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -55,8 +57,8 @@ else
 
             foreach (MovieModel movie in MovieData)
             {
-                var jsonMovieResult = await Http.GetFromJsonAsync<jsonMovie>($"https://api.themoviedb.org/3/movie/{movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
-                movie.PosterPath = jsonMovieResult.poster_path;
+                var jsonMovieResult = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+                moviePosterPath = jsonMovieResult.poster_path;
 
                 if (movie.Overview.Length > 100)
                 {

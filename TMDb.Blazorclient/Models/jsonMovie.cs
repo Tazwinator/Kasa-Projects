@@ -2,13 +2,13 @@
 namespace TMDb.BlazorClient.Models
 {
 
-    public class jsonMovie
+    public class JsonMovie
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }
         public Belongs_To_Collection belongs_to_collection { get; set; }
         public int budget { get; set; }
-        public Genre[] genres { get; set; }
+        public Genres[] genres { get; set; }
         public string homepage { get; set; }
         public int id { get; set; }
         public string imdb_id { get; set; }
@@ -39,7 +39,7 @@ namespace TMDb.BlazorClient.Models
         public string backdrop_path { get; set; }
     }
 
-    public class Genre
+    public class Genres
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -65,12 +65,7 @@ namespace TMDb.BlazorClient.Models
         public string iso_639_1 { get; set; }
         public string name { get; set; }
     }
-    namespace TMDb.BlazorClient.Models
-    {
-        public class jsonMovie
-        {
-        }
-    }
+    
 
 }
 

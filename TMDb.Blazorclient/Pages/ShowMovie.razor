@@ -1,6 +1,6 @@
 ﻿@page "/movie/{Id}"
 
-<link href="~/css/ShowMoviePage/styles.css" rel="stylesheet" />
+@*<link href="~/css/ShowMoviePage/styles.css" rel="stylesheet" />*@
 
     @if (receivedMovie) {
         
@@ -12,12 +12,12 @@
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
-                        <img class="card-img-top p-2 border-bottom-2" src="@($"https://www.themoviedb.org/t/p/original{movieBackdropPath}")" alt="..." />
+                        <img class="card-img-top p-2 border-bottom-2" src="@($"https://www.themoviedb.org/t/p/original{JsonMovie.backdrop_path}")" alt="..." />
 
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-4">
-                                    <img class="card-img-top" src="@($"https://www.themoviedb.org/t/p/original{Movie.PosterPath}")" alt="..." />
+                                    <img class="card-img-top" src="@($"https://www.themoviedb.org/t/p/original{JsonMovie.poster_path}")" alt="..." />
                                 </div>
                                 <div class="col-8">
                                     <div class="d-flex justify-content-between">
@@ -69,26 +69,13 @@
                         <div class="card-header">Production Companies</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <ul class="list-unstyled mb-0">
-                                        @if (Movie.ProductionCompanies.Count > 0)
-                                        {
-                                            @foreach (ProductionCompaniesModel company in Movie.ProductionCompanies)
-                                            {
-                                                <li>@company.Name</li>
-                                            }
-                                        }
-                                        else {
-                                            <li><h1>none bro</h1></li>    
-                                        }
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
+                                    @foreach (Production_Companies pCom in JsonMovie.production_companies)
+                                    {
+                                        <li>@pCom.name</li>
+                                    }
+                                </ul>
                                 </div>
                             </div>
                         </div>
@@ -119,19 +106,20 @@
 
     private MovieModel Movie { get; set; }
 
-    private bool receivedMovie = false;
+    private JsonMovie JsonMovie { get; set; }
 
-    private string movieBackdropPath { get; set; }
+    private bool receivedMovie = false;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var result = await Http.GetFromJsonAsync<MovieModel>($"https://localhost:5333/api/movies/{Id}");
-            jsonMovie jsonMovieResult = await Http.GetFromJsonAsync<jsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
-            result.PosterPath = jsonMovieResult.poster_path;
-            movieBackdropPath = jsonMovieResult.backdrop_path;
+            JsonMovie = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
             Movie = result;
+            Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));
+            Movie.Revenue = string.Format("{0:n}", Convert.ToInt32(Movie.Revenue));
+            Movie.Runtime = string.Format("{0:n0}", Convert.ToDecimal(Movie.Runtime));
             receivedMovie = true;
         }
         catch (Exception ex)
@@ -139,9 +127,7 @@
             Console.WriteLine(ex);
         }
 
-        Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));
-        Movie.Revenue = string.Format("{0:n}", Convert.ToInt32(Movie.Revenue));
-        Movie.Runtime = string.Format("{0:n0}", Convert.ToDecimal(Movie.Runtime));
+        
 
     }
 
