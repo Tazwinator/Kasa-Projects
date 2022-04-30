@@ -55,7 +55,7 @@
                 <div class="col-lg-4">
                     <!-- Search widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Finances</div>
+                        <div class="card-header">Finances:</div>
                         <div class="card-body">
                             <div class="">
                                 <div class=""><strong>Budget:</strong> $@Movie.Budget</div>
@@ -104,6 +104,9 @@
     [Inject]
     NavigationManager NavManager { get; set; }
 
+    [Inject]
+    IConfiguration Configuration { get; set; }
+
     private MovieModel Movie { get; set; }
 
     private JsonMovie JsonMovie { get; set; }
@@ -114,8 +117,8 @@
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<MovieModel>($"https://localhost:5333/api/movies/{Id}");
-            JsonMovie = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+            var result = await Http.GetFromJsonAsync<MovieModel>($"{Configuration["apiUrl"]}/movies/{Id}");
+            JsonMovie = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
             Movie = result;
             Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));
             Movie.Revenue = string.Format("{0:n}", Convert.ToInt32(Movie.Revenue));

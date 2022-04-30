@@ -11,7 +11,7 @@ using TMDb.DataAccess.Data;
 namespace TMDb.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220426193907_InitialCreate")]
+    [Migration("20220430162502_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace TMDb.AppDataAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SearchController : Controller
     {

@@ -29,6 +29,9 @@
     [Inject]
     NavigationManager NavManager { get; set; }
 
+    [Inject]
+    IConfiguration Configuration { get; set; }
+
     private MovieModel Movie { get; set; }
     private List<MovieModel> MovieData { get; set; }
 
@@ -38,7 +41,7 @@
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<List<MovieModel>>($"https://localhost:5333/api/search/{searchValue}");
+            var result = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/search/{searchValue}");
             previousSearchValue = searchValue;
             MovieData = result;
             receivedMovies = true;

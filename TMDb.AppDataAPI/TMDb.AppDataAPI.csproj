@@ -10,14 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\movies_metadata.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\movies_metadata.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Services\csvJsonParser.cs" />
   </ItemGroup>
 

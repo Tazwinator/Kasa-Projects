@@ -1,6 +1,6 @@
-﻿<link href="css/custom/movie.css" rel="stylesheet" />  
+﻿<link href="css/custom/movieItem.css" rel="stylesheet" />  
 
-@if (MovieData?.Count() > 0)
+@if (MovieData?.Count() > 0 && formattedMovie == true)
 {
     <div class="container">
         <ul class="list-group">
@@ -48,7 +48,12 @@ else
     [Inject]
     private HttpClient Http { get; set; }
 
+    [Inject]
+    IConfiguration Configuration { get; set; }
+
     private string moviePosterPath { get; set; }
+
+    private bool formattedMovie { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -57,7 +62,7 @@ else
 
             foreach (MovieModel movie in MovieData)
             {
-                var jsonMovieResult = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+                var jsonMovieResult = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{movie.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
                 moviePosterPath = jsonMovieResult.poster_path;
 
                 if (movie.Overview.Length > 100)
@@ -65,6 +70,8 @@ else
                     movie.Overview = movie.Overview.Substring(0, 100);
                 }
             }
+
+            formattedMovie = true;
 
         }
         catch (Exception ex)

@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace TMDb.AppDataAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
     {

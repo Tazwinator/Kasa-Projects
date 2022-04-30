@@ -37,12 +37,15 @@
     [Inject]
     private HttpClient Http { get; set; }
 
+    [Inject]
+    IConfiguration Configuration { get; set; }
+
     private string moviePosterPath { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
 
-        JsonMovie result = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key=e2b956cab063805da8cbc849ca00d644");
+        JsonMovie result = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
         moviePosterPath = result.poster_path;
     }
 
