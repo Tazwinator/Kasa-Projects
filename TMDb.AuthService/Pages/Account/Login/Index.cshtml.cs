@@ -19,8 +19,8 @@ namespace TMDb.AuthService.Pages.Login;
 [AllowAnonymous]
 public class Index : PageModel
 {
-    private readonly UserManager<KasaUser> _userManager;
-    private readonly SignInManager<KasaUser> _signInManager;
+    private readonly UserManager<TMDbUser> _userManager;
+    private readonly SignInManager<TMDbUser> _signInManager;
     private readonly IIdentityServerInteractionService _interaction;
     private readonly IClientStore _clientStore;
     private readonly IEventService _events;
@@ -38,8 +38,8 @@ public class Index : PageModel
         IAuthenticationSchemeProvider schemeProvider,
         IIdentityProviderStore identityProviderStore,
         IEventService events,
-        UserManager<KasaUser> userManager,
-        SignInManager<KasaUser> signInManager)
+        UserManager<TMDbUser> userManager,
+        SignInManager<TMDbUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;

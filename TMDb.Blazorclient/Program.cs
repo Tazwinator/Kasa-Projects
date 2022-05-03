@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
+using IdentityModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,7 @@ builder.Services.AddAuthentication(options =>
         options.Authority = builder.Configuration["InteractiveClientOidcSettings:AuthorityUrl"];
         options.ClientId = builder.Configuration["InteractiveClientOidcSettings:ClientId"];
         options.ClientSecret = builder.Configuration["InteractiveClientOidcSettings:ClientSecret"];
-        options.ResponseType = "code";
+        options.ResponseType = builder.Configuration["InteractiveClientOidcSettings:ResponseType"];
         options.SaveTokens = true;
         options.GetClaimsFromUserInfoEndpoint = true;
     }

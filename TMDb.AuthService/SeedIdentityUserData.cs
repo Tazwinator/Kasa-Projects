@@ -17,11 +17,11 @@ public class SeedIdentityUserData
             var context = scope.ServiceProvider.GetService<AspNetIdentityDbContext>();
             context.Database.Migrate();
 
-            var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<KasaUser>>();
+            var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<TMDbUser>>();
             var alice = userMgr.FindByNameAsync("alice").Result;
             if (alice == null)
             {
-                alice = new KasaUser
+                alice = new TMDbUser
                 {
                     UserName = "alice",
                     Email = "AliceSmith@email.com",
@@ -53,7 +53,7 @@ public class SeedIdentityUserData
             var bob = userMgr.FindByNameAsync("bob").Result;
             if (bob == null)
             {
-                bob = new KasaUser
+                bob = new TMDbUser
                 {
                     UserName = "bob",
                     Email = "BobSmith@email.com",

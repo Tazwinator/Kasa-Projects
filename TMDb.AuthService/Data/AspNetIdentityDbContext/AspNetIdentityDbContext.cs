@@ -4,7 +4,7 @@ using TMDb.AuthService.Models;
 
 namespace TMDb.AuthService.Data;
 
-public class AspNetIdentityDbContext : IdentityDbContext<KasaUser>
+public class AspNetIdentityDbContext : IdentityDbContext<TMDbUser>
 {
     public AspNetIdentityDbContext(DbContextOptions<AspNetIdentityDbContext> options)
         : base(options)

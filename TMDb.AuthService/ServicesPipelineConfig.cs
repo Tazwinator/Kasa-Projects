@@ -21,9 +21,13 @@ internal static class ServicesPipelineConfig
         builder.Services.AddDbContext<AspNetIdentityDbContext>(options =>
             options.UseSqlServer(defaultConnString, b => b.MigrationsAssembly(assembly)));
 
-        builder.Services.AddIdentity<KasaUser, IdentityRole>()
+        builder.Services.AddIdentity<TMDbUser, IdentityRole>()
             .AddEntityFrameworkStores<AspNetIdentityDbContext>()
             .AddDefaultTokenProviders();
+
+        //var IdServerClients = builder.Configuration.GetValue<Client[]>("IdentityServer:IdServerClients");
+        //var IdServerApiScopes = builder.Configuration.GetValue<Client[]>("IdServerApiScopes");
+        //var IdServerResources = builder.Configuration.GetValue<Client[]>("IdServerResources");
 
         // Duende Identity Server
         builder.Services
@@ -35,7 +39,7 @@ internal static class ServicesPipelineConfig
                 options.Events.RaiseSuccessEvents = true;
                 options.EmitStaticAudienceClaim = true;
             })
-            .AddAspNetIdentity<KasaUser>()
+            .AddAspNetIdentity<TMDbUser>()
             .AddConfigurationStore(options =>
             {
                 options.ConfigureDbContext = b =>
@@ -51,13 +55,15 @@ internal static class ServicesPipelineConfig
             .AddInMemoryClients(IdServerConfig.Clients)
             .AddInMemoryCaching();
 
-        builder.Services.AddSingleton<ICorsPolicyService>((container) => {
-            var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
-            return new DefaultCorsPolicyService(logger)
-            {
-                AllowedOrigins = { "https://localhost:5331" }
-            };
-        });
+        // Used back in WASM days 
+
+        //builder.Services.AddSingleton<ICorsPolicyService>((container) => {
+        //    var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+        //    return new DefaultCorsPolicyService(logger)
+        //    {
+        //        AllowedOrigins = { "https://localhost:5331" }
+        //    };
+        //});
 
         // Extra Auth Methods
         //builder.Services.AddAuthentication()

@@ -22,8 +22,8 @@ namespace TMDb.AuthService.Pages.ExternalLogin;
 [SecurityHeaders]
 public class Callback : PageModel
 {
-    private readonly UserManager<KasaUser> _userManager;
-    private readonly SignInManager<KasaUser> _signInManager;
+    private readonly UserManager<TMDbUser> _userManager;
+    private readonly SignInManager<TMDbUser> _signInManager;
     private readonly IIdentityServerInteractionService _interaction;
     private readonly ILogger<Callback> _logger;
     private readonly IEventService _events;
@@ -32,8 +32,8 @@ public class Callback : PageModel
         IIdentityServerInteractionService interaction,
         IEventService events,
         ILogger<Callback> logger,
-        UserManager<KasaUser> userManager,
-        SignInManager<KasaUser> signInManager)
+        UserManager<TMDbUser> userManager,
+        SignInManager<TMDbUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -113,11 +113,11 @@ public class Callback : PageModel
         return Redirect(returnUrl);
     }
 
-    private async Task<KasaUser> AutoProvisionUserAsync(string provider, string providerUserId, IEnumerable<Claim> claims)
+    private async Task<TMDbUser> AutoProvisionUserAsync(string provider, string providerUserId, IEnumerable<Claim> claims)
     {
         var sub = Guid.NewGuid().ToString();
             
-        var user = new KasaUser
+        var user = new TMDbUser
         {
             Id = sub,
             UserName = sub, // don't need a username, since the user will be using an external provider to login

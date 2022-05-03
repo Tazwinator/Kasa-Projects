@@ -4,6 +4,7 @@ namespace TMDb.AuthService;
 
 public static class IdServerConfig
 {
+
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
         {
@@ -34,9 +35,10 @@ public static class IdServerConfig
             },
 
             // interactive client using code flow + pkce
+            // Development
             new Client
             {
-                ClientId = "wasmClient",
+                ClientId = "blazorClientDev",
                 ClientSecrets = { new Secret("ClientSecret1".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
@@ -44,6 +46,26 @@ public static class IdServerConfig
                 RedirectUris = { "https://localhost:5331/signin-oidc" },
                 FrontChannelLogoutUri = "https://localhost:5331/signout-oidc",
                 PostLogoutRedirectUris = { "https://localhost:5331/signout-callback-oidc" },
+
+                AllowOfflineAccess = true,
+                AllowedScopes = { "openid", "profile" },
+
+                RequirePkce = true,
+                RequireConsent = true,
+                AllowPlainTextPkce = false
+            },
+
+            // Production
+            new Client
+            {
+                ClientId = "blazorClient",
+                ClientSecrets = { new Secret("C259CBA57288D6F56600D3B8EB7ABA3EC83CA4ECAED83CD48B77D1475AB00750") },
+
+                AllowedGrantTypes = GrantTypes.Code,
+
+                RedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signin-oidc" },
+                FrontChannelLogoutUri = "https://tmdbblazorclient.azurewebsites.net/signout-oidc",
+                PostLogoutRedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile" },
