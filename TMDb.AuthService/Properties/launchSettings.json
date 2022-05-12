@@ -2,11 +2,10 @@
   "profiles": {
     "AuthService": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:5332;http://localhost:5446",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:5332;http://localhost:5446"
     }
   }
 }

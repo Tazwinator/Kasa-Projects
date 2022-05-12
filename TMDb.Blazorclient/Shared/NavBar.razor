@@ -1,9 +1,15 @@
-﻿<link href="css/custom/NavBar.css" rel="stylesheet" /> 
+﻿<link href="css/custom/NavBar.css" rel="stylesheet" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
 <nav class="navbar navbar-expand-lg navbar-light border-bottom-1">
-    <div class="container-fluid px-4 px-lg-5">
+    <div class="container-fluid container-lg px-4 px-lg-5">
 
-        <a class="navbar-brand" href="/">TMDB - Taylor's Movie Database</a>
+        <div class="row" >
+            <a class="navbar-brand" href="/" id="mainBranding" >TMDB - Taylor's Movie Database</a>
+        </div>
         
         @* Self explantory *@
         <SearchBar/>
@@ -21,8 +27,8 @@
                 <NavLink class="nav-link text-reset d-inline px-2 border-1 rounded ms-1" href="movies" Match="NavLinkMatch.All">Movies</NavLink>*@
             </div>
             
-
-            <div class="btn-group ">
+            @* This goes hand-in-hand with the section below. This is using .userMenuVanish *@
+            <div class="btn-group">
               <div class="userMenuVanish" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                   <Icon Name="IconName.Users" IconSize="IconSize.x2"></Icon>
               </div>
@@ -39,7 +45,7 @@
             </div>
 
 
-            @* Light / Dark mode switch *@
+            @* "d-lg-none" means it will not display until display size > lg (990px)*@
             <div class="d-lg-none card">
 
                 <NavBarUserBtns />

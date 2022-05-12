@@ -10,12 +10,11 @@
   "profiles": {
     "BlazorClient": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:5331",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:5331",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",

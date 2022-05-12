@@ -17,6 +17,18 @@
     }
 }
 
-@media only screen and (min-width: 990px) {
-    
+@media only screen and (max-width: 400px) {
+    .searchBarWidth {
+        width: 75%;
+    }
+}
+
+#mainBranding {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+.searchBarInput:focus {
+    border: 1px solid #ced4da !important;
 }

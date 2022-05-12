@@ -10,7 +10,7 @@ namespace TMDb.AuthService;
 
 public class SeedIdentityUserData
 {
-    public static void EnsureSeedData(WebApplication app)
+    public static async Task EnsureSeedDataAsync(WebApplication app)
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
@@ -18,6 +18,15 @@ public class SeedIdentityUserData
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<TMDbUser>>();
+            var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            var AdminRole = await roleMgr.RoleExistsAsync("Admin");
+            var UserRole = await roleMgr.RoleExistsAsync("User");
+            if (!AdminRole && !UserRole)
+            {
+                await roleMgr.CreateAsync(new IdentityRole { Name = "Admin" });
+                await roleMgr.CreateAsync(new IdentityRole { Name = "User" });
+            }
             var alice = userMgr.FindByNameAsync("alice").Result;
             if (alice == null)
             {
@@ -33,22 +42,37 @@ public class SeedIdentityUserData
                     throw new Exception(result.Errors.First().Description);
                 }
 
+                await userMgr.AddToRoleAsync(alice, "Admin");
+                await userMgr.AddToRoleAsync(alice, "User");
+
                 result = userMgr.AddClaimsAsync(alice, new Claim[]{
                             new Claim(JwtClaimTypes.Name, "Alice Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
+                            new Claim(JwtClaimTypes.Role, "Admin"),
+                            new Claim(JwtClaimTypes.Role, "User")
                         }).Result;
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
                 }
+
+
                 Log.Debug("alice created");
             }
             else
             {
                 Log.Debug("alice already exists");
             }
+
+            
+
+            //var result1 = 
+            //if (result1.Succeeded)
+            //{
+            //System.Diagnostics.Debug.WriteLine("BARE WORKED");
+            //}
 
             var bob = userMgr.FindByNameAsync("bob").Result;
             if (bob == null)

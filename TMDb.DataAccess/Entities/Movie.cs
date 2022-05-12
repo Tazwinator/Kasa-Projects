@@ -42,7 +42,7 @@ namespace TMDb.DataAccess.Entities
         //public List<ProductionCountries> ProductionCountries { get; set; }
 
         [Name("release_date"), Index(0)]
-        public string ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         [Name("status"), Index(0)]
         public string Status { get; set; }

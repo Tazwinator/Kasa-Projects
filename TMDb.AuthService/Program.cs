@@ -9,6 +9,14 @@ Log.Information("Starting up");
 
 try
 {
+
+    var seed = args.Contains("/seed");
+    if (seed)
+    {
+        args = args.Except(new[] { "/seed" }).ToArray();
+    }
+
+
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((ctx, lc) => lc
@@ -22,10 +30,10 @@ try
 
     // this seeding is only for the template to bootstrap the DB and users.
     // in production you will likely want a different approach.
-    if (args.Contains("/seed"))
+    if (seed)
     {
         Log.Information("Seeding database...");
-        SeedIdentityUserData.EnsureSeedData(app);
+        await SeedIdentityUserData.EnsureSeedDataAsync(app);
         Log.Information("Done seeding database. Exiting.");
         return;
     }

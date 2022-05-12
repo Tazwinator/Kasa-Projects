@@ -29,6 +29,9 @@ internal static class ServicesPipelineConfig
         //var IdServerApiScopes = builder.Configuration.GetValue<Client[]>("IdServerApiScopes");
         //var IdServerResources = builder.Configuration.GetValue<Client[]>("IdServerResources");
 
+        builder.Services.AddAuthentication()
+            .AddIdentityServerJwt();
+
         // Duende Identity Server
         builder.Services
             .AddIdentityServer(options =>
@@ -96,10 +99,10 @@ internal static class ServicesPipelineConfig
         
         app.UseStaticFiles();
         app.UseRouting();
-        
+        app.UseIdentityServer();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseIdentityServer();
+        
 
         app.MapRazorPages();
 

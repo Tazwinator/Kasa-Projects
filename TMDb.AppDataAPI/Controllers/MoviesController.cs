@@ -20,23 +20,52 @@ namespace TMDb.AppDataAPI.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet("featured")]
+        [HttpGet("highestRatedLastYear")]
         public IActionResult GetFeaturedMovies()
         {
             try
             {
-                // Getting featured movies not yet implemented, sort by popularity
-                var movie = dbContext.Movies.Take(20).ToList();
-                return Ok(movie);
+                // By popularity
+                var movies = dbContext.Movies.OrderByDescending(x => x.GlobalRating).Where(m => m.ReleaseDate.Year == 2016).Take(20).ToList();
+                return Ok(movies);
             }
             catch (Exception ex)
             {
                 var error = $"No movies found sorry, Exceptions: {ex}";
                 return BadRequest(error);
             }
+        }
 
+        [HttpGet("latestReleases")]
+        public IActionResult GetLatestMovies()
+        {
+            try
+            {
+                // By release date
+                var movies = dbContext.Movies.OrderByDescending(x => x.ReleaseDate).Where(m => m.Status == "Released").Take(20).ToList();
+                return Ok(movies);
+            }
+            catch (Exception ex)
+            {
+                var error = $"No movies found sorry, Exceptions: {ex}";
+                return BadRequest(error);
+            }
+        }
 
-
+        [HttpGet("upAndComing")]
+        public IActionResult GetUpAndComingMovies()
+        {
+            try
+            {
+                // By release date
+                var movies = dbContext.Movies.OrderByDescending(x => x.ReleaseDate).Where(m => m.Status != "Released").Take(20).ToList();
+                return Ok(movies);
+            }
+            catch (Exception ex)
+            {
+                var error = $"No movies found sorry, Exceptions: {ex}";
+                return BadRequest(error);
+            }
         }
 
         [HttpGet("{id}")]
@@ -131,6 +160,22 @@ namespace TMDb.AppDataAPI.Controllers
                         //List<SpokenLanguages> spokenLanguagese1 = new List<SpokenLanguages>();
                         //spokenLanguagese1.Add(new SpokenLanguages() { Name = ((dynamic)spokenLanguagese) });
 
+                        DateTime Date;
+                        if (String.IsNullOrEmpty(releaseDate))
+                        {
+                            releaseDate = new DateTime();
+                        }
+                        else if (releaseDate.Length < 10)
+                        {
+                            releaseDate = new DateTime();
+                        }
+                        else
+                        {
+                            releaseDate = DateTime.Parse(releaseDate);
+                        }
+
+                        Date = releaseDate;
+
                         MovieList.Add(new Movie()
                         {
                             Title = title,
@@ -143,7 +188,7 @@ namespace TMDb.AppDataAPI.Controllers
                             Popularity = popularity,
                             //ProductionCompanies = productionCompanies1,
                             //ProductionCountries = productionCountries1,
-                            ReleaseDate = releaseDate,
+                            ReleaseDate = Date,
                             Status = status,
                             Runtime = runtime,
                             //SpokenLanguages = spokenLanguagese1,

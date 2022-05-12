@@ -1,17 +1,30 @@
 ﻿@page "/"
 
-<HomepageBanner/>
 
 <!-- Section-->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            @if (receivedMovies)
-            {
-               <MovieRow MovieData="MovieData" />
-            }
-            
-        </div>
+<section class="container">
+    <HomepageBanner/>
+    <div class="py-5">
+        
+        @if (receivedMovies)
+        {
+
+            <div class="row mb-4">
+                <h1 class="mb-2">Latest Releases</h1>
+                <MovieRow MovieData="LatestReleases" MovieRowNum="1" />
+            </div>
+
+            <div class="row mb-4">
+                <h1 class="mb-2">Highest Rated of 2016</h1>
+                <MovieRow MovieData="HighestRated" MovieRowNum="2" />
+            </div>
+
+            <div class="row mb-4">
+                <h1 class="mb-2">Up And Coming</h1>
+                <MovieRow MovieData="UpAndComing" MovieRowNum="3" />
+            </div>
+        }
+        
     </div>
 </section>
 
@@ -26,8 +39,13 @@
     [Inject]
     IConfiguration Configuration { get; set; }
 
-    private MovieModel Movie { get; set; }
-    private List<MovieModel> MovieData { get; set; }
+    // Movie Object Lists
+    private List<MovieModel> HighestRated { get; set; }
+
+    private List<MovieModel> LatestReleases { get; set; }
+
+    private List<MovieModel> UpAndComing { get; set; }
+
 
     private bool receivedMovies = false;
 
@@ -35,8 +53,12 @@
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/featured");
-            MovieData = result;
+            var highestRatedResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/highestRatedLastYear");
+            HighestRated = highestRatedResult;
+            var latestReleasesResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/latestReleases");
+            LatestReleases = latestReleasesResult;
+            var upAndComingResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/upAndComing");
+            UpAndComing = upAndComingResult;
             receivedMovies = true;
         }
         catch (Exception ex)

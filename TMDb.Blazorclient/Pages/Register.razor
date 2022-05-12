@@ -1,0 +1,36 @@
+﻿@page "/Register/{redirectUri?}"
+
+<h3>Register</h3>
+
+@code {
+
+    [Parameter]
+    public string redirectUri { get; set; }
+
+    [Inject]
+    private IConfiguration Configuration { get; set; }
+
+    [Inject]
+    private NavigationManager NavManager { get; set; }
+
+    //[Inject]
+    //private HttpContext HttpContext { get; set; }
+
+    protected override void OnInitialized()
+    {
+
+        if (string.IsNullOrWhiteSpace(redirectUri))
+        {
+            redirectUri = $"{Configuration["applicationUrl"]}";
+        }
+
+        //if (HttpContext.User.Identity.IsAuthenticated)
+        //{
+        //    NavManager.NavigateTo(redirectUri);
+        //}
+
+        NavManager.NavigateTo($"{Configuration["InteractiveClientOidcSettings:AuthorityUrl"]}/Account/Register");
+
+    }
+
+}

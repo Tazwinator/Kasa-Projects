@@ -3,8 +3,13 @@
 
 <div class="card movieItem d-inline-flex">
     
-    
-    <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{moviePosterPath}")" alt="There should be a movie thumbnail here."/></a>
+    @if (moviePosterPath == null)
+    {
+        <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="OtherImgs/posterPlaceholder.jpg" alt="There should be a movie thumbnail here."/></a>
+    }
+    else {
+        <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{moviePosterPath}")" alt="There should be a movie thumbnail here."/></a>
+    }
 
     
     <div class="card-body movieItemBody">
@@ -12,11 +17,6 @@
 
             
             <p class="fw-bolder">@Movie?.Title</p>
-            
-               <h1>@Movie.ImdbId</h1>
-
-            
-           
 
         </div>
     </div>
@@ -44,9 +44,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-
-        JsonMovie result = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
-        moviePosterPath = result.poster_path;
+        try
+        {
+            JsonMovie result = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
+            moviePosterPath = result.poster_path;
+        }
+        catch
+        {
+            moviePosterPath = null;
+        }
+        
     }
 
 }

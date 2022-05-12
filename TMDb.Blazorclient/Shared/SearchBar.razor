@@ -1,7 +1,9 @@
 ﻿@using System.Timers;
 @implements IDisposable;
 
- <EditForm Model="FormModel" OnSubmit="@(() => Search())">
+<link href="css/custom/NavBar.css" rel="stylesheet" />
+
+ <EditForm Model="FormModel" OnSubmit="@(() => Search())" class="searchBarWidth">
 
      <div class="input-group">
         <datalist id="suggestions">
@@ -13,7 +15,7 @@
                 }
             }
         </datalist>
-        <input class="form-control" autoComplete="on" list="suggestions" @bind="searchValue" @bind:event="oninput" @onfocusin="StartTimer" @onkeyup="HandleKeyUp" />
+        <input class="form-control searchBarInput" autoComplete="on" list="suggestions" @bind="searchValue" @bind:event="oninput" @onfocusin="StartTimer" @onkeyup="HandleKeyUp" />
     
         <button class="input-group-text btn btn-danger" type="submit"> Search </button>
      </div>
