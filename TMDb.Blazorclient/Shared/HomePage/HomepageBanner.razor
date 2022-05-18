@@ -1,46 +1,45 @@
-﻿<link href="css/custom/misc.css" rel="stylesheet" />
-<link href="css/custom/indexPageCarousels.css" rel="stylesheet" />   
+﻿@inject IJSRuntime JSRuntime
 
 
-<div id="headerCarousel" class="carousel slide" data-bs-ride="carousel">
+<link href="css/custom/misc.css" rel="stylesheet" />
 
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
 
-  <div class="carousel-inner">
+<div class="carousel-wrap mt-4 mb-2">
+        <div class="owl-carousel standardCarousel p-0">
 
-    <div class="carousel-item active">
-      <img src="/GenresImgs/Action.jpg" class="d-block homepageBannerImg" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
+            <div class="item">
+                <iframe class="homepageBannerIframe" src="https://www.youtube.com/embed/a8Gx8wiNbs8" ></iframe>
+                <div class="carousel-caption d-none d-md-block">
+                <h5>Avatar 2: The Way of Water</h5>
+                <p>The latest trailer for the high anticipated sequel to Avatar.</p>
+                </div>
+            </div>
+
+            <div class="item">
+              <a href="https://www.empireonline.com/movies/news/christopher-walken-playing-emperor-shaddam-iv-in-dune-part-two/"><img src="/OtherImgs/walken.jpg" class="d-block homepageBannerImg rounded" alt="..."></a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5>"He who controls the spice, controls the universe."</h5>
+                <p>Christopher Walken to play Emperor Shaddam IV in Dune: Part Two</p>
+              </div>
+            </div>
+
+            <div class="item">
+                <iframe class="homepageBannerIframe" src="https://www.youtube.com/embed/gim2kprjL50" ></iframe>
+                <div class="carousel-caption d-none d-md-block">
+                <h5>Grrrrrrr!</h5>
+                <p>The Incredible Hulk's cousin, She-Hulk, has had the trailer for her show released.</p>
+              </div>
+            </div>
+            
+        </div>
     </div>
-
-    <div class="carousel-item">
-      <img src="/GenresImgs/All_Genres.jpg" class="d-block homepageBannerImg" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="/GenresImgs/Comedy.jpg" class="d-block homepageBannerImg" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Some representative placeholder content for the third slide.</p>
-      </div>
-    </div>
-
-  </div>
-
-
-</div>
 
 @code {
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+      await JSRuntime.InvokeAsync<string>("sliderFunctions.startStandardSlider", null);
+      //return base.OnAfterRenderAsync(firstRender);
+    }
 
 }

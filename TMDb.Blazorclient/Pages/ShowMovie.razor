@@ -1,42 +1,60 @@
 ﻿@page "/movie/{Id}"
+@inject IJSRuntime JSRuntime
+
 
 @*<link href="~/css/ShowMoviePage/styles.css" rel="stylesheet" />*@
+
 
     @if (receivedMovie) {
         
 
-        <!-- Page content-->
+        
         <div class="container">
             <div class="row">
-                <!-- Blog entries-->
+                <!-- Page Content-->
                 <div class="col-lg-8">
-                    <!-- Featured blog post-->
-                    <div class="card mb-4">
-                        <img class="card-img-top p-2 border-bottom-2" src="@($"https://www.themoviedb.org/t/p/original{JsonMovie.backdrop_path}")" alt="..." />
 
+                    <!-- Left Side -->
+
+                    <div class="card mb-4">
+                        <div class="carousel-wrap">
+                            <div class="owl-carousel standardCarousel">
+                                <div class="item">
+                                    <img class="card-img-top w-100 p-2 border-bottom-2" src="@($"https://www.themoviedb.org/t/p/original{JsonMovie.backdrop_path}")" alt="..." />
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-4">
-                                    <img class="card-img-top" src="@($"https://www.themoviedb.org/t/p/original{JsonMovie.poster_path}")" alt="..." />
+                                    <img class="card-img-top w-100" src="@($"https://www.themoviedb.org/t/p/original{JsonMovie.poster_path}")" alt="..." />
                                 </div>
-                                <div class="col-8">
+                                <div class="col-8 d-flex flex-column justify-content-between">
                                     <div class="d-flex justify-content-between">
-                                        <div class="d-inline small text-muted">@Movie.ReleaseDate</div>
+                                        <div class="d-inline small text-muted">@Movie.ReleaseDate.Day/@Movie.ReleaseDate.Month/@Movie.ReleaseDate.Year</div>
                                         <div class="d-inline small text-muted text-end">@(Movie.Runtime) Minutes</div>
                                     </div>
+                                    <div>
+                                        <h2 class="card-title">@Movie.Title</h2>
+                                        <p class="card-text">@Movie.Overview</p>
+                                    </div>
                                     
-                                    <h2 class="card-title">@Movie.Title</h2>
-                                    <p class="card-text">@Movie.Overview</p>
+
+                                    <div class="">
+                                        <div class="d-inline small">Language: <span class="text-muted"></span> @JsonMovie.original_language</div>
+                                    </div>
                                 </div>
                             </div>
                             
                         </div>
                     </div>
-                    <!-- Nested row for non-featured blog posts-->
+                    
+                    @* left side widget for future use *@
 
-@*                    <div class="row">
-                        <div class="col-lg-6">
-                            <!-- Blog post-->
+                    @*<div class="row">
+                        <div class="col-12">
+                            
                             <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                                 <div class="card-body">
@@ -45,46 +63,155 @@
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                                     <a class="btn btn-primary" href="#!">Read more →</a>
                                 </div>
+
                             </div>
                         </div>
-                    </div>
-                    *@
+                    </div>*@
+                    
                     
                 </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Finances:</div>
-                        <div class="card-body">
-                            <div class="">
-                                <div class=""><strong>Budget:</strong> $@Movie.Budget</div>
-                                <div class=""><strong>Revenue:</strong> $@Movie.Revenue</div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Production Companies</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <ul class="list-unstyled mb-0">
-                                    @foreach (Production_Companies pCom in JsonMovie.production_companies)
-                                    {
-                                        <li>@pCom.name</li>
-                                    }
-                                </ul>
+                <!-- Side widgets (Right side) -->
+                <div class="col-lg-4">
+
+                    <!-- Finances widget-->
+                    
+                    @if (Movie.Budget != null || Movie.Revenue != null)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header">Finances:</div>
+                            <div class="card-body">
+                                <div class="">
+                                    <div class=""><strong>Budget:</strong> $@Movie.Budget</div>
+                                    <div class=""><strong>Revenue:</strong> $@Movie.Revenue</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-                    </div>
+                    }
+                        
+
+                        <!-- Collections widget-->
+                    @if (JsonMovie.belongs_to_collection != null)
+                    {
+                        <div class="card mb-4">
+                        <div class="card-header">Production Companies</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <img src="https://image.tmdb.org/t/p/original/@(JsonMovie.belongs_to_collection.poster_path)" />
+                                    </div>
+                                    <div class="col-6">
+                                        <p>@JsonMovie.belongs_to_collection.name</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                
+                    <!-- Genres widget -->
+                    @if (JsonMovie.genres != null)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header">Genres</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <ul class="mb-0">
+                                            @foreach (Genres genre in JsonMovie.genres)
+                                            {
+                                                <li class="mb-2">
+                                                    <p class="d-inline" >@genre.name</p>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Production Companies widget -->
+                    @if (JsonMovie.production_companies != null)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header">Production Companies</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5 d-flex justify-content-end">
+                                        <ul class="mb-0 ps-1">
+                                            @foreach (Production_Companies pCom in JsonMovie.production_companies)
+                                            {
+                                                @if (pCom.logo_path != null)
+                                                {
+                                                    <li>
+                                                        <img class="d-inline w-100 mb-2" src="https://image.tmdb.org/t/p/original/@(pCom.logo_path)" alt="" height="25"/>
+                                                    </li>
+                                                }
+
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="col-7">
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach (Production_Companies pCom in JsonMovie.production_companies)
+                                            {
+                                                <li class="mb-2">
+                                                    <p class="d-inline" >@pCom.name</p>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    <!-- Production Countries widget -->
+                    @if (JsonMovie.production_countries != null)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header">Production Countries</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <ul class="mb-0">
+                                            @foreach (Production_Countries pCountry in JsonMovie.production_countries)
+                                            {
+                                                <li class="mb-2">
+                                                    <p class="d-inline" >@pCountry.name</p>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Spoken Languages widget -->
+                    @if (JsonMovie.spoken_languages != null)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header">Spoken Languages</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <ul class="mb-0">
+                                            @foreach (Spoken_Languages lang in JsonMovie.spoken_languages)
+                                            {
+                                                <li class="mb-2">
+                                                    <p class="d-inline" >@lang.english_name (@lang.name)</p>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
                 </div>
             </div>
         </div>
@@ -120,6 +247,7 @@
             var result = await Http.GetFromJsonAsync<MovieModel>($"{Configuration["apiUrl"]}/movies/{Id}");
             JsonMovie = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
             Movie = result;
+            //var Images = await Http.GetFromJsonAsync<dynamic>($"https://api.themoviedb.org/3/movie/{result.ImdbId}/images?api_key={Configuration["externalTmdbApiKey"]}");
             Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));
             Movie.Revenue = string.Format("{0:n}", Convert.ToInt32(Movie.Revenue));
             Movie.Runtime = string.Format("{0:n0}", Convert.ToDecimal(Movie.Runtime));
@@ -130,8 +258,13 @@
             Console.WriteLine(ex);
         }
 
-        
-
     }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+      await JSRuntime.InvokeAsync<string>("sliderFunctions.startStandardSlider", null);
+      //return base.OnAfterRenderAsync(firstRender);
+    }
+
 
 }

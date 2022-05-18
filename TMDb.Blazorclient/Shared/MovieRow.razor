@@ -1,91 +1,21 @@
-﻿<link href="css/custom/indexPageCarousels.css" rel="stylesheet" />   
+﻿@inject IJSRuntime JSRuntime
 
+<link href="css/custom/MovieRowCarousels.css" rel="stylesheet" />   
 
 <div class="col-12">
 
-    <div id="carousel@(MovieRowNum)" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        <button type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide-to="4" aria-label="Slide 5"></button>
-      </div>
-
-      <div class="carousel-inner">
-  
-        @{CheckIndexNull(0);}
-        @if (IndexNullBools["index0NotNull"])
-        {
-            <div class="carousel-item active">
-            @foreach (MovieModel movie in MovieRowMovieData[0])
+    <div class="carousel-wrap">
+        <div class="owl-carousel movieRow">
+            @foreach (MovieModel movie in MovieData)
             {
-                <MovieItem Movie="movie" />
+                <div class="item"><MovieItem Movie="movie" /></div>
             }
-            </div>
-        }
-          
-        @{CheckIndexNull(1);}
-        @if (IndexNullBools["index1NotNull"])
-        {
-            <div class="carousel-item">
-            @foreach (MovieModel movie in MovieRowMovieData[1])
-            {
-                <MovieItem Movie="movie" />
-            }
-            </div>
-        }
-           
-       @{CheckIndexNull(2);}
-        @if (IndexNullBools["index2NotNull"])
-        {
-            <div class="carousel-item">
-            @foreach (MovieModel movie in MovieRowMovieData[2])
-            {
-                <MovieItem Movie="movie" />
-            }
-            </div>
-        }
-             
-        @{CheckIndexNull(3);}
-        @if (IndexNullBools["index3NotNull"])
-        {
-            <div class="carousel-item">
-            @foreach (MovieModel movie in MovieRowMovieData[3])
-            {
-                <MovieItem Movie="movie" />
-            }
-            </div>
-        }
-
-        @{CheckIndexNull(4);}
-        @if (IndexNullBools["index4NotNull"])
-        {
-            <div class="carousel-item">
-            @foreach (MovieModel movie in MovieRowMovieData[4])
-            {
-                <MovieItem Movie="movie" />
-            }
-            </div>
-        }
-
-        
-      </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#carousel@(MovieRowNum)" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-
+        </div>
     </div>
 
 </div>
+
+
 
 
 @code {
@@ -109,7 +39,7 @@
     {
         if(MovieRowMovieData.ElementAtOrDefault(index) != null)
         {
-            IndexNullBools[$"index{index}NotNull"]  = true; 
+            IndexNullBools[$"index{index}NotNull"] = true; 
         }
     }
 
@@ -128,5 +58,11 @@
                 IndexNullBools.Add(string.Format($"index{i}NotNull"), false);
             }
         }
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+      await JSRuntime.InvokeAsync<string>("sliderFunctions.startMovieRowSlider", null);
+      //return base.OnAfterRenderAsync(firstRender);
     }
 }
