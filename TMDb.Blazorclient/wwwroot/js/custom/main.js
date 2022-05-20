@@ -1,4 +1,26 @@
-﻿
+﻿window.homepageBanner = {
+
+    OverlayClose: function () {
+        $(document).ready(function () {
+            $(".CloseOverlayBtn").click( () => {
+                $(".textOverlay").addClass("d-none");
+                $(".OpenOverlayBtn").removeClass("d-none");
+            })
+        })
+    },
+
+    OverlayOpen: function () {
+        $(document).ready(function () {
+            $(".OpenOverlayBtn").click(() => {
+                $(".textOverlay").removeClass("d-none");
+                $(".OpenOverlayBtn").addClass("d-none");
+            })
+        })
+    }
+
+}
+
+
 window.sliderFunctions = {
 
     startMovieRowSlider: function () {

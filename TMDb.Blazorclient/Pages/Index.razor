@@ -3,30 +3,32 @@
 
 <!-- Section-->
 <section class="container-fluid container-lg">
-    <h1 class="mb-0 text-center">Latest News</h1>
-    <HomepageBanner/>
-    <div class="">
-        
-        @if (receivedMovies)
-        {
-
-            <div class="row mb-4">
+    @if (receivedMovies)
+    {
+        <h1 class="mb-0 text-center">Latest News</h1>
+        <HomepageBanner/>
+        <div class="">
+            <div class="row mb-0">
                 <h1 class="mb-2">Latest Releases</h1>
                 <MovieRow MovieData="LatestReleases" MovieRowNum="1" />
             </div>
 
-            <div class="row mb-4">
+            <div class="row mb-0">
                 <h1 class="mb-2">Highest Rated of 2016</h1>
                 <MovieRow MovieData="HighestRated" MovieRowNum="2" />
             </div>
 
-            <div class="row mb-4">
+            <div class="row mb-0">
                 <h1 class="mb-2">Up And Coming</h1>
                 <MovieRow MovieData="UpAndComing" MovieRowNum="3" />
             </div>
-        }
-        
-    </div>
+        </div>
+    }
+    else 
+    {
+        <LoadingScreen/>
+    }
+
 </section>
 
 @code{

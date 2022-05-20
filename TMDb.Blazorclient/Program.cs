@@ -50,6 +50,17 @@ builder.Services.AddAuthentication(options =>
     }
     );
 
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(60);
+    options.ExcludedHosts.Add("example.com");
+    options.ExcludedHosts.Add("www.example.com");
+});
+
+builder.Services.AddResponseCaching();
+
 var app = builder.Build();
 
 // Pipeline Config
@@ -72,5 +83,7 @@ app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+app.UseResponseCaching();
 
 app.Run();

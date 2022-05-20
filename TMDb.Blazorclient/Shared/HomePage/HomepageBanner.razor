@@ -4,31 +4,38 @@
 <link href="css/custom/misc.css" rel="stylesheet" />
 
 
-<div class="carousel-wrap mt-4 mb-2">
-        <div class="owl-carousel standardCarousel p-0">
+<div class="carousel-wrap mt-4 mb-2 p-0 homepageBanner">
+        <div class="owl-carousel standardCarousel">
 
-            <div class="item">
+            <div class="item homepageBannerItem">
+                <button class="OpenOverlayBtn d-none">^^</button>
                 <iframe class="homepageBannerIframe" src="https://www.youtube.com/embed/a8Gx8wiNbs8" ></iframe>
-                <div class="carousel-caption d-none d-md-block">
-                <h5>Avatar 2: The Way of Water</h5>
-                <p>The latest trailer for the high anticipated sequel to Avatar.</p>
+                <div class="textOverlay">
+                <button class="CloseOverlayBtn">X</button>
+                <p class="mb-1"><strong>Avatar 2: The Way of Water</strong></p>
+                <p class="mb-1">The latest trailer for the high anticipated sequel to Avatar.</p>
                 </div>
             </div>
 
-            <div class="item">
-              <a href="https://www.empireonline.com/movies/news/christopher-walken-playing-emperor-shaddam-iv-in-dune-part-two/"><img src="/OtherImgs/walken.jpg" class="d-block homepageBannerImg rounded" alt="..."></a>
-              <div class="carousel-caption d-none d-md-block">
-                <h5>"He who controls the spice, controls the universe."</h5>
-                <p>Christopher Walken to play Emperor Shaddam IV in Dune: Part Two</p>
-              </div>
+            <div class="item homepageBannerItem">
+                <button class="OpenOverlayBtn d-none">^^</button>
+                <img src="/OtherImgs/walken.jpg" class="d-block homepageBannerImg rounded" alt="...">
+                <div class="textOverlay">
+                <button class="CloseOverlayBtn">X</button>
+                <p class="mb-1"><strong>"He who controls the spice, controls the universe."</strong></p>
+                <p class="mb-1">Christopher Walken to play Emperor Shaddam IV in Dune: Part Two</p>
+                <p><a href="https://www.empireonline.com/movies/news/christopher-walken-playing-emperor-shaddam-iv-in-dune-part-two/" >Click here for more!</a></p>
+                </div>
             </div>
 
-            <div class="item">
+            <div class="item homepageBannerItem">
+                <button class="OpenOverlayBtn d-none">^^</button>
                 <iframe class="homepageBannerIframe" src="https://www.youtube.com/embed/gim2kprjL50" ></iframe>
-                <div class="carousel-caption d-none d-md-block">
-                <h5>Grrrrrrr!</h5>
-                <p>The Incredible Hulk's cousin, She-Hulk, has had the trailer for her show released.</p>
-              </div>
+                <div class="textOverlay">
+                <button class="CloseOverlayBtn">X</button>
+                <p class="mb-1"><strong>Grrrrrrr!</strong></p>
+                <p class="mb-1">The Incredible Hulk's cousin, She-Hulk, has had the trailer for her show released.</p>
+                </div>
             </div>
             
         </div>
@@ -39,6 +46,9 @@
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
       await JSRuntime.InvokeAsync<string>("sliderFunctions.startStandardSlider", null);
+      await JSRuntime.InvokeAsync<string>("homepageBanner.OverlayClose", null);
+      await JSRuntime.InvokeAsync<string>("homepageBanner.OverlayOpen", null);
+
       //return base.OnAfterRenderAsync(firstRender);
     }
 
