@@ -1,12 +1,16 @@
 ﻿@page "/search/{searchValue}"
 
-<h3>Your results for: @searchValue</h3>
+<h3 class="mb-3">Your results for: @searchValue</h3>
 
 <div class="container" >
     <div class="row">
         <div class="col-8">
             @if (receivedMovies) {
                 <MovieColumn MovieData="MovieData" />
+            }
+            else
+            {
+                <LoadingScreen/>
             }
         </div>
         <div class="col-4">
@@ -37,7 +41,7 @@
 
     private bool receivedMovies = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         try
         {

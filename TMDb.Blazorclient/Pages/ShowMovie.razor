@@ -98,7 +98,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6 d-flex justify-content-end">
-                                        <img src="https://image.tmdb.org/t/p/original/@(JsonMovie.belongs_to_collection.poster_path)" />
+                                        <img class="w-100" src="https://image.tmdb.org/t/p/original/@(JsonMovie.belongs_to_collection.poster_path)" />
                                     </div>
                                     <div class="col-6">
                                         <p>@JsonMovie.belongs_to_collection.name</p>
@@ -137,27 +137,18 @@
                             <div class="card-header">Production Companies</div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-5 d-flex justify-content-end">
-                                        <ul class="mb-0 ps-1">
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <ul class="mb-0">
                                             @foreach (Production_Companies pCom in JsonMovie.production_companies)
                                             {
                                                 @if (pCom.logo_path != null)
                                                 {
                                                     <li>
-                                                        <img class="d-inline w-100 mb-2" src="https://image.tmdb.org/t/p/original/@(pCom.logo_path)" alt="" height="25"/>
+                                                        <img class="d-inline w-25 mb-2" src="https://image.tmdb.org/t/p/original/@(pCom.logo_path)" alt="" height="25"/>
+                                                        <p class="d-inline small" >@pCom.name</p>
                                                     </li>
                                                 }
 
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div class="col-7">
-                                        <ul class="list-unstyled mb-0">
-                                            @foreach (Production_Companies pCom in JsonMovie.production_companies)
-                                            {
-                                                <li class="mb-2">
-                                                    <p class="d-inline" >@pCom.name</p>
-                                                </li>
                                             }
                                         </ul>
                                     </div>
@@ -247,9 +238,8 @@
             var result = await Http.GetFromJsonAsync<MovieModel>($"{Configuration["apiUrl"]}/movies/{Id}");
             JsonMovie = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
             Movie = result;
-            //var Images = await Http.GetFromJsonAsync<dynamic>($"https://api.themoviedb.org/3/movie/{result.ImdbId}/images?api_key={Configuration["externalTmdbApiKey"]}");
             Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));
-            Movie.Revenue = string.Format("{0:n}", Convert.ToInt32(Movie.Revenue));
+            Movie.Revenue = string.Format("{0:n}", Convert.ToInt64(Movie.Revenue));
             Movie.Runtime = string.Format("{0:n0}", Convert.ToDecimal(Movie.Runtime));
             receivedMovie = true;
         }

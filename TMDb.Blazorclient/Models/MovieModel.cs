@@ -11,6 +11,7 @@
         //public List<GenresModel> Genres { get; set; }
         public string ImdbId { get; set; }
         public string Popularity { get; set; }
+        public string PosterPath { get; set; }
         //public List<ProductionCompaniesModel> ProductionCompanies { get; set; }
         //public List<ProductionCountriesModel> ProductionCountries { get; set; }
         public DateTime ReleaseDate { get; set; }
