@@ -1,0 +1,36 @@
+﻿.spinDiv {
+    /* Finally, a use for "groove"! */
+    border: 24px groove white;
+    display: table-cell;
+    border-radius: 999px;
+    animation: spin 15s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.wrapper {
+    height: 100%
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.title {
+    display: inline;
+}
+
+.spacer {
+    height: 20vh;
+}
