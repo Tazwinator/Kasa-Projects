@@ -235,7 +235,7 @@
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<MovieModel>($"{Configuration["apiUrl"]}/movies/{Id}");
+            var result = await Http.GetFromJsonAsync<MovieModel>($"{Configuration["apiUrl"]}/movie/{Id}");
             JsonMovie = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{result.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
             Movie = result;
             Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));

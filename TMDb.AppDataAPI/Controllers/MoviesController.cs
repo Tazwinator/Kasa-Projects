@@ -20,99 +20,31 @@ namespace TMDb.AppDataAPI.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet("highestRatedLastYear")]
-        public IActionResult GetFeaturedMovies()
-        {
-            try
-            {
-                // By popularity
-                var movies = dbContext.Movies.OrderByDescending(x => x.GlobalRating).Where(m => m.ReleaseDate.Year == 2016).Take(20).ToList();
-                return Ok(movies);
-            }
-            catch (Exception ex)
-            {
-                var error = $"No movies found sorry, Exceptions: {ex}";
-                return BadRequest(error);
-            }
-        }
+        //[HttpGet("{Genre}/{Ranking}")]
+        //public IActionResult GetFeaturedMovies(string Genre, string Ranking)
+        //{
+        //    try
+        //    {
+        //        dynamic genreOfMovies;
 
-        [HttpGet("latestReleases")]
-        public IActionResult GetLatestMovies()
-        {
-            try
-            {
-                // By release date
-                var movies = dbContext.Movies.OrderByDescending(x => x.ReleaseDate).Where(m => m.Status == "Released").Take(20).ToList();
-                return Ok(movies);
-            }
-            catch (Exception ex)
-            {
-                var error = $"No movies found sorry, Exceptions: {ex}";
-                return BadRequest(error);
-            }
-        }
+        //        if (Genre == GenresEnum.All_Genres.ToString())
+        //        {
+        //            genreOfMovies = dbContext.Movies.Take(40);
+        //        }
+        //        else
+        //        {
+        //            genreOfMovies = dbContext.Movies.Where(m => m.).Take(40);
+        //        }
 
-        [HttpGet("upAndComing")]
-        public IActionResult GetUpAndComingMovies()
-        {
-            try
-            {
-                // By release date
-                var movies = dbContext.Movies.OrderByDescending(x => x.ReleaseDate).Where(m => m.Status != "Released").Take(20).ToList();
-                return Ok(movies);
-            }
-            catch (Exception ex)
-            {
-                var error = $"No movies found sorry, Exceptions: {ex}";
-                return BadRequest(error);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMovie(int id)
-        {
-            try
-            {    
-                var movie = await dbContext.Movies.Where(x => x.Id == id)
-                    //.Include(b => b.BelongsToCollection)
-                    //.Include(g => g.Genres)
-                    //.Include(pcom => pcom.ProductionCompanies)
-                    //.Include(pcountries => pcountries.ProductionCountries)
-                    //.Include(sl => sl.SpokenLanguages)
-                    .FirstOrDefaultAsync();
-
-                //MovieModel movieModel = new MovieModel()
-                //{
-                //    Title = movie.Title,
-                //    Overview = movie.Overview,
-                //    Budget = movie.Budget,
-                //    Revenue = movie.Revenue,
-                //    ImdbId = movie.ImdbId,
-                //    Popularity = movie.Popularity,
-                //    ReleaseDate = movie.ReleaseDate,
-                //    Status = movie.Status,
-                //    Runtime = movie.Runtime,
-                //    GlobalRating = movie.GlobalRating,
-                //    Votes = movie.Votes,
-                //};
-
-                //movieModel.BelongsToCollection = csvJsonParser.GetModelObject<List<BelongsToCollectionModel>>(movie.BelongsToCollection[0].Name);
-                //movieModel.Genres = csvJsonParser.GetModelObject<List<GenresModel>>(movie.Genres[0].Name);
-                //movieModel.ProductionCompanies = csvJsonParser.GetModelObject<List<ProductionCompaniesModel>>(movie.ProductionCompanies[0].Name);
-                //movieModel.ProductionCountries = csvJsonParser.GetModelObject<List<ProductionCountriesModel>>(movie.ProductionCountries[0].Name);
-                //movieModel.SpokenLanguages = csvJsonParser.GetModelObject<List<SpokenLanguagesModel>>(movie.SpokenLanguages[0].Name);
-                
-                return Ok(movie);
-            }
-            catch (Exception ex)
-            {
-                var error = $"No movies found sorry, Exceptions: {ex}";
-                return BadRequest(error);
-            }
-            
-
-            
-        }
+        //        var movies = genreOfMovies.ToList();
+        //        return Ok(movies);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var error = $"No movies found sorry, Exceptions: {ex}";
+        //        return BadRequest(error);
+        //    }
+        //}
 
         [HttpGet("seed")]
         public async Task<IActionResult> SeedDb()

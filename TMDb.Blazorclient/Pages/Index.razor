@@ -52,11 +52,11 @@
     {
         try
         {
-            var highestRatedResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/highestRatedLastYear");
+            var highestRatedResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/home/highestRatedLastYear");
             HighestRated = highestRatedResult;
-            var latestReleasesResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/latestReleases");
+            var latestReleasesResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/home/latestReleases");
             LatestReleases = latestReleasesResult;
-            var upAndComingResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/movies/upAndComing");
+            var upAndComingResult = await Http.GetFromJsonAsync<List<MovieModel>>($"{Configuration["apiUrl"]}/home/upAndComing");
             UpAndComing = upAndComingResult;
             receivedMovies = true;
         }

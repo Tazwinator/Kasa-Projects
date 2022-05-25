@@ -1,68 +1,70 @@
-﻿@page "/movies/{GenreUriParam?}/{RankingUriParam?}"
+﻿@page "/movies/{Genre?}/{Ranking?}"
 
+<link href="~/css/custom/genreAndRanking.css" rel="stylesheet" />
 
-@foreach (GenresEnum gValue in Enum.GetValues(typeof(GenresEnum)))
-{
-    @foreach (RankingsEnum rValue in Enum.GetValues(typeof(RankingsEnum)))
-    {
-        @if (GenreUriParam == gValue.ToString() && RankingUriParam == rValue.ToString())
-        {
-            Genre = gValue;
-            Ranking = rValue;
-            CorrectParams = true;
-        }
-        else if (GenreUriParam == gValue.ToString())
-        {
-            Genre = gValue;
-        }
-        else if (GenreUriParam == null || RankingUriParam == null)
-        {
-            NoParams = true;
-        }
-        else
-        {
-            IncorrectParams = true;
-        }
-    }
-}
+<div class="container">
 
-@if (CorrectParams)
-{
-    <Rankings Genre="@Genre" Ranking="@Ranking" />
-}
-else if (NoParams || IncorrectParams)
-{
-    <PickGenreAndRanking />
-}
-else if (OnlyGenreParam)
-{
-    <PickGenreAndRanking Genre="@Genre" />
-}
+    <div class="row">
+        <div class="col-12">
+            <Select TValue="GenresEnum" @bind-SelectedValue="@genre">
+                @foreach (GenresEnum genreValue in Enum.GetValues(typeof(GenresEnum)))
+                {
+                    <SelectItem Value="genreValue">@genreValue.ToString().Replace("_", " ")</SelectItem>
+                }
+            </Select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <Select TValue="RankingsEnum" @bind-SelectedValue="@ranking">
+                @foreach (RankingsEnum rankingValue in Enum.GetValues(typeof(RankingsEnum)))
+                {
+                    <SelectItem Value="rankingValue">@rankingValue.ToString().Replace("_", " ")</SelectItem>
+                }
+            </Select>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <Rankings Genre="@genre" Ranking="@ranking" />
+    </div>
+</div>
+
 
 @code {
+    private GenresEnum genre;
 
-    public bool IncorrectParams { get; set; } = false;
-
-    public bool CorrectParams { get; set; } = false;
-
-    public bool NoParams { get; set; } = false;
-
-    public bool OnlyGenreParam { get; set; } = false;
-
-    public GenresEnum Genre { get; set; }
-
-    public RankingsEnum Ranking { get; set; }
+    private RankingsEnum ranking;
 
     [Parameter]
-    public string GenreUriParam { get; set; }
+    public string Genre
+
+    {
+        get => genre.ToString();
+        set
+        {
+            if (value != null)
+            {
+                genre = (GenresEnum)Enum.Parse(typeof(GenresEnum), value);
+            }
+        }
+    }
 
     [Parameter]
-    public string RankingUriParam  { get; set; }
-
-    [Inject]
-    private NavigationManager Navigation { get; set; }
-
-    
-
+    public string Ranking
+    {
+        get => ranking.ToString();
+        set
+        {
+            if (value != null)
+            {
+                ranking = (RankingsEnum)Enum.Parse(typeof(RankingsEnum), value);
+            }
+        }
+    }
 
 }

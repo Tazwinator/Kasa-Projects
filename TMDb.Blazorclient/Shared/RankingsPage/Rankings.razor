@@ -1,12 +1,33 @@
-﻿<h3>Rankings</h3>
+﻿<link href="~/css/custom/genreAndRanking.css" rel="stylesheet" />
 
-<p>@Genre</p>
-<p>@Ranking</p>
+@if (ReceivedMovies)
+{
+    <h3>Rankings</h3>
+    <p>@Genre</p>
+    <p>@Ranking</p>
+}
+else
+{
+    <LoadingScreen/>
+}
 
 @code {
     [Parameter]
     public GenresEnum Genre { get; set; }
+
     [Parameter]
     public RankingsEnum Ranking { get; set; }
+
+    [Inject]
+    private HttpClient Http { get; set; }
+
+    private bool ReceivedMovies { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        
+
+        ReceivedMovies = true;
+    }
 
 }
