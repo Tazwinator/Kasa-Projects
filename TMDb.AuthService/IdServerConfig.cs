@@ -1,4 +1,5 @@
 ﻿using Duende.IdentityServer.Models;
+using IdentityModel;
 
 namespace TMDb.AuthService;
 
@@ -10,6 +11,13 @@ public static class IdServerConfig
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
+            new IdentityResource {
+                Name = "UserRoles",
+                UserClaims =
+                {
+                    JwtClaimTypes.Role
+                }
+            }
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -48,7 +56,9 @@ public static class IdServerConfig
                 PostLogoutRedirectUris = { "https://localhost:5331/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile" },
+                AllowedScopes = { "openid", "profile", "UserRoles" },
+
+                AlwaysIncludeUserClaimsInIdToken = true,
 
                 RequirePkce = true,
                 RequireConsent = true,
@@ -58,7 +68,7 @@ public static class IdServerConfig
             // Production
             new Client
             {
-                ClientId = "blazorClient",
+                ClientId = "TMDB-Web",
                 ClientSecrets = { new Secret("C259CBA57288D6F56600D3B8EB7ABA3EC83CA4ECAED83CD48B77D1475AB00750") },
 
                 AllowedGrantTypes = GrantTypes.Code,
@@ -68,7 +78,9 @@ public static class IdServerConfig
                 PostLogoutRedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
-                AllowedScopes = { "openid", "profile" },
+                AllowedScopes = { "openid", "profile", "UserRoles" },
+
+                AlwaysIncludeUserClaimsInIdToken = true,
 
                 RequirePkce = true,
                 RequireConsent = true,

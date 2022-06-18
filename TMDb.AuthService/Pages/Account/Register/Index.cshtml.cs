@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Text.Encodings.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace TMDb.AuthService.Pages.Account.Register
 {
@@ -30,6 +32,8 @@ namespace TMDb.AuthService.Pages.Account.Register
         private readonly IIdentityProviderStore _identityProviderStore;
         private readonly ILogger<IndexModel> _logger;
         //private readonly IEmailSender _emailSender;
+
+        public List<string> Countries = new();
 
         public IndexModel(
 
@@ -71,6 +75,11 @@ namespace TMDb.AuthService.Pages.Account.Register
             public string Email { get; set; }
 
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -83,22 +92,44 @@ namespace TMDb.AuthService.Pages.Account.Register
 
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Full name")]
-            public string Name { get; set; }
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
 
             [Required]
             [Range(0, 199, ErrorMessage = "Age must be between 0 and 199 years")]
             [Display(Name = "Age")]
             public int Age { get; set; }
+
+            [Required]
+            [Display(Name = "Country")]
+            public string Country { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl)
         {
+            using (var reader = new StreamReader("Resources/countries.json"))
+            using (var jsonReader = new JsonTextReader(reader))
+            {
+                JArray rawCountries = (JArray)await JToken.ReadFromAsync(jsonReader);
+                var semiRawCountries = rawCountries.ToObject<List<object>>();
+                foreach (object country in semiRawCountries)
+                {
+                    var countryName = ((dynamic)country).countryName.ToString();
+                    Countries.Add(countryName);
+                    Countries.Sort();
+                }
+            }
+            
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -106,18 +137,18 @@ namespace TMDb.AuthService.Pages.Account.Register
             {
                 var user = new TMDbUser
                 {
-                    UserName = Input.Email,
+                    UserName = Input.UserName,
                     Email = Input.Email,
-                    //Name = Input.Name,
-                    //Age = Input.Age
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Age = Input.Age,
+                    Country = Input.Country
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    await _userManager.AddToRoleAsync(user, "Admin");
 
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //var callbackUrl = Url.Page(
@@ -136,7 +167,15 @@ namespace TMDb.AuthService.Pages.Account.Register
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        if (returnUrl != null)
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return LocalRedirect("/");
+                        }
+                       
                     }
                 }
                 foreach (var error in result.Errors)

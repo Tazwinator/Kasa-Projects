@@ -24,6 +24,7 @@ builder.Services
     .AddFontAwesomeIcons();
 
 builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("IdentityServerSettings"));
 
@@ -41,14 +42,19 @@ builder.Services.AddAuthentication(options =>
     {
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.SignOutScheme = OpenIdConnectDefaults.AuthenticationScheme;
-        options.Authority = builder.Configuration["InteractiveClientOidcSettings:AuthorityUrl"];
-        options.ClientId = builder.Configuration["InteractiveClientOidcSettings:ClientId"];
-        options.ClientSecret = builder.Configuration["InteractiveClientOidcSettings:ClientSecret"];
-        options.ResponseType = builder.Configuration["InteractiveClientOidcSettings:ResponseType"];
+        options.Authority = builder.Configuration["BlazorClientOidcSettings:AuthorityUrl"];
+        options.ClientId = builder.Configuration["BlazorClientOidcSettings:ClientId"];
+        options.ClientSecret = builder.Configuration["BlazorClientOidcSettings:ClientSecret"];
+        options.ResponseType = builder.Configuration["BlazorClientOidcSettings:ResponseType"];
         options.SaveTokens = true;
-        options.GetClaimsFromUserInfoEndpoint = true;
+
+        //options.Scope.Add(builder.Configuration["InteractiveClientOidcSettings:Scopes"]);
+        options.Scope.Add("openid");
+        options.Scope.Add("profile");
+        options.Scope.Add("UserRoles");
     }
-    );
+
+);
 
 builder.Services.AddHsts(options =>
 {

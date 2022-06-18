@@ -24,12 +24,12 @@
             redirectUri = $"{Configuration["applicationUrl"]}";
         }
 
+        NavManager.NavigateTo($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/Account/Register?returnUrl={redirectUri}");
+
         //if (HttpContext.User.Identity.IsAuthenticated)
         //{
         //    NavManager.NavigateTo(redirectUri);
         //}
-
-        NavManager.NavigateTo($"{Configuration["InteractiveClientOidcSettings:AuthorityUrl"]}/Account/Register");
 
     }
 

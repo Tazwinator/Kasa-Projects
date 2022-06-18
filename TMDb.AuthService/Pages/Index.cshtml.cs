@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Authentication;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace TMDb.AuthService.Pages.Home;
 
 [Authorize]
-[Authorize(Roles = "Admin")]
 public class Index : PageModel
 {
     public string Version;
@@ -23,5 +23,6 @@ public class Index : PageModel
     public void OnGet()
     {
         Version = typeof(Duende.IdentityServer.Hosting.IdentityServerMiddleware).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+').First();
+
     }
 }

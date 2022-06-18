@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Identity;
 
-namespace TMDb.AuthService.Models;
+namespace TMDb.BlazorClient.Models;
 
 public class TMDbUser : IdentityUser
 {

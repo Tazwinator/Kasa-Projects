@@ -28,12 +28,62 @@ public class SeedIdentityUserData
                 await roleMgr.CreateAsync(new IdentityRole { Name = "User" });
             }
             var alice = userMgr.FindByNameAsync("alice").Result;
-            if (alice == null)
+            if (alice != null)
             {
+
+                var isDeleted = userMgr.DeleteAsync(alice);
+                if(isDeleted.IsCompletedSuccessfully)
+                {
+                    Log.Debug("Yay she's gone!");
+                
+                    alice = new TMDbUser
+                    {
+                        UserName = "alice",
+                        Email = "AliceSmith@email.com",
+                        FirstName = "Alice",
+                        LastName = "Smith",
+                        CreatedDate = DateTime.Now,
+                        EmailConfirmed = true,
+                    };
+                    var result = userMgr.CreateAsync(alice, "Pass123$").Result;
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception(result.Errors.First().Description);
+                    }
+
+                    await userMgr.AddToRoleAsync(alice, "Admin");
+                    await userMgr.AddToRoleAsync(alice, "User");
+
+                    result = userMgr.AddClaimsAsync(alice, new Claim[]{
+                                new Claim(JwtClaimTypes.Name, "Alice Smith"),
+                                new Claim(JwtClaimTypes.GivenName, "Alice"),
+                                new Claim(JwtClaimTypes.FamilyName, "Smith"),
+                                new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
+                                new Claim(JwtClaimTypes.Role, "Admin"),
+                                new Claim(JwtClaimTypes.Role, "User")
+                            }).Result;
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception(result.Errors.First().Description);
+                    }
+                    Log.Debug("alice created");
+                }
+                else
+                {
+                    throw new Exception();
+                }
+
+            }
+            else
+            {
+
                 alice = new TMDbUser
                 {
                     UserName = "alice",
                     Email = "AliceSmith@email.com",
+                    FirstName = "Alice",
+                    LastName = "Smith",
+                    CreatedDate = DateTime.Now,
                     EmailConfirmed = true,
                 };
                 var result = userMgr.CreateAsync(alice, "Pass123$").Result;
@@ -58,12 +108,7 @@ public class SeedIdentityUserData
                     throw new Exception(result.Errors.First().Description);
                 }
 
-
                 Log.Debug("alice created");
-            }
-            else
-            {
-                Log.Debug("alice already exists");
             }
 
             

@@ -99,12 +99,14 @@ internal static class ServicesPipelineConfig
         
         app.UseStaticFiles();
         app.UseRouting();
+        app.MapControllers();
+        app.MapRazorPages();
+
         app.UseIdentityServer();
         app.UseAuthentication();
         app.UseAuthorization();
-        
 
-        app.MapRazorPages();
+        
 
         return app;
     }
