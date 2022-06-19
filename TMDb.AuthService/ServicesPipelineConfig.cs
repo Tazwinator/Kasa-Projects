@@ -41,6 +41,7 @@ internal static class ServicesPipelineConfig
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
                 options.EmitStaticAudienceClaim = true;
+                options.IssuerUri = "https://tmdbauthservice.azurewebsites.net";
             })
             .AddAspNetIdentity<TMDbUser>()
             .AddConfigurationStore(options =>
@@ -88,7 +89,8 @@ internal static class ServicesPipelineConfig
     }
     
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
+
         app.UseSerilogRequestLogging();
     
         if (app.Environment.IsDevelopment())

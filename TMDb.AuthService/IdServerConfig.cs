@@ -68,14 +68,14 @@ public static class IdServerConfig
             // Production
             new Client
             {
-                ClientId = "TMDB-Web",
-                ClientSecrets = { new Secret("C259CBA57288D6F56600D3B8EB7ABA3EC83CA4ECAED83CD48B77D1475AB00750") },
+                ClientId = "TMDBWeb",
+                ClientSecrets = { new Secret("C259CBA57288D6F56600D3B8EB7ABA3EC83CA4ECAED83CD48B77D1475AB00750".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
 
-                RedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signin-oidc" },
-                FrontChannelLogoutUri = "https://tmdbblazorclient.azurewebsites.net/signout-oidc",
-                PostLogoutRedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signout-callback-oidc" },
+                RedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signin-oidc", "https://tazwin.co.uk/signin-oidc" },
+                AllowedCorsOrigins = { "https://tmdbblazorclient.azurewebsites.net", "https://tazwin.co.uk" },
+                PostLogoutRedirectUris = { "https://tmdbblazorclient.azurewebsites.net/signout-callback-oidc", "https://tazwin.co.uk/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile", "UserRoles" },
