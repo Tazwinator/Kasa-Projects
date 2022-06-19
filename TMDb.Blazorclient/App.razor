@@ -1,39 +1,56 @@
 ﻿
-<CascadingAuthenticationState>
 
-    <Blazorise.ThemeProvider Theme="@theme">
+<CascadingValue Name="AccessToken" Value="AccessToken">
+    <CascadingValue Name="IdToken" Value="IdToken">
+        <CascadingValue Name="RefreshToken" Value="RefreshToken">
+            <CascadingAuthenticationState>
 
-        <Router AppAssembly="@typeof(App).Assembly">
+                <Blazorise.ThemeProvider Theme="@theme">
 
-            <Found Context="routeData">
+                    <Router AppAssembly="@typeof(App).Assembly">
 
-                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                    <NotAuthorized>
-                        <RedirectToLogin></RedirectToLogin>
-                    </NotAuthorized>
-                </AuthorizeRouteView>
-                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+                        <Found Context="routeData">
 
-            </Found>
+                            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                                <NotAuthorized>
+                                    <RedirectToLogin></RedirectToLogin>
+                                </NotAuthorized>
+                            </AuthorizeRouteView>
+                            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
 
-            <NotFound>
+                        </Found>
 
-                <LayoutView Layout="@typeof(MainLayout)">
-                    <Error404/>
-                </LayoutView>
+                        <NotFound>
 
-            </NotFound>
+                            <LayoutView Layout="@typeof(MainLayout)">
+                                <Error404/>
+                            </LayoutView>
 
-        </Router>
+                        </NotFound>
 
-    </Blazorise.ThemeProvider>
+                    </Router>
 
-</CascadingAuthenticationState>
+                </Blazorise.ThemeProvider>
 
+            </CascadingAuthenticationState>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
 
 
 
 @code {
+
+    [Parameter]
+    public string AccessToken { get; set; }
+
+    [Parameter]
+    public string IdToken { get; set; }
+
+    [Parameter]
+    public string RefreshToken { get; set; }
+
+
     private Theme theme = new Theme
     {
         ColorOptions = new ThemeColorOptions

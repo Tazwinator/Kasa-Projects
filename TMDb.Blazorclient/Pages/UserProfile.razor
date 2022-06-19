@@ -161,9 +161,6 @@
 @code {
 
     [Inject]
-    private IHttpContextAccessor _context { get; set; }
-
-    [Inject]
     IConfiguration Configuration { get; set; }
 
     [Inject]
@@ -176,25 +173,14 @@
 
     private bool receivedUser { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    [CascadingParameter(Name = "IdToken")]
+    public string IdToken { get; set; }
+
+    protected override async Task OnParametersSetAsync()
     {
-
-        //var accessToken = await _context.HttpContext.GetTokenAsync("access_token");
-        var idToken = await _context.HttpContext.GetTokenAsync("id_token");
-        //var refreshToken = await _context.HttpContext.GetTokenAsync("refresh_token");
-
-        //var _accessToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
-        var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(idToken);
-
+        var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
         user = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/getUserData/getSingleUser/{_idToken.Subject}");
-        //var result = await Http.GetUserInfoAsync(new UserInfoRequest
-        //    {
-        //        Address = Configuration["BlazorClientOidcSettings:DiscoveryUrls:UserInfoEndpoint"],
-        //        Token = accessToken
-        //});
-
         receivedUser = true;
-
     }
 
     private void NavToAccountSettings()
