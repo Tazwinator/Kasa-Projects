@@ -32,36 +32,31 @@
                 <NavLink class="nav-link text-reset d-inline px-2 border-1 rounded ms-1" href="movies" Match="NavLinkMatch.All">Movies</NavLink>*@
             </div>
             
+
+            @* Modal *@
             @* This goes hand-in-hand with the section below. This is using .userMenuVanish *@
             <div class="btn-group">
-              <div class="userMenuVanish" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                  <Icon Name="IconName.Users" IconSize="IconSize.x2"></Icon>
+
+              <button type="button" @onclick="GoToProfilePage" class="btn btn-danger userMenuVanish" ><Icon Name="IconName.Users" IconSize="IconSize.x2"></Icon></button>
+              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split userMenuVanish" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+
+              </button>
+
+              <div class="dropdown-menu">
+
+                  <NavBarUserPlusSettings />
+
               </div>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside">
-                <div class="">
 
-                    <Switch TValue="bool" Checked="@isChecked" CheckedChanged="@OnThemeColorChanged" ></Switch>
-                    <p class="d-inline" >Light/Dark Mode</p>
-
-                    <NavBarUserBtns />
-
-                </div>
-              </div>
             </div>
 
 
             @* "d-lg-none" means it will not display until display size > lg (990px)*@
             <div class="d-lg-none card">
 
-                <NavBarUserBtns />
+                <NavBarUserPlusSettings />
                 
-                <div class="ms-2 card-footer">
-                    <Switch TValue="bool" Checked="@isChecked" CheckedChanged="@OnThemeColorChanged"><p class="d-inline" >Light/Dark Mode</p></Switch>
-                </div>
-                
-
-                
-
             </div>
 
         </div>
@@ -73,29 +68,37 @@
 
 @code {
 
-    private bool isChecked;
+    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
 
+    [Inject] NavigationManager Navigation { get; set; }
 
-    Task OnThemeColorChanged(bool value)
+    private bool IsAuthenticated { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        isChecked = value;
-
-        if ( isChecked )
+        var user = (await AuthStat).User;
+        if(user.Identity.IsAuthenticated)
         {
-            Theme.ColorOptions.Primary = "#000000";
-            Theme.ColorOptions.Secondary = "#FFFFFF";
+            IsAuthenticated = true;
         }
-        else if ( !isChecked )
+        else
         {
-            Theme.ColorOptions.Primary = "#FFFFFF";
-            Theme.ColorOptions.Secondary = "#000000";
+            IsAuthenticated = false;
         }
 
-        Theme.ThemeHasChanged();
-
-        return Task.CompletedTask;
     }
 
-    [CascadingParameter] Theme Theme { get; set; }
+    private void GoToProfilePage() {
+
+        if (IsAuthenticated)
+        {
+            Navigation.NavigateTo("/user/profile", true);
+        }
+        else
+        {
+            Navigation.NavigateTo($"/login?redirectUri={Uri.EscapeDataString(Navigation.Uri)}", true);
+        }
+
+    }
 
 }
