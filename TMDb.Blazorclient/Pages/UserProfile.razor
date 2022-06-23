@@ -1,36 +1,75 @@
 ﻿@page "/user/profile"
 
 @using IdentityModel.Client
+@using System.Text
+@using System.Net.Http.Headers
 @attribute [Authorize]
 @*@attribute [Authorize(Roles = "Admin")]*@
 
 
 @if (receivedUser) {
-    
-    
+
+
     <div class="container">
         <div class="main-body">
-    
-          <div class="row gutters-sm">
 
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
-                    @*<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">*@
-                    <div class="mt-3">
-                      <h5 class="text-wrap">@($"{user.FirstName} {user.LastName}")</h5>
-                      <p class="text-secondary mb-1">@user.Age Years old</p>
-                      <p class="text-muted font-size-sm">@user.Country</p>
-                      @*<button class="btn btn-danger">Follow</button>
+            <div class="row gutters-sm">
+
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <div>
+                                    @if (User.ProfileImage != null) 
+                                    {
+                                        <img src="@("data:image/png;base64," + Convert.ToBase64String(User.ProfileImage))" class="rounded-circle w-100" >
+                                    }
+                                    else
+                                    {
+                                        <img src="/OtherImgs/userProfileDefault.jpg" alt="Admin" class="rounded-circle w-100" >
+                                    }
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Edit"></Icon>
+                                    </button>
+                                    <!-- Modal -->
+
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Upload Profile Picture</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @*<InputFile OnChange="e => UploadImage(e)" typeof="Image"></InputFile>
+                                  <FileEdit Changed="@UploadImage" Filter="image/jpeg, image/png" MaxFileSize="3000000"/>*@
+                                                    <FileEdit Changed="@OnChanged"  Written="@OnWritten" Progressed="@OnProgressed" MaxFileSize="3000000" Filter="image/jpeg, image/png"/>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" @onclick="UploadImage" class="btn btn-primary">Upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="mt-3">
+                                    <h5 class="text-wrap">@($"{User.FirstName} {User.LastName}")</h5>
+                                    <p class="text-secondary mb-1">@User.Age Years old</p>
+                                    <p class="text-muted font-size-sm">@User.Country</p>
+                                    @*<button class="btn btn-danger">Follow</button>
                       <button class="btn btn-outline-danger">Message</button>*@
-                      <button class="d-block btn btn-dark" @onclick="NavToAccountSettings">Account settings</button>
+                                    <button class="d-block btn btn-dark" @onclick="NavToAccountSettings">Account settings</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-             @* <div class="card mt-3">
+                    @* <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
@@ -54,40 +93,40 @@
                   </li>
                 </ul>
               </div>*@
-            </div>
+                </div>
 
-            <div class="col-md-8">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Username</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      @user.UserName
-                    </div>
-                  </div>
-                  <hr>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Username</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @User.UserName
+                                </div>
+                            </div>
+                            <hr>
 
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      @user.Email
-                    </div>
-                  </div>
-                  <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @User.Email
+                                </div>
+                            </div>
+                            <hr>
 
-                  @*<div class="row">
+                            @*<div class="row">
                     <div class="col-sm-12">
                       <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
                     </div>
                   </div>*@
-                </div>
-              </div>
+                        </div>
+                    </div>
 
-              @*<div class="row gutters-sm">
+                    @*<div class="row gutters-sm">
                 <div class="col-sm-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body">
@@ -148,17 +187,20 @@
 
 
 
+                </div>
             </div>
-          </div>
 
         </div>
     </div>
 
 
+    <SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.End" />
 }
 
 
 @code {
+
+    SnackbarStack snackbarStack;
 
     [Inject]
     IConfiguration Configuration { get; set; }
@@ -169,7 +211,7 @@
     [Inject]
     private NavigationManager Navigation { get; set; }
 
-    private TMDbUser user { get; set; }
+    private TMDbUser User { get; set; }
 
     private bool receivedUser { get; set; }
 
@@ -179,7 +221,7 @@
     protected override async Task OnParametersSetAsync()
     {
         var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
-        user = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/getUserData/getSingleUser/{_idToken.Subject}");
+        User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getSingleUser/{_idToken.Subject}");
         receivedUser = true;
     }
 
@@ -188,4 +230,67 @@
         Navigation.NavigateTo($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}");
     }
 
+    const int OneMb = 1024 * 1024;
+
+    async Task UploadImage()
+    {
+        var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/UploadPic", User);
+                if (res.IsSuccessStatusCode)
+                {
+                    await snackbarStack.PushAsync("Successfully uploaded your profile picture!", SnackbarColor.Success, options => { options.IntervalBeforeClose = 3000; });
+                }
+                else
+                {
+                    await snackbarStack.PushAsync("There has been an error uploading your profile picture. Contact support or wait a little while.", SnackbarColor.Danger, options => { options.IntervalBeforeClose = 3000; });
+                }
+    }
+
+    async Task OnChanged(FileChangedEventArgs e)
+    {
+        try
+        {
+            var file = e.Files.FirstOrDefault();
+            if (file == null)
+            {
+                return;
+            }
+
+            var buffer = new byte[OneMb];
+
+            using (var bufferedStream = new BufferedStream(file.OpenReadStream(long.MaxValue), OneMb))
+            {
+                //int readCount = 0;
+                int readBytes = await bufferedStream.ReadAsync(buffer, 0, OneMb);
+
+                User.ProfileImage = buffer;
+            }
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc.Message);
+        }
+        finally
+        {
+            this.StateHasChanged();
+        }
+    }
+
+
+    void OnWritten(FileWrittenEventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine($"File: {e.File.Name} Position: {e.Position} Data: {Convert.ToBase64String(e.Data)}");
+    }
+
+    void OnProgressed(FileProgressedEventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine($"File: {e.File.Name} Progress: {e.Percentage}");
+    }
+
+
+
+
 }
+    
+
+
+

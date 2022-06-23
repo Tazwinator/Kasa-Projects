@@ -59,6 +59,13 @@ internal static class ServicesPipelineConfig
             .AddInMemoryClients(IdServerConfig.Clients)
             .AddInMemoryCaching();
 
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Services.AddSwaggerGen();
+        }
+
+        
+
         // Used back in WASM days 
 
         //builder.Services.AddSingleton<ICorsPolicyService>((container) => {
@@ -96,6 +103,9 @@ internal static class ServicesPipelineConfig
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
 
         

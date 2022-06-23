@@ -37,7 +37,32 @@
             @* This goes hand-in-hand with the section below. This is using .userMenuVanish *@
             <div class="btn-group">
 
-              <button type="button" @onclick="GoToProfilePage" class="btn btn-danger userMenuVanish" ><Icon Name="IconName.Users" IconSize="IconSize.x2"></Icon></button>
+                <AuthorizeView>
+                    <Authorized>
+                        @if (receivedUser)
+                        {
+                            @if (User.ProfileImage != null) 
+                            {
+                                <button type="button" @onclick="GoToProfilePage" class="btn btn-danger userMenuVanish" >
+                                    <img src="@("data:image/png;base64," + Convert.ToBase64String(User.ProfileImage))" class="tmdb-rounded-circle" />
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" @onclick="GoToProfilePage" class="btn btn-danger userMenuVanish" >
+                                    <img src="/OtherImgs/userProfileDefault.jpg" class="rounded-circle" width="10" heigth="10" />
+                                </button>
+                            }
+                        }
+                        
+
+                    </Authorized>
+                    <NotAuthorized>
+                        <button type="button" class="btn btn-danger userMenuVanish" ><Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Bars"></Icon></button>
+                    </NotAuthorized>
+                </AuthorizeView>
+
+              
               <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split userMenuVanish" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
 
@@ -72,32 +97,34 @@
 
     [Inject] NavigationManager Navigation { get; set; }
 
-    private bool IsAuthenticated { get; set; }
+    [Inject]
+    IConfiguration Configuration { get; set; }
+
+    [Inject]
+    private HttpClient Http { get; set; }
+
+    private TMDbUser User { get; set; }
+
+    private bool receivedUser { get; set; }
+
+    [CascadingParameter(Name = "IdToken")]
+    public string IdToken { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         var user = (await AuthStat).User;
-        if(user.Identity.IsAuthenticated)
+        if (user.Identity.IsAuthenticated)
         {
-            IsAuthenticated = true;
-        }
-        else
-        {
-            IsAuthenticated = false;
+            var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
+            User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getSingleUser/{_idToken.Subject}");
+            receivedUser = true;
         }
 
     }
 
     private void GoToProfilePage() {
 
-        if (IsAuthenticated)
-        {
-            Navigation.NavigateTo("/user/profile", true);
-        }
-        else
-        {
-            Navigation.NavigateTo($"/login?redirectUri={Uri.EscapeDataString(Navigation.Uri)}", true);
-        }
+        Navigation.NavigateTo("/user/profile", true);
 
     }
 

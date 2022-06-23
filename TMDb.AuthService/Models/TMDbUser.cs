@@ -14,6 +14,7 @@ public class TMDbUser : IdentityUser
     public int Age { get; set; }
     public List<MovieTitle> FavouriteMovies { get; set; }
     public DateTime CreatedDate { get; set; }
+    public byte[] ProfileImage { get; set; }
 
 }
 

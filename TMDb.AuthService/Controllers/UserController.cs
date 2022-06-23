@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TMDb.AuthService.Data;
+using TMDb.AuthService.Models;
 
 namespace TMDb.AuthService.Controllers
 {
-    [Route("getUserData")]
+    [Route("[controller]")]
     [ApiController]
 
     public class UserController : ControllerBase
@@ -18,7 +19,7 @@ namespace TMDb.AuthService.Controllers
         }
 
         [HttpGet("getSingleUser/{id}")]
-        public IActionResult GetFeaturedMovies(string id)
+        public IActionResult GetSingleUser(string id)
         {
             try
             {
@@ -27,7 +28,24 @@ namespace TMDb.AuthService.Controllers
             }
             catch (Exception ex)
             {
-                var error = $"No movies found sorry, Exceptions: {ex}";
+                var error = $"can't get the user sorry, Exceptions: {ex}";
+                return BadRequest(error);
+            }
+        }
+
+        [HttpPost("UploadPic")]
+        public IActionResult UploadProfilePicture(TMDbUser User)
+        {
+            try
+            {
+                var dbUser = dbContext.Users.SingleOrDefault(u => u.Id == User.Id);
+                dbUser.ProfileImage = User.ProfileImage;
+                dbContext.SaveChanges();
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                var error = $"Can't upload picture sorry, Exceptions: {ex}";
                 return BadRequest(error);
             }
         }

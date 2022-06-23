@@ -23,6 +23,7 @@ builder.Services
     .AddBootstrap5Providers()
     .AddFontAwesomeIcons();
 
+
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
