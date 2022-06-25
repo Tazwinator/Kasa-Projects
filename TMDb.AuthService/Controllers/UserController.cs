@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using TMDb.AuthService.Data;
-using TMDb.AuthService.Models;
+using TMDb.AuthService.Entities;
 
 namespace TMDb.AuthService.Controllers
 {
@@ -18,12 +20,27 @@ namespace TMDb.AuthService.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpGet("getSingleUser/{id}")]
-        public IActionResult GetSingleUser(string id)
+        [HttpGet("getUser/{id}")]
+        public IActionResult GetUser(string id)
         {
             try
             {
                 var user = dbContext.Users.SingleOrDefault(u => u.Id == id);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                var error = $"can't get the user sorry, Exceptions: {ex}";
+                return BadRequest(error);
+            }
+        }
+
+        [HttpGet("getFullUser/{id}")]
+        public IActionResult GetFullUser(string id)
+        {
+            try
+            {
+                var user = dbContext.Users.Include(u => u.FavouriteMovies).SingleOrDefault(u => u.Id == id);
                 return Ok(user);
             }
             catch (Exception ex)
@@ -40,6 +57,40 @@ namespace TMDb.AuthService.Controllers
             {
                 var dbUser = dbContext.Users.SingleOrDefault(u => u.Id == User.Id);
                 dbUser.ProfileImage = User.ProfileImage;
+                dbContext.SaveChanges();
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                var error = $"Can't upload picture sorry, Exceptions: {ex}";
+                return BadRequest(error);
+            }
+        }
+
+        [HttpPost("AddMovieToFavs")]
+        public IActionResult AddMovieToFavs(MovieTitle movieTitle)
+        {
+            try
+            {
+                var dbUser = dbContext.Users.Include(u => u.FavouriteMovies).SingleOrDefault(u => u.Id == movieTitle.TMDbUserId);
+                dbUser.FavouriteMovies.Add(movieTitle);
+                dbContext.SaveChanges();
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                var error = $"Can't upload picture sorry, Exceptions: {ex}";
+                return BadRequest(error);
+            }
+        }
+
+        [HttpPost("RemoveMovieFromFavs")]
+        public IActionResult RemoveMovieFromFavs(MovieTitle movieTitle)
+        {
+            try
+            {
+                var dbUser = dbContext.Users.Include(u => u.FavouriteMovies).SingleOrDefault(u => u.Id == movieTitle.TMDbUserId);
+                dbUser.FavouriteMovies.Remove(movieTitle);
                 dbContext.SaveChanges();
                 return Ok("Success");
             }

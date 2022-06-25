@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TMDb.AuthService.Data;
 
@@ -11,9 +12,10 @@ using TMDb.AuthService.Data;
 namespace TMDb.AuthService.Migrations
 {
     [DbContext(typeof(AspNetIdentityDbContext))]
-    partial class AspNetIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220624111246_AddUserIdToAppEntity")]
+    partial class AddUserIdToAppEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,7 +157,7 @@ namespace TMDb.AuthService.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TMDb.AuthService.Entities.MovieTitle", b =>
+            modelBuilder.Entity("TMDb.AuthService.Models.MovieTitle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +168,10 @@ namespace TMDb.AuthService.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TMDbUserId")
+                    b.Property<int>("TMDbUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TMDbUserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
@@ -174,12 +179,12 @@ namespace TMDb.AuthService.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TMDbUserId");
+                    b.HasIndex("TMDbUserId1");
 
                     b.ToTable("MovieTitle");
                 });
 
-            modelBuilder.Entity("TMDb.AuthService.Entities.TMDbUser", b =>
+            modelBuilder.Entity("TMDb.AuthService.Models.TMDbUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -273,7 +278,7 @@ namespace TMDb.AuthService.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TMDb.AuthService.Entities.TMDbUser", null)
+                    b.HasOne("TMDb.AuthService.Models.TMDbUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -282,7 +287,7 @@ namespace TMDb.AuthService.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TMDb.AuthService.Entities.TMDbUser", null)
+                    b.HasOne("TMDb.AuthService.Models.TMDbUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -297,7 +302,7 @@ namespace TMDb.AuthService.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TMDb.AuthService.Entities.TMDbUser", null)
+                    b.HasOne("TMDb.AuthService.Models.TMDbUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -306,21 +311,21 @@ namespace TMDb.AuthService.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TMDb.AuthService.Entities.TMDbUser", null)
+                    b.HasOne("TMDb.AuthService.Models.TMDbUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TMDb.AuthService.Entities.MovieTitle", b =>
+            modelBuilder.Entity("TMDb.AuthService.Models.MovieTitle", b =>
                 {
-                    b.HasOne("TMDb.AuthService.Entities.TMDbUser", null)
+                    b.HasOne("TMDb.AuthService.Models.TMDbUser", null)
                         .WithMany("FavouriteMovies")
-                        .HasForeignKey("TMDbUserId");
+                        .HasForeignKey("TMDbUserId1");
                 });
 
-            modelBuilder.Entity("TMDb.AuthService.Entities.TMDbUser", b =>
+            modelBuilder.Entity("TMDb.AuthService.Models.TMDbUser", b =>
                 {
                     b.Navigation("FavouriteMovies");
                 });

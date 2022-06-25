@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TMDb.AuthService.Models;
+using TMDb.AuthService.Entities;
 
 namespace TMDb.AuthService.Data;
 

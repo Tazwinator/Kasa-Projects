@@ -2,10 +2,7 @@
 @inject IJSRuntime JSRuntime
 
 
-@*<link href="~/css/ShowMoviePage/styles.css" rel="stylesheet" />*@
-
-
-    @if (receivedMovie) {
+    @if (receivedData) {
         
 
         
@@ -41,8 +38,24 @@
                                     </div>
                                     
 
-                                    <div class="">
-                                        <div class="d-inline small">Language: <span class="text-muted"></span> @JsonMovie.original_language</div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="align-self-center small">Language: <span class="text-muted"></span> @JsonMovie.original_language</div>
+                                            <div>
+                                                    
+                                                @if (isFavourite)
+                                                {
+                                                    <button @onclick="RemoveMovieFromFavs" type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove movie from favourites"><h4 class="mb-0">
+                                                        <Icon Style="color: #d40000;" Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Times"></Icon></h4>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button @onclick="AddMovieToFavs" type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Add movie to favourites"><h4 class="mb-0">
+                                                        <Icon TextColor="TextColor.Success" Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Plus"></Icon></h4>
+                                                    </button>
+                                                }
+
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -207,11 +220,20 @@
             </div>
         </div>
 
+    <SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.End" />
 
+}
+else
+{
+    <LoadingScreen />
+}
 
-    }
 
 @code {
+
+    SnackbarStack snackbarStack;
+
+    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
 
     [Parameter]
     public string Id { get; set; }
@@ -229,7 +251,16 @@
 
     private JsonMovie JsonMovie { get; set; }
 
-    private bool receivedMovie = false;
+    private TMDbUser User { get; set; }
+
+    private bool receivedData = false;
+
+    private bool isFavourite = false;
+
+    [CascadingParameter(Name = "IdToken")]
+    public string IdToken { get; set; }
+
+    private JwtSecurityToken _idToken { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -241,7 +272,20 @@
             Movie.Budget = string.Format("{0:n}", Convert.ToInt32(Movie.Budget));
             Movie.Revenue = string.Format("{0:n}", Convert.ToInt64(Movie.Revenue));
             Movie.Runtime = string.Format("{0:n0}", Convert.ToDecimal(Movie.Runtime));
-            receivedMovie = true;
+
+            var user = (await AuthStat).User;
+            if (user.Identity.IsAuthenticated)
+            {
+                var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
+                User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getFullUser/{_idToken.Subject}");
+                if (User.FavouriteMovies.SingleOrDefault(m => m.MovieId == Movie.Id) != null)
+                {
+                    isFavourite = true;
+                }
+            }
+
+            receivedData = true;
+
         }
         catch (Exception ex)
         {
@@ -252,9 +296,34 @@
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-      await JSRuntime.InvokeAsync<string>("sliderFunctions.startStandardSlider", null);
-      //return base.OnAfterRenderAsync(firstRender);
+        await JSRuntime.InvokeAsync<string>("sliderFunctions.startStandardSlider", null);
     }
 
+    async Task AddMovieToFavs()
+    {
+        var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/AddMovieToFavs", new MovieTitle {MovieId = Movie.Id, TMDbUserId = User.Id, Title = Movie.Title});
+        if (res.IsSuccessStatusCode)
+        {
+            await snackbarStack.PushAsync("Added to favourites!", SnackbarColor.Success, options => { options.IntervalBeforeClose = 3000; });
+        }
+        else
+        {
+            await snackbarStack.PushAsync("There has been an error. Contact support or wait a little while and try again.", SnackbarColor.Danger, options => { options.IntervalBeforeClose = 3000; });
+        }
+    }
+
+    async Task RemoveMovieFromFavs() {
+        
+        var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/RemoveMovieFromFavs", new MovieTitle {MovieId = Movie.Id, TMDbUserId = User.Id, Title = Movie.Title});
+        if (res.IsSuccessStatusCode)
+        {
+            await snackbarStack.PushAsync("Removed from favourites!", SnackbarColor.Success, options => { options.IntervalBeforeClose = 3000; });
+        }
+        else
+        {
+            await snackbarStack.PushAsync("There has been an error. Contact support or wait a little while and try again.", SnackbarColor.Danger, options => { options.IntervalBeforeClose = 3000; });
+        }
+
+    }
 
 }

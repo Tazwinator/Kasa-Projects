@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Identity;
 
-namespace TMDb.AuthService.Models;
+namespace TMDb.AuthService.Entities;
 
 public class TMDbUser : IdentityUser
 {
@@ -23,4 +23,5 @@ public class MovieTitle
     public int Id { get; set; }
     public string Title { get; set; }
     public int MovieId { get; set; }
+    public string TMDbUserId { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using IdentityModel;
 using TMDb.AuthService.Data;
-using TMDb.AuthService.Models;
+using TMDb.AuthService.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;

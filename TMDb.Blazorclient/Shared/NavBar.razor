@@ -43,13 +43,13 @@
                         {
                             @if (User.ProfileImage != null) 
                             {
-                                <button type="button" @onclick="GoToProfilePage" class="btn btn-danger userMenuVanish" >
+                                <button type="button" @onclick="GoToProfilePage" class="btn btn-info userMenuVanish" >
                                     <img src="@("data:image/png;base64," + Convert.ToBase64String(User.ProfileImage))" class="tmdb-rounded-circle" />
                                 </button>
                             }
                             else
                             {
-                                <button type="button" @onclick="GoToProfilePage" class="btn btn-danger userMenuVanish" >
+                                <button type="button" @onclick="GoToProfilePage" class="btn btn-info userMenuVanish" >
                                     <img src="/OtherImgs/userProfileDefault.jpg" class="rounded-circle" width="10" heigth="10" />
                                 </button>
                             }
@@ -58,12 +58,12 @@
 
                     </Authorized>
                     <NotAuthorized>
-                        <button type="button" class="btn btn-danger userMenuVanish" ><Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Bars"></Icon></button>
+                        <button type="button" class="btn btn-info userMenuVanish" ><Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Bars"></Icon></button>
                     </NotAuthorized>
                 </AuthorizeView>
 
               
-              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split userMenuVanish" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+              <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split userMenuVanish" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
 
               </button>
@@ -116,7 +116,7 @@
         if (user.Identity.IsAuthenticated)
         {
             var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
-            User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getSingleUser/{_idToken.Subject}");
+            User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getUser/{_idToken.Subject}");
             receivedUser = true;
         }
 

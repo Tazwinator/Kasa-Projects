@@ -1,0 +1,16 @@
+﻿.profileDetails {
+    height: 50vh;
+}
+
+.userProfileCard {
+    height: 50vh;
+}
+
+.userFavourites {
+    height: 25vh;
+}
+
+.profilePicture {
+    max-width: 100%;
+    height: 30vh;
+}
