@@ -3,12 +3,12 @@
 
 <div class="card d-inline-flex w-100">
     
-    @if (moviePosterPath == null)
+    @if (Movie.PosterPath == null)
     {
         <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="OtherImgs/posterPlaceholder.jpg" alt="There should be a movie thumbnail here."/></a>
     }
     else {
-        <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{moviePosterPath}")" alt="There should be a movie thumbnail here."/></a>
+        <a href="/movie/@Movie.Id" ><img class="card-img-top movieItemImg" src="@($"https://www.themoviedb.org/t/p/w300{Movie.PosterPath}")" alt="There should be a movie thumbnail here."/></a>
     }
             
 
@@ -40,21 +40,5 @@
 
     [Inject]
     IConfiguration Configuration { get; set; }
-
-    private string moviePosterPath { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            JsonMovie result = await Http.GetFromJsonAsync<JsonMovie>($"https://api.themoviedb.org/3/movie/{Movie.ImdbId}?api_key={Configuration["externalTmdbApiKey"]}");
-            moviePosterPath = result.poster_path;
-        }
-        catch
-        {
-            moviePosterPath = null;
-        }
-        
-    }
 
 }

@@ -18,8 +18,17 @@ if (seed)
 }
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(defaultConnString));
+
+builder.Services.AddMemoryCache();
+
+builder.Services.AddHttpClient();
+
+
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddSwaggerGen();
@@ -34,11 +43,8 @@ else
             Version = "v1"
         });
     });
-} 
+}
 
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(defaultConnString));
 
 var app = builder.Build();
 
