@@ -1,5 +1,5 @@
 ﻿
 body, navTheme {
-    background-color: var(--b-theme-primary) !important;
-    color: var(--b-theme-secondary) !important;
+    background-color: var(--b-theme-Light) !important;
+    color: var(--b-theme-Dark) !important;
 }

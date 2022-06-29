@@ -43,13 +43,13 @@
                         {
                             @if (User.ProfileImage != null) 
                             {
-                                <button type="button" @onclick="GoToProfilePage" class="btn btn-info userMenuVanish" >
+                                <button type="button" @onclick="GoToProfilePage" class="btn btn-primary userMenuVanish" >
                                     <img src="@("data:image/png;base64," + Convert.ToBase64String(User.ProfileImage))" class="tmdb-rounded-circle" />
                                 </button>
                             }
                             else
                             {
-                                <button type="button" @onclick="GoToProfilePage" class="btn btn-info userMenuVanish" >
+                                <button type="button" @onclick="GoToProfilePage" class="btn btn-primary userMenuVanish" >
                                     <img src="/OtherImgs/userProfileDefault.jpg" class="rounded-circle" width="10" heigth="10" />
                                 </button>
                             }
@@ -58,19 +58,19 @@
 
                     </Authorized>
                     <NotAuthorized>
-                        <button type="button" class="btn btn-info userMenuVanish" ><Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Bars"></Icon></button>
+                        <button type="button" class="btn btn-primary userMenuVanish" ><Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.Bars"></Icon></button>
                     </NotAuthorized>
                 </AuthorizeView>
 
               
-              <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split userMenuVanish" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+              <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split userMenuVanish" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
 
               </button>
 
               <div class="dropdown-menu">
 
-                  <NavBarUserPlusSettings />
+                  <NavBarUserBtnsAndSettings />
 
               </div>
 
@@ -80,7 +80,7 @@
             @* "d-lg-none" means it will not display until display size > lg (990px)*@
             <div class="d-lg-none card">
 
-                <NavBarUserPlusSettings />
+                <NavBarUserBtnsAndSettings />
                 
             </div>
 

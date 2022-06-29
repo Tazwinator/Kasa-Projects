@@ -154,13 +154,13 @@
                         {
 
 
-                            <ListView TItem="MovieTitle"
+                            @*<ListView TItem="MovieTitle"
                                         Data="User.FavouriteMovies"
                                         TextField="(item) => item.Title"
                                         MaxHeight="300px">
                                         @*Mode="ListGroupMode.Selectable"
-                                        @bind-SelectedItem="@selectedMovieTitle"*@
-                            </ListView>
+                                        @bind-SelectedItem="@selectedMovieTitle"
+                            </ListView>*@
 
                             @*<Field Horizontal>
                                 <FieldBody ColumnSize="ColumnSize.Is12">
@@ -171,24 +171,23 @@
 
                             // The background color on select doesn't work because there's about 10 dfferent background styles being applied at once for some reason.
 
-                            @*<DataGrid TItem="MovieTitle"
+                            <DataGrid TItem="MovieTitle"
                                       @bind-Data="User.FavouriteMovies"
                                       @bind-SelectedRow="selectedMovieTitle"
                                       Responsive="true"
                                       ShowPager="true"
                                       Sortable="true"
-                                      SelectionMode="DataGridSelectionMode.Multiple"
-                                      SelectedRowStyling="OnSelectedRowStyling">
+                                      SelectionMode="DataGridSelectionMode.Single">
                                 <DataGridColumns>
                                     <DataGridCommandColumn TItem="MovieTitle" />
                                     <DataGridColumn Field="@nameof(MovieTitle.Id)" Caption="#" />
                                     <DataGridColumn Field="@nameof(MovieTitle.Title)" Caption="Title" />
                                 </DataGridColumns>
                                 <ButtonRowTemplate>
-                                    <Button Color="Color.Danger" Disabled="(selectedMovieTitle is null)" Clicked="context.DeleteCommand.Clicked">Delete</Button>
+                                    <Button Color="Color.Danger" Disabled="(selectedMovieTitle is null)" @onclick="() => UpdateFavourites(context)">Delete</Button>
                                     <Button Color="Color.Link" Clicked="context.ClearFilterCommand.Clicked">Clear Filter</Button>
                                 </ButtonRowTemplate>
-                            </DataGrid>*@
+                            </DataGrid>
 
 
 
@@ -226,16 +225,16 @@
 
     private MovieTitle selectedMovieTitle { get; set; }
 
-    private DataGridEditMode editMode = DataGridEditMode.Form;
-
     private bool receivedUser { get; set; }
 
     [CascadingParameter(Name = "IdToken")]
     public string IdToken { get; set; }
 
+    private JwtSecurityToken _idToken { get; set; }
+
     protected override async Task OnParametersSetAsync()
     {
-        var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
+        _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
         User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getFullUser/{_idToken.Subject}");
         receivedUser = true;
     }
@@ -253,6 +252,21 @@
         if (res.IsSuccessStatusCode)
         {
             await snackbarStack.PushAsync("Successfully uploaded your profile picture!", SnackbarColor.Success, options => { options.IntervalBeforeClose = 3000; });
+        }
+        else
+        {
+            await snackbarStack.PushAsync("There has been an error. Contact support or wait a little while and try again.", SnackbarColor.Danger, options => { options.IntervalBeforeClose = 3000; });
+        }
+    }
+
+    async Task UpdateFavourites(ButtonRowContext<MovieTitle> context)
+    {
+        var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/RemoveMovieFromFavs", selectedMovieTitle);
+        if (res.IsSuccessStatusCode)
+        {
+            await snackbarStack.PushAsync("Successfully updated your favourites!", SnackbarColor.Success, options => { options.IntervalBeforeClose = 3000; });
+            _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
+            User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getFullUser/{_idToken.Subject}");
         }
         else
         {
@@ -302,11 +316,6 @@
 
     private bool RowSelectableHandler( RowSelectableEventArgs<MovieTitle> rowSelectableEventArgs )
         => rowSelectableEventArgs.SelectReason is not DataGridSelectReason.RowClick;
-
-    private void OnSelectedRowStyling(MovieTitle movieTitle, DataGridRowStyling styling )
-    {
-        styling.Background = Background.Dark;
-    }
 
 
 }

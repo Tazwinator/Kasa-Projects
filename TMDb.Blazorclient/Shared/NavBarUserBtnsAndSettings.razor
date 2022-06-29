@@ -16,12 +16,12 @@
                 </NavLink>
             </div>
 
-            <div class="nav-item">
+            @*<div class="nav-item">
                 <NavLink class="nav-link text-reset" href="#" Match="NavLinkMatch.All">
                     <Icon  Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.List"></Icon>
                     <p class="d-inline" >Your favourites</p>
                 </NavLink>
-            </div>
+            </div>*@
 
             <div class="nav-item">
                 <NavLink class="nav-link text-reset" href="@("logout" + redirectUri)" Match="NavLinkMatch.All">
@@ -84,13 +84,13 @@
 
         if ( isChecked )
         {
-            Theme.ColorOptions.Primary = "#000000";
-            Theme.ColorOptions.Secondary = "#FFFFFF";
+            Theme.ColorOptions.Light = "#000000";
+            Theme.ColorOptions.Dark = "#FFFFFF";
         }
         else if ( !isChecked )
         {
-            Theme.ColorOptions.Primary = "#FFFFFF";
-            Theme.ColorOptions.Secondary = "#000000";
+            Theme.ColorOptions.Dark = "#FFFFFF";
+            Theme.ColorOptions.Light = "#000000";
         }
 
         Theme.ThemeHasChanged();

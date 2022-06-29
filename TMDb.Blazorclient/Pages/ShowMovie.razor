@@ -273,18 +273,9 @@ else
             Movie.Revenue = string.Format("{0:n}", Convert.ToInt64(Movie.Revenue));
             Movie.Runtime = string.Format("{0:n0}", Convert.ToDecimal(Movie.Runtime));
 
-            var user = (await AuthStat).User;
-            if (user.Identity.IsAuthenticated)
-            {
-                var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
-                User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getFullUser/{_idToken.Subject}");
-                if (User.FavouriteMovies.SingleOrDefault(m => m.MovieId == Movie.Id) != null)
-                {
-                    isFavourite = true;
-                }
-            }
-
             receivedData = true;
+
+            await GetUserAsync();
 
         }
         catch (Exception ex)
@@ -294,12 +285,26 @@ else
 
     }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    private async Task GetUserAsync()
     {
-        await JSRuntime.InvokeAsync<string>("sliderFunctions.startStandardSlider", null);
+        var user = (await AuthStat).User;
+            if (user.Identity.IsAuthenticated)
+            {
+                var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(IdToken);
+                User = await Http.GetFromJsonAsync<TMDbUser>($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/getFullUser/{_idToken.Subject}");
+                if (User.FavouriteMovies.SingleOrDefault(m => m.MovieId == Movie.Id) != null)
+                {
+                    isFavourite = true;
+                }
+                else 
+                {
+                    isFavourite = false;
+                }
+
+            }
     }
 
-    async Task AddMovieToFavs()
+    private async Task AddMovieToFavs()
     {
         var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/AddMovieToFavs", new MovieTitle {MovieId = Movie.Id, TMDbUserId = User.Id, Title = Movie.Title});
         if (res.IsSuccessStatusCode)
@@ -310,11 +315,13 @@ else
         {
             await snackbarStack.PushAsync("There has been an error. Contact support or wait a little while and try again.", SnackbarColor.Danger, options => { options.IntervalBeforeClose = 3000; });
         }
+
+        await GetUserAsync();
     }
 
-    async Task RemoveMovieFromFavs() {
+    private async Task RemoveMovieFromFavs() {
         
-        var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/RemoveMovieFromFavs", new MovieTitle {MovieId = Movie.Id, TMDbUserId = User.Id, Title = Movie.Title});
+        var res = await Http.PostAsJsonAsync($"{Configuration["BlazorClientOidcSettings:AuthorityUrl"]}/User/RemoveMovieFromFavs", User.FavouriteMovies.Where(mt => mt.MovieId == Movie.Id).Single());
         if (res.IsSuccessStatusCode)
         {
             await snackbarStack.PushAsync("Removed from favourites!", SnackbarColor.Success, options => { options.IntervalBeforeClose = 3000; });
@@ -324,6 +331,7 @@ else
             await snackbarStack.PushAsync("There has been an error. Contact support or wait a little while and try again.", SnackbarColor.Danger, options => { options.IntervalBeforeClose = 3000; });
         }
 
+        await GetUserAsync();
     }
 
 }

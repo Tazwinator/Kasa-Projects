@@ -90,7 +90,7 @@ namespace TMDb.AuthService.Controllers
             try
             {
                 var dbUser = dbContext.Users.Include(u => u.FavouriteMovies).SingleOrDefault(u => u.Id == movieTitle.TMDbUserId);
-                dbUser.FavouriteMovies.Remove(movieTitle);
+                dbContext.Remove(dbUser.FavouriteMovies.Single(mt => mt.Id == movieTitle.Id));
                 dbContext.SaveChanges();
                 return Ok("Success");
             }

@@ -33,7 +33,7 @@ namespace TMDb.AuthService.Pages.Account.Register
         private readonly ILogger<IndexModel> _logger;
         //private readonly IEmailSender _emailSender;
 
-        public List<string> Countries = new();
+        public List<string> Countries;
 
         public IndexModel(
 
@@ -58,6 +58,9 @@ namespace TMDb.AuthService.Pages.Account.Register
             _events = events;
             _logger = logger;
             //_emailSender = emailSender;
+
+            Countries = GetCountriesList();
+
         }
 
         [BindProperty]
@@ -110,20 +113,32 @@ namespace TMDb.AuthService.Pages.Account.Register
             public string Country { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl)
+        private List<string> GetCountriesList()
         {
+
+            var countries = new List<string>();
+
             using (var reader = new StreamReader("Resources/countries.json"))
             using (var jsonReader = new JsonTextReader(reader))
             {
-                JArray rawCountries = (JArray)await JToken.ReadFromAsync(jsonReader);
+                JArray rawCountries = (JArray) JToken.ReadFrom(jsonReader);
                 var semiRawCountries = rawCountries.ToObject<List<object>>();
                 foreach (object country in semiRawCountries)
                 {
                     var countryName = ((dynamic)country).countryName.ToString();
-                    Countries.Add(countryName);
-                    Countries.Sort();
+                    countries.Add(countryName);
+                    countries.Sort();
                 }
             }
+
+            return countries;
+
+
+        }
+
+
+        public async Task OnGetAsync(string returnUrl)
+        {
             
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
