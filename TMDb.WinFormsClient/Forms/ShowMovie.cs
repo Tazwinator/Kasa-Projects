@@ -6,9 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace TMDb.WinFormsClient.Pages
+namespace TMDb.WinFormsClient.Forms
 {
     public partial class ShowMovie : UserControl
     {

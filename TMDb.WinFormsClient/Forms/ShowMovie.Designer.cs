@@ -1,6 +1,6 @@
-﻿namespace TMDb.WinFormsClient.Pages
+﻿namespace TMDb.WinFormsClient.Forms
 {
-    partial class MainPage
+    partial class ShowMovie
     {
         /// <summary> 
         /// Required designer variable.
@@ -58,13 +58,13 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(512, 375);
+            this.label3.Location = new System.Drawing.Point(772, 514);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "main g";
             // 
-            // MainPage
+            // ShowMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -72,7 +72,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "MainPage";
-            this.Size = new System.Drawing.Size(640, 461);
+            this.Size = new System.Drawing.Size(900, 600);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
+using TMDb.WinFormsClient.Forms;
 
 namespace TMDb.WinFormsClient
 {
@@ -32,7 +33,7 @@ namespace TMDb.WinFormsClient
             
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new Index());
+            Application.Run(new IndexForm());
 
         }
     }

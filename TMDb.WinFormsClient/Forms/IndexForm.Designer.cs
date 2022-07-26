@@ -1,8 +1,8 @@
-﻿using TMDb.WinFormsClient.Pages;
+﻿
 
-namespace TMDb.WinFormsClient
+namespace TMDb.WinFormsClient.Forms
 {
-    partial class Index
+    partial class IndexForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,7 @@ namespace TMDb.WinFormsClient
             this._featuredPageBtn = new System.Windows.Forms.Button();
             this._mainContentSplitContainer = new System.Windows.Forms.SplitContainer();
             this._movieSearchBox = new System.Windows.Forms.TextBox();
-            this._mainPage = new TMDb.WinFormsClient.Pages.MainPage();
+            this._mainPage = new TMDb.WinFormsClient.Forms.ShowMovie();
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).BeginInit();
             this._sideBarSplitContainer.Panel1.SuspendLayout();
             this._sideBarSplitContainer.Panel2.SuspendLayout();
@@ -61,8 +61,8 @@ namespace TMDb.WinFormsClient
             // _sideBarSplitContainer.Panel2
             // 
             this._sideBarSplitContainer.Panel2.Controls.Add(this._mainContentSplitContainer);
-            this._sideBarSplitContainer.Size = new System.Drawing.Size(804, 461);
-            this._sideBarSplitContainer.SplitterDistance = 160;
+            this._sideBarSplitContainer.Size = new System.Drawing.Size(884, 561);
+            this._sideBarSplitContainer.SplitterDistance = 175;
             this._sideBarSplitContainer.TabIndex = 1;
             // 
             // _otherPageTestBtn
@@ -89,7 +89,7 @@ namespace TMDb.WinFormsClient
             // 
             this._mainContentSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this._mainContentSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this._mainContentSplitContainer.Name = "_topBarSplitContainer";
+            this._mainContentSplitContainer.Name = "_mainContentSplitContainer";
             this._mainContentSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // _mainContentSplitContainer.Panel1
@@ -100,8 +100,8 @@ namespace TMDb.WinFormsClient
             // _mainContentSplitContainer.Panel2
             // 
             this._mainContentSplitContainer.Panel2.Controls.Add(this._mainPage);
-            this._mainContentSplitContainer.Size = new System.Drawing.Size(640, 461);
-            this._mainContentSplitContainer.SplitterDistance = 60;
+            this._mainContentSplitContainer.Size = new System.Drawing.Size(705, 561);
+            this._mainContentSplitContainer.SplitterDistance = 73;
             this._mainContentSplitContainer.TabIndex = 0;
             // 
             // _movieSearchBox
@@ -110,7 +110,7 @@ namespace TMDb.WinFormsClient
             | System.Windows.Forms.AnchorStyles.Right)));
             this._movieSearchBox.Location = new System.Drawing.Point(3, 12);
             this._movieSearchBox.Name = "_movieSearchBox";
-            this._movieSearchBox.Size = new System.Drawing.Size(320, 23);
+            this._movieSearchBox.Size = new System.Drawing.Size(385, 23);
             this._movieSearchBox.TabIndex = 0;
             // 
             // _mainPage
@@ -118,17 +118,18 @@ namespace TMDb.WinFormsClient
             this._mainPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this._mainPage.Location = new System.Drawing.Point(0, 0);
             this._mainPage.Name = "_mainPage";
-            this._mainPage.Size = new System.Drawing.Size(640, 397);
+            this._mainPage.Size = new System.Drawing.Size(705, 484);
             this._mainPage.TabIndex = 0;
             // 
-            // Index
+            // IndexForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 461);
+            this.ClientSize = new System.Drawing.Size(884, 561);
             this.Controls.Add(this._sideBarSplitContainer);
-            this.Name = "Index";
+            this.Name = "IndexForm";
             this.Text = "TMDb";
+            this.Load += new System.EventHandler(this.Index_Load);
             this._sideBarSplitContainer.Panel1.ResumeLayout(false);
             this._sideBarSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).EndInit();
@@ -149,6 +150,6 @@ namespace TMDb.WinFormsClient
         private TextBox _movieSearchBox;
         private Button _otherPageTestBtn;
         private Button _featuredPageBtn;
-        private MainPage _mainPage;
+        private ShowMovie _mainPage;
     }
 }
