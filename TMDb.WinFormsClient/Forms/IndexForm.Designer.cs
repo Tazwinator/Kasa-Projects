@@ -35,7 +35,7 @@ namespace TMDb.WinFormsClient.Forms
             this._featuredPageBtn = new System.Windows.Forms.Button();
             this._mainContentSplitContainer = new System.Windows.Forms.SplitContainer();
             this._movieSearchBox = new System.Windows.Forms.TextBox();
-            this._mainPage = new TMDb.WinFormsClient.Forms.ShowMovie();
+            this._mainPage = new TMDb.WinFormsClient.Forms.MainPage();
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).BeginInit();
             this._sideBarSplitContainer.Panel1.SuspendLayout();
             this._sideBarSplitContainer.Panel2.SuspendLayout();
@@ -129,7 +129,6 @@ namespace TMDb.WinFormsClient.Forms
             this.Controls.Add(this._sideBarSplitContainer);
             this.Name = "IndexForm";
             this.Text = "TMDb";
-            this.Load += new System.EventHandler(this.Index_Load);
             this._sideBarSplitContainer.Panel1.ResumeLayout(false);
             this._sideBarSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).EndInit();
@@ -150,6 +149,6 @@ namespace TMDb.WinFormsClient.Forms
         private TextBox _movieSearchBox;
         private Button _otherPageTestBtn;
         private Button _featuredPageBtn;
-        private ShowMovie _mainPage;
+        private MainPage _mainPage;
     }
 }

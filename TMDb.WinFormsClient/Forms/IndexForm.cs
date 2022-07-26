@@ -25,15 +25,16 @@ namespace TMDb.WinFormsClient.Forms
             _indexPresenter = new IndexPresenter(this);
         }
 
-        private void Index_Load(object sender, EventArgs e)
-        {
-            _indexPresenter.GetMoviesAsync();
-        }
-
         #region Navigation
 
 
-        private MainPage _showMovie;
+        private ShowMovie _showMovie;
+
+        SplitContainer IIndexView.MainContentContainer 
+        { 
+            get => _mainContentSplitContainer; 
+            set => _mainContentSplitContainer = value; 
+        }
 
         private void FeaturedPageBtn_Click(object sender, EventArgs e)
         {
@@ -45,7 +46,7 @@ namespace TMDb.WinFormsClient.Forms
         {
             if (_showMovie == null)
             {
-                _showMovie = new MainPage();
+                _showMovie = new ShowMovie();
             }
             
             this._mainContentSplitContainer.Panel2.Controls.Add(_showMovie);
@@ -53,8 +54,7 @@ namespace TMDb.WinFormsClient.Forms
             _showMovie.BringToFront();
         }
 
-        #endregion
 
-        
+        #endregion
     }
 }

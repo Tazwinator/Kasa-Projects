@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TMDb.WinFormsClient.Views
+namespace TMDb.WinFormsClient.Presenters
 {
-    internal interface IIndexView
+    internal class ShowMoviePresenter
     {
 
-        internal SplitContainer MainContentContainer { get; set; }
+
 
     }
 }

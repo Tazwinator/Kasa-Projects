@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using TMDb.WinFormsClient.Forms;
+using TMDb.WinFormsClient.Services;
 
 namespace TMDb.WinFormsClient
 {
@@ -20,17 +21,16 @@ namespace TMDb.WinFormsClient
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             
 
-            if (Debugger.IsAttached)
-            {
-               builder.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
-                Configuration = builder.Build();
-            }
-            else
-            {
+            //if (Debugger.IsAttached)
+            //{
+            //   builder.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+            //    Configuration = builder.Build();
+            //}
+            //else
+            //{
                builder.AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
                 Configuration = builder.Build();
-            }
-            
+            //}
 
             ApplicationConfiguration.Initialize();
             Application.Run(new IndexForm());
