@@ -40,7 +40,5 @@ namespace TMDb.WinFormsClient.Forms
             get => _upAndComignDataGrid;
             set => _upAndComignDataGrid = value; 
         }
-
-        
     }
 }

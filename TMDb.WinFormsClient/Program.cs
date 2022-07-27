@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using TMDb.WinFormsClient.Forms;
 using TMDb.WinFormsClient.Services;
+using TMDb.WinFormsClient.Views;
 
 namespace TMDb.WinFormsClient
 {
@@ -32,8 +33,13 @@ namespace TMDb.WinFormsClient
                 Configuration = builder.Build();
             //}
 
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new IndexForm());
+
+            IMainPageView mainPage = new MainPage();
+            IShowMovieView showMovie = new ShowMovie();
+
+            Application.Run(new IndexForm(mainPage, showMovie));
 
         }
     }

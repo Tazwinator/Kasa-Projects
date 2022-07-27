@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TMDb.WinFormsClient.Forms;
 using TMDb.WinFormsClient.Models;
 
 namespace TMDb.WinFormsClient.Views
 {
-    internal interface IMainPageView
+    public interface IMainPageView
     {
-        internal DataGridView HighestRatedMovies { get; set; }
-        internal DataGridView LatestReleasesMovies { get; set; }
-        internal DataGridView UpandComingMovies { get; set; }
+        public DataGridView HighestRatedMovies { get; set; }
+        public DataGridView LatestReleasesMovies { get; set; }
+        public DataGridView UpandComingMovies { get; set; }
 
     }
 }

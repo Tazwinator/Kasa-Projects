@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMDb.WinFormsClient.Forms;
 using TMDb.WinFormsClient.Models;
 using TMDb.WinFormsClient.Views;
 
@@ -18,7 +19,19 @@ namespace TMDb.WinFormsClient.Presenters
             _indexView = indexView;
         }
 
+        internal void Navigation(Button sender)
+        {
+            switch (sender.Name)
+            {
+                case "_mainPageBtn":
+                    // Already on the page
+                    _indexView.ShowOnlyMainPage();
+                    break;
+                case "_showMovieBtn":
+                    _indexView.ShowOnlyShowMovie();
+                    break;
+            }
 
-        
+        }
     }
 }

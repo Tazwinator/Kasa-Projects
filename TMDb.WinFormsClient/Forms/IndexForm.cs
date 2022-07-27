@@ -18,40 +18,49 @@ namespace TMDb.WinFormsClient.Forms
 
         private IndexPresenter _indexPresenter;
 
-        public IndexForm()
+        public IMainPageView MainPageView { get; set; }
+        public IShowMovieView ShowMovieView { get; set; }
+
+        public ShowMovie ShowMovieControl { get; private set; }
+
+
+        public IndexForm(IMainPageView mainPage, IShowMovieView showMovie)
         {
             InitializeComponent();
 
+            this.MainPageView = mainPage;
+            this.ShowMovieView = showMovie;
+
+            
+
             _indexPresenter = new IndexPresenter(this);
+
         }
 
         #region Navigation
 
+        private void NavBtn_Click(object sender, EventArgs e)
+        {
+            _indexPresenter.Navigation((Button)sender);
 
-        private ShowMovie _showMovie;
-
-        SplitContainer IIndexView.MainContentContainer 
-        { 
-            get => _mainContentSplitContainer; 
-            set => _mainContentSplitContainer = value; 
         }
 
-        private void FeaturedPageBtn_Click(object sender, EventArgs e)
+        public void ShowOnlyMainPage()
         {
-            // MainPage is always initialized so just needs bringing to the front.
-            this._mainPage.BringToFront();
+            _mainContentSplitContainer.Panel2.Controls.Remove(ShowMovieControl);
+            _mainContentSplitContainer.Panel2.Controls.Add(_mainPage);
         }
 
-        private void OtherPageTestBtn_Click(object sender, EventArgs e)
+        public void ShowOnlyShowMovie()
         {
-            if (_showMovie == null)
+            if (ShowMovieControl == null)
             {
-                _showMovie = new ShowMovie();
+                ShowMovieControl = ShowMovieView.GetView();
+                ShowMovieControl.Dock = DockStyle.Fill;
             }
-            
-            this._mainContentSplitContainer.Panel2.Controls.Add(_showMovie);
-            _showMovie.Dock = DockStyle.Fill;
-            _showMovie.BringToFront();
+
+            _mainContentSplitContainer.Panel2.Controls.Remove(_mainPage);
+            _mainContentSplitContainer.Panel2.Controls.Add(ShowMovieControl);
         }
 
 

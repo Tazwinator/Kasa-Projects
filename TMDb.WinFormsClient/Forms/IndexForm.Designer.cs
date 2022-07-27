@@ -2,7 +2,7 @@
 
 namespace TMDb.WinFormsClient.Forms
 {
-    partial class IndexForm
+    public partial class IndexForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,8 +31,8 @@ namespace TMDb.WinFormsClient.Forms
         private void InitializeComponent()
         {
             this._sideBarSplitContainer = new System.Windows.Forms.SplitContainer();
-            this._otherPageTestBtn = new System.Windows.Forms.Button();
-            this._featuredPageBtn = new System.Windows.Forms.Button();
+            this._showMovieBtn = new System.Windows.Forms.Button();
+            this._mainPageBtn = new System.Windows.Forms.Button();
             this._mainContentSplitContainer = new System.Windows.Forms.SplitContainer();
             this._movieSearchBox = new System.Windows.Forms.TextBox();
             this._mainPage = new TMDb.WinFormsClient.Forms.MainPage();
@@ -55,8 +55,8 @@ namespace TMDb.WinFormsClient.Forms
             // _sideBarSplitContainer.Panel1
             // 
             this._sideBarSplitContainer.Panel1.BackColor = System.Drawing.Color.DarkOrchid;
-            this._sideBarSplitContainer.Panel1.Controls.Add(this._otherPageTestBtn);
-            this._sideBarSplitContainer.Panel1.Controls.Add(this._featuredPageBtn);
+            this._sideBarSplitContainer.Panel1.Controls.Add(this._showMovieBtn);
+            this._sideBarSplitContainer.Panel1.Controls.Add(this._mainPageBtn);
             // 
             // _sideBarSplitContainer.Panel2
             // 
@@ -65,25 +65,25 @@ namespace TMDb.WinFormsClient.Forms
             this._sideBarSplitContainer.SplitterDistance = 175;
             this._sideBarSplitContainer.TabIndex = 1;
             // 
-            // _otherPageTestBtn
+            // _showMovieBtn
             // 
-            this._otherPageTestBtn.Location = new System.Drawing.Point(44, 161);
-            this._otherPageTestBtn.Name = "_otherPageTestBtn";
-            this._otherPageTestBtn.Size = new System.Drawing.Size(101, 23);
-            this._otherPageTestBtn.TabIndex = 1;
-            this._otherPageTestBtn.Text = "OtherPageTest";
-            this._otherPageTestBtn.UseVisualStyleBackColor = true;
-            this._otherPageTestBtn.Click += new System.EventHandler(this.OtherPageTestBtn_Click);
+            this._showMovieBtn.Location = new System.Drawing.Point(44, 161);
+            this._showMovieBtn.Name = "_showMovieBtn";
+            this._showMovieBtn.Size = new System.Drawing.Size(101, 23);
+            this._showMovieBtn.TabIndex = 1;
+            this._showMovieBtn.Text = "OtherPageTest";
+            this._showMovieBtn.UseVisualStyleBackColor = true;
+            this._showMovieBtn.Click += new System.EventHandler(this.NavBtn_Click);
             // 
-            // _featuredPageBtn
+            // _mainPageBtn
             // 
-            this._featuredPageBtn.Location = new System.Drawing.Point(44, 111);
-            this._featuredPageBtn.Name = "_featuredPageBtn";
-            this._featuredPageBtn.Size = new System.Drawing.Size(75, 23);
-            this._featuredPageBtn.TabIndex = 0;
-            this._featuredPageBtn.Text = "Featured";
-            this._featuredPageBtn.UseVisualStyleBackColor = true;
-            this._featuredPageBtn.Click += new System.EventHandler(this.FeaturedPageBtn_Click);
+            this._mainPageBtn.Location = new System.Drawing.Point(44, 111);
+            this._mainPageBtn.Name = "_mainPageBtn";
+            this._mainPageBtn.Size = new System.Drawing.Size(75, 23);
+            this._mainPageBtn.TabIndex = 0;
+            this._mainPageBtn.Text = "Featured";
+            this._mainPageBtn.UseVisualStyleBackColor = true;
+            this._mainPageBtn.Click += new System.EventHandler(this.NavBtn_Click);
             // 
             // _mainContentSplitContainer
             // 
@@ -147,8 +147,8 @@ namespace TMDb.WinFormsClient.Forms
         private SplitContainer _sideBarSplitContainer;
         private SplitContainer _mainContentSplitContainer;
         private TextBox _movieSearchBox;
-        private Button _otherPageTestBtn;
-        private Button _featuredPageBtn;
+        private Button _showMovieBtn;
+        private Button _mainPageBtn;
         private MainPage _mainPage;
     }
 }

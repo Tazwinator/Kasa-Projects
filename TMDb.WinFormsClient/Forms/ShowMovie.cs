@@ -16,5 +16,10 @@ namespace TMDb.WinFormsClient.Forms
         {
             InitializeComponent();
         }
+
+        public ShowMovie GetView()
+        {
+            return this;
+        }
     }
 }
