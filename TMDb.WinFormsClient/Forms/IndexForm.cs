@@ -22,16 +22,18 @@ namespace TMDb.WinFormsClient.Forms
         public IShowMovieView ShowMovieView { get; set; }
 
         public ShowMovie ShowMovieControl { get; private set; }
+        public MainPage MainPageControl { get; private set; }
 
-
-        public IndexForm(IMainPageView mainPage, IShowMovieView showMovie)
+        public IndexForm()
         {
             InitializeComponent();
 
-            this.MainPageView = mainPage;
-            this.ShowMovieView = showMovie;
+            this.MainPageView = new MainPage(this);
+            this.ShowMovieView = new ShowMovie(this);
 
-            
+            MainPageControl = MainPageView.GetView();
+            MainPageControl.Dock = DockStyle.Fill;
+            _mainContentSplitContainer.Panel2.Controls.Add(MainPageControl);
 
             _indexPresenter = new IndexPresenter(this);
 
@@ -41,17 +43,17 @@ namespace TMDb.WinFormsClient.Forms
 
         private void NavBtn_Click(object sender, EventArgs e)
         {
-            _indexPresenter.Navigation((Button)sender);
+            _indexPresenter.BtnNavigation((Button)sender);
 
         }
 
         public void ShowOnlyMainPage()
         {
             _mainContentSplitContainer.Panel2.Controls.Remove(ShowMovieControl);
-            _mainContentSplitContainer.Panel2.Controls.Add(_mainPage);
+            _mainContentSplitContainer.Panel2.Controls.Add(MainPageControl);
         }
 
-        public void ShowOnlyShowMovie()
+        public void ShowOnlyShowMovie(string movieId)
         {
             if (ShowMovieControl == null)
             {
@@ -59,8 +61,10 @@ namespace TMDb.WinFormsClient.Forms
                 ShowMovieControl.Dock = DockStyle.Fill;
             }
 
-            _mainContentSplitContainer.Panel2.Controls.Remove(_mainPage);
+            _mainContentSplitContainer.Panel2.Controls.Remove(MainPageControl);
             _mainContentSplitContainer.Panel2.Controls.Add(ShowMovieControl);
+            ShowMovieView.MovieId = movieId;
+            ShowMovieView.LoadData(); 
         }
 
 

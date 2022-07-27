@@ -17,9 +17,13 @@ namespace TMDb.WinFormsClient.Forms
 
         private MainPagePresenter _mainPagePresenter;
 
-        public MainPage()
+        public IIndexView IndexView { get; set; }
+
+        public MainPage(IIndexView indexView)
         {
             InitializeComponent();
+
+            IndexView = indexView;
 
             _mainPagePresenter = new MainPagePresenter(this);
             _mainPagePresenter.GetMoviesAsync();
@@ -39,6 +43,16 @@ namespace TMDb.WinFormsClient.Forms
         { 
             get => _upAndComignDataGrid;
             set => _upAndComignDataGrid = value; 
+        }
+
+        public MainPage GetView()
+        {
+            return this;
+        }
+
+        private void MovieList_CellDoubleClicked(object sender, DataGridViewCellEventArgs e)
+        {
+            _mainPagePresenter.GoToShowMovie((DataGridView)sender, e);
         }
     }
 }

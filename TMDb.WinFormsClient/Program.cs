@@ -35,11 +35,7 @@ namespace TMDb.WinFormsClient
 
 
             ApplicationConfiguration.Initialize();
-
-            IMainPageView mainPage = new MainPage();
-            IShowMovieView showMovie = new ShowMovie();
-
-            Application.Run(new IndexForm(mainPage, showMovie));
+            Application.Run(new IndexForm());
 
         }
     }

@@ -11,5 +11,7 @@ namespace TMDb.WinFormsClient.Services
     {
 
         public static string ApiUrl = "https://tmdbapiservice.azure-api.net/appdata";
+
+        public static object ApiKey = "e2b956cab063805da8cbc849ca00d644";
     }
 }

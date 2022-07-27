@@ -14,7 +14,7 @@ namespace TMDb.WinFormsClient.Views
         public IShowMovieView ShowMovieView { get; set; }
 
         public void ShowOnlyMainPage();
-        public void ShowOnlyShowMovie();
+        public void ShowOnlyShowMovie(string movieId);
 
     }
 }

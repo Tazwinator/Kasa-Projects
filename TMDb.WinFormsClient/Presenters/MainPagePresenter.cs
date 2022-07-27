@@ -38,14 +38,21 @@ namespace TMDb.WinFormsClient.Presenters
 
         }
 
-        //private EventHandler GoToMovie()
-        //{
-            
-        //}
+        public void GoToShowMovie(DataGridView dataGrid, DataGridViewCellEventArgs e)
+        {
+            var idColumnIndex = dataGrid.CurrentCell.ColumnIndex - 1;
+            var movieId = dataGrid.Rows[e.RowIndex].Cells[idColumnIndex].Value;
+
+            _mainPage.IndexView.ShowOnlyShowMovie(movieId.ToString());
+
+        }
+
 
         #region Populating and Customizing DataGridViews
         private void PopulateDataGridViews()
         {
+            _mainPage.HighestRatedMovies.Columns.Add("Id", "Id");
+            _mainPage.HighestRatedMovies.Columns["Id"].Visible = false;
             _mainPage.HighestRatedMovies.Columns.Add("Name", "Name");
             _mainPage.HighestRatedMovies.RowHeadersVisible = false;
             _mainPage.HighestRatedMovies.ColumnHeadersVisible = false;
@@ -53,12 +60,13 @@ namespace TMDb.WinFormsClient.Presenters
             _mainPage.HighestRatedMovies.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             _mainPage.HighestRatedMovies.Columns["Name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             _mainPage.HighestRatedMovies.MultiSelect = false;
-            //_mainPage.HighestRatedMovies.SelectionChanged += GoToMovie();
             _highestRated.ForEach(m =>
             {
-                _mainPage.HighestRatedMovies.Rows.Add(m.Title);
+                _mainPage.HighestRatedMovies.Rows.Add(m.Id, m.Title);
             });
 
+            _mainPage.LatestReleasesMovies.Columns.Add("Id", "Id");
+            _mainPage.LatestReleasesMovies.Columns["Id"].Visible = false;
             _mainPage.LatestReleasesMovies.Columns.Add("Name", "Name");
             _mainPage.LatestReleasesMovies.RowHeadersVisible = false;
             _mainPage.LatestReleasesMovies.ColumnHeadersVisible = false;
@@ -68,9 +76,11 @@ namespace TMDb.WinFormsClient.Presenters
             _mainPage.LatestReleasesMovies.MultiSelect = false;
             _latestReleases.ForEach(m =>
             {
-                _mainPage.LatestReleasesMovies.Rows.Add(m.Title);
+                _mainPage.LatestReleasesMovies.Rows.Add(m.Id, m.Title);
             });
 
+            _mainPage.UpandComingMovies.Columns.Add("Id", "Id");
+            _mainPage.UpandComingMovies.Columns["Id"].Visible = false;
             _mainPage.UpandComingMovies.Columns.Add("Name", "Name");
             _mainPage.UpandComingMovies.RowHeadersVisible = false;
             _mainPage.UpandComingMovies.ColumnHeadersVisible = false;
@@ -80,7 +90,7 @@ namespace TMDb.WinFormsClient.Presenters
             _mainPage.UpandComingMovies.MultiSelect = false;
             _upAndComing.ForEach(m =>
             {
-                _mainPage.UpandComingMovies.Rows.Add(m.Title);
+                _mainPage.UpandComingMovies.Rows.Add(m.Id, m.Title);
             });
         }
 

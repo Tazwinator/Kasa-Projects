@@ -35,14 +35,12 @@ namespace TMDb.WinFormsClient.Forms
             this._mainPageBtn = new System.Windows.Forms.Button();
             this._mainContentSplitContainer = new System.Windows.Forms.SplitContainer();
             this._movieSearchBox = new System.Windows.Forms.TextBox();
-            this._mainPage = new TMDb.WinFormsClient.Forms.MainPage();
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).BeginInit();
             this._sideBarSplitContainer.Panel1.SuspendLayout();
             this._sideBarSplitContainer.Panel2.SuspendLayout();
             this._sideBarSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._mainContentSplitContainer)).BeginInit();
             this._mainContentSplitContainer.Panel1.SuspendLayout();
-            this._mainContentSplitContainer.Panel2.SuspendLayout();
             this._mainContentSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,10 +94,6 @@ namespace TMDb.WinFormsClient.Forms
             // 
             this._mainContentSplitContainer.Panel1.BackColor = System.Drawing.Color.BlueViolet;
             this._mainContentSplitContainer.Panel1.Controls.Add(this._movieSearchBox);
-            // 
-            // _mainContentSplitContainer.Panel2
-            // 
-            this._mainContentSplitContainer.Panel2.Controls.Add(this._mainPage);
             this._mainContentSplitContainer.Size = new System.Drawing.Size(705, 561);
             this._mainContentSplitContainer.SplitterDistance = 73;
             this._mainContentSplitContainer.TabIndex = 0;
@@ -112,14 +106,6 @@ namespace TMDb.WinFormsClient.Forms
             this._movieSearchBox.Name = "_movieSearchBox";
             this._movieSearchBox.Size = new System.Drawing.Size(385, 23);
             this._movieSearchBox.TabIndex = 0;
-            // 
-            // _mainPage
-            // 
-            this._mainPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._mainPage.Location = new System.Drawing.Point(0, 0);
-            this._mainPage.Name = "_mainPage";
-            this._mainPage.Size = new System.Drawing.Size(705, 484);
-            this._mainPage.TabIndex = 0;
             // 
             // IndexForm
             // 
@@ -135,7 +121,6 @@ namespace TMDb.WinFormsClient.Forms
             this._sideBarSplitContainer.ResumeLayout(false);
             this._mainContentSplitContainer.Panel1.ResumeLayout(false);
             this._mainContentSplitContainer.Panel1.PerformLayout();
-            this._mainContentSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._mainContentSplitContainer)).EndInit();
             this._mainContentSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -149,6 +134,5 @@ namespace TMDb.WinFormsClient.Forms
         private TextBox _movieSearchBox;
         private Button _showMovieBtn;
         private Button _mainPageBtn;
-        private MainPage _mainPage;
     }
 }

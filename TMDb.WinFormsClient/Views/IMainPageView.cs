@@ -15,5 +15,8 @@ namespace TMDb.WinFormsClient.Views
         public DataGridView LatestReleasesMovies { get; set; }
         public DataGridView UpandComingMovies { get; set; }
 
+        MainPage GetView();
+
+        public IIndexView IndexView { get; set; }
     }
 }

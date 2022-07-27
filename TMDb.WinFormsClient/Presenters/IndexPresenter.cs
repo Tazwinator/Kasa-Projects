@@ -19,7 +19,7 @@ namespace TMDb.WinFormsClient.Presenters
             _indexView = indexView;
         }
 
-        internal void Navigation(Button sender)
+        internal void BtnNavigation(Button sender)
         {
             switch (sender.Name)
             {
@@ -28,7 +28,7 @@ namespace TMDb.WinFormsClient.Presenters
                     _indexView.ShowOnlyMainPage();
                     break;
                 case "_showMovieBtn":
-                    _indexView.ShowOnlyShowMovie();
+                    _indexView.ShowOnlyShowMovie(_indexView.ShowMovieView.MovieId);
                     break;
             }
 

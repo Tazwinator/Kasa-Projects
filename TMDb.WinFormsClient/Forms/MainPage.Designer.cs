@@ -59,7 +59,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(900, 600);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(705, 561);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // _highestRatedDataGrid
@@ -69,12 +69,13 @@
             this._highestRatedDataGrid.AllowUserToOrderColumns = true;
             this._highestRatedDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._highestRatedDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._highestRatedDataGrid.Location = new System.Drawing.Point(3, 39);
+            this._highestRatedDataGrid.Location = new System.Drawing.Point(3, 36);
             this._highestRatedDataGrid.Name = "_highestRatedDataGrid";
             this._highestRatedDataGrid.ReadOnly = true;
             this._highestRatedDataGrid.RowTemplate.Height = 25;
-            this._highestRatedDataGrid.Size = new System.Drawing.Size(293, 558);
+            this._highestRatedDataGrid.Size = new System.Drawing.Size(228, 522);
             this._highestRatedDataGrid.TabIndex = 0;
+            this._highestRatedDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MovieList_CellDoubleClicked);
             // 
             // _latestReleasesDataGrid
             // 
@@ -82,12 +83,13 @@
             this._latestReleasesDataGrid.AllowUserToDeleteRows = false;
             this._latestReleasesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._latestReleasesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._latestReleasesDataGrid.Location = new System.Drawing.Point(302, 39);
+            this._latestReleasesDataGrid.Location = new System.Drawing.Point(237, 36);
             this._latestReleasesDataGrid.Name = "_latestReleasesDataGrid";
             this._latestReleasesDataGrid.ReadOnly = true;
             this._latestReleasesDataGrid.RowTemplate.Height = 25;
-            this._latestReleasesDataGrid.Size = new System.Drawing.Size(294, 558);
+            this._latestReleasesDataGrid.Size = new System.Drawing.Size(229, 522);
             this._latestReleasesDataGrid.TabIndex = 1;
+            this._latestReleasesDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MovieList_CellDoubleClicked);
             // 
             // _upAndComignDataGrid
             // 
@@ -95,20 +97,21 @@
             this._upAndComignDataGrid.AllowUserToDeleteRows = false;
             this._upAndComignDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._upAndComignDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._upAndComignDataGrid.Location = new System.Drawing.Point(602, 39);
+            this._upAndComignDataGrid.Location = new System.Drawing.Point(472, 36);
             this._upAndComignDataGrid.Name = "_upAndComignDataGrid";
             this._upAndComignDataGrid.ReadOnly = true;
             this._upAndComignDataGrid.RowTemplate.Height = 25;
-            this._upAndComignDataGrid.Size = new System.Drawing.Size(295, 558);
+            this._upAndComignDataGrid.Size = new System.Drawing.Size(230, 522);
             this._upAndComignDataGrid.TabIndex = 2;
+            this._upAndComignDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MovieList_CellDoubleClicked);
             // 
             // _highestRatedlabel
             // 
             this._highestRatedlabel.AutoSize = true;
             this._highestRatedlabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._highestRatedlabel.Location = new System.Drawing.Point(3, 21);
+            this._highestRatedlabel.Location = new System.Drawing.Point(3, 18);
             this._highestRatedlabel.Name = "_highestRatedlabel";
-            this._highestRatedlabel.Size = new System.Drawing.Size(293, 15);
+            this._highestRatedlabel.Size = new System.Drawing.Size(228, 15);
             this._highestRatedlabel.TabIndex = 3;
             this._highestRatedlabel.Text = "Highest Rated Last Year";
             this._highestRatedlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -117,9 +120,9 @@
             // 
             this._latestReleasesLabel.AutoSize = true;
             this._latestReleasesLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._latestReleasesLabel.Location = new System.Drawing.Point(302, 21);
+            this._latestReleasesLabel.Location = new System.Drawing.Point(237, 18);
             this._latestReleasesLabel.Name = "_latestReleasesLabel";
-            this._latestReleasesLabel.Size = new System.Drawing.Size(294, 15);
+            this._latestReleasesLabel.Size = new System.Drawing.Size(229, 15);
             this._latestReleasesLabel.TabIndex = 4;
             this._latestReleasesLabel.Text = "Latest Releases";
             this._latestReleasesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -128,9 +131,9 @@
             // 
             this._upAndComingLabel.AutoSize = true;
             this._upAndComingLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._upAndComingLabel.Location = new System.Drawing.Point(602, 21);
+            this._upAndComingLabel.Location = new System.Drawing.Point(472, 18);
             this._upAndComingLabel.Name = "_upAndComingLabel";
-            this._upAndComingLabel.Size = new System.Drawing.Size(295, 15);
+            this._upAndComingLabel.Size = new System.Drawing.Size(230, 15);
             this._upAndComingLabel.TabIndex = 5;
             this._upAndComingLabel.Text = "Up And Coming";
             this._upAndComingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -141,7 +144,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MainPage";
-            this.Size = new System.Drawing.Size(900, 600);
+            this.Size = new System.Drawing.Size(705, 561);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._highestRatedDataGrid)).EndInit();
