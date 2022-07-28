@@ -20,9 +20,11 @@ namespace TMDb.WinFormsClient.Forms
 
         public IMainPageView MainPageView { get; set; }
         public IShowMovieView ShowMovieView { get; set; }
+        public ISearchResultsView SearchResultsView { get; set; }
 
         public ShowMovie ShowMovieControl { get; private set; }
         public MainPage MainPageControl { get; private set; }
+        public SearchResults SearchResultsControl { get; private set; }
 
         public IndexForm()
         {
@@ -30,6 +32,7 @@ namespace TMDb.WinFormsClient.Forms
 
             this.MainPageView = new MainPage(this);
             this.ShowMovieView = new ShowMovie(this);
+            this.SearchResultsView = new SearchResults(this);
 
             MainPageControl = MainPageView.GetView();
             MainPageControl.Dock = DockStyle.Fill;
@@ -61,13 +64,42 @@ namespace TMDb.WinFormsClient.Forms
                 ShowMovieControl.Dock = DockStyle.Fill;
             }
 
-            _mainContentSplitContainer.Panel2.Controls.Remove(MainPageControl);
+            _mainContentSplitContainer.Panel2.Controls.Clear();
             _mainContentSplitContainer.Panel2.Controls.Add(ShowMovieControl);
             ShowMovieView.MovieId = movieId;
             ShowMovieView.LoadData(); 
         }
 
+        public void ShowOnlySearchResults(string text)
+        {
+            if (SearchResultsControl == null)
+            {
+                SearchResultsControl = SearchResultsView.GetView();
+                SearchResultsControl.Dock = DockStyle.Fill;
+            }
+
+            _mainContentSplitContainer.Panel2.Controls.Clear();
+            _mainContentSplitContainer.Panel2.Controls.Add(SearchResultsControl);
+            SearchResultsView.GetResults(text);
+        }
+
+
 
         #endregion
+
+        private void _searchButton_Click(object sender, EventArgs e)
+        {
+            _indexPresenter.SearchForMovie(_movieSearchBox.Text);
+        }
+
+        private void _movieSearchBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                _searchButton_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

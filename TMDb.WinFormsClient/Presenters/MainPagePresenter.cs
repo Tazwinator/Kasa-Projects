@@ -19,11 +19,11 @@ namespace TMDb.WinFormsClient.Presenters
         private List<MovieModel> _latestReleases { get; set; }
         private List<MovieModel> _upAndComing { get; set; }
 
-        private IMainPageView _mainPage;
+        private IMainPageView _mainPageView;
 
         public MainPagePresenter(IMainPageView mainPage)
         {
-            _mainPage = mainPage;
+            _mainPageView = mainPage;
         }
 
         public async void GetMoviesAsync()
@@ -43,7 +43,7 @@ namespace TMDb.WinFormsClient.Presenters
             var idColumnIndex = dataGrid.CurrentCell.ColumnIndex - 1;
             var movieId = dataGrid.Rows[e.RowIndex].Cells[idColumnIndex].Value;
 
-            _mainPage.IndexView.ShowOnlyShowMovie(movieId.ToString());
+            _mainPageView.IndexView.ShowOnlyShowMovie(movieId.ToString());
 
         }
 
@@ -51,47 +51,21 @@ namespace TMDb.WinFormsClient.Presenters
         #region Populating and Customizing DataGridViews
         private void PopulateDataGridViews()
         {
-            _mainPage.HighestRatedMovies.Columns.Add("Id", "Id");
-            _mainPage.HighestRatedMovies.Columns["Id"].Visible = false;
-            _mainPage.HighestRatedMovies.Columns.Add("Name", "Name");
-            _mainPage.HighestRatedMovies.RowHeadersVisible = false;
-            _mainPage.HighestRatedMovies.ColumnHeadersVisible = false;
-            _mainPage.HighestRatedMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            _mainPage.HighestRatedMovies.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            _mainPage.HighestRatedMovies.Columns["Name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            _mainPage.HighestRatedMovies.MultiSelect = false;
-            _highestRated.ForEach(m =>
-            {
-                _mainPage.HighestRatedMovies.Rows.Add(m.Id, m.Title);
-            });
+            BindingSource highestRatedSource = new BindingSource();
+            highestRatedSource.DataSource = _highestRated.Select(m => new { m.Id, m.Title });
+            _mainPageView.HighestRatedMovies.DataSource = highestRatedSource;
+            _mainPageView.HighestRatedMovies.Columns[0].Visible = false;
 
-            _mainPage.LatestReleasesMovies.Columns.Add("Id", "Id");
-            _mainPage.LatestReleasesMovies.Columns["Id"].Visible = false;
-            _mainPage.LatestReleasesMovies.Columns.Add("Name", "Name");
-            _mainPage.LatestReleasesMovies.RowHeadersVisible = false;
-            _mainPage.LatestReleasesMovies.ColumnHeadersVisible = false;
-            _mainPage.LatestReleasesMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            _mainPage.LatestReleasesMovies.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            _mainPage.LatestReleasesMovies.Columns["Name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            _mainPage.LatestReleasesMovies.MultiSelect = false;
-            _latestReleases.ForEach(m =>
-            {
-                _mainPage.LatestReleasesMovies.Rows.Add(m.Id, m.Title);
-            });
+            BindingSource LatestReleasesSource = new BindingSource();
+            LatestReleasesSource.DataSource = _latestReleases.Select(m => new { m.Id, m.Title });
+            _mainPageView.LatestReleasesMovies.DataSource = LatestReleasesSource;
+            _mainPageView.LatestReleasesMovies.Columns[0].Visible = false;
 
-            _mainPage.UpandComingMovies.Columns.Add("Id", "Id");
-            _mainPage.UpandComingMovies.Columns["Id"].Visible = false;
-            _mainPage.UpandComingMovies.Columns.Add("Name", "Name");
-            _mainPage.UpandComingMovies.RowHeadersVisible = false;
-            _mainPage.UpandComingMovies.ColumnHeadersVisible = false;
-            _mainPage.UpandComingMovies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            _mainPage.UpandComingMovies.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            _mainPage.UpandComingMovies.Columns["Name"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            _mainPage.UpandComingMovies.MultiSelect = false;
-            _upAndComing.ForEach(m =>
-            {
-                _mainPage.UpandComingMovies.Rows.Add(m.Id, m.Title);
-            });
+
+            BindingSource UpandComingSource = new BindingSource();
+            UpandComingSource.DataSource = _upAndComing.Select(m => new { m.Id, m.Title });
+            _mainPageView.UpandComingMovies.DataSource = UpandComingSource;
+            _mainPageView.UpandComingMovies.Columns[0].Visible = false;
         }
 
         #endregion

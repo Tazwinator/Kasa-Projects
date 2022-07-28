@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this._highestRatedDataGrid = new System.Windows.Forms.DataGridView();
             this._latestReleasesDataGrid = new System.Windows.Forms.DataGridView();
@@ -67,11 +70,24 @@
             this._highestRatedDataGrid.AllowUserToAddRows = false;
             this._highestRatedDataGrid.AllowUserToDeleteRows = false;
             this._highestRatedDataGrid.AllowUserToOrderColumns = true;
+            this._highestRatedDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this._highestRatedDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this._highestRatedDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._highestRatedDataGrid.ColumnHeadersVisible = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this._highestRatedDataGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this._highestRatedDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this._highestRatedDataGrid.Location = new System.Drawing.Point(3, 36);
+            this._highestRatedDataGrid.MultiSelect = false;
             this._highestRatedDataGrid.Name = "_highestRatedDataGrid";
             this._highestRatedDataGrid.ReadOnly = true;
+            this._highestRatedDataGrid.RowHeadersVisible = false;
             this._highestRatedDataGrid.RowTemplate.Height = 25;
             this._highestRatedDataGrid.Size = new System.Drawing.Size(228, 522);
             this._highestRatedDataGrid.TabIndex = 0;
@@ -81,11 +97,24 @@
             // 
             this._latestReleasesDataGrid.AllowUserToAddRows = false;
             this._latestReleasesDataGrid.AllowUserToDeleteRows = false;
+            this._latestReleasesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this._latestReleasesDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this._latestReleasesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._latestReleasesDataGrid.ColumnHeadersVisible = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this._latestReleasesDataGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this._latestReleasesDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this._latestReleasesDataGrid.Location = new System.Drawing.Point(237, 36);
+            this._latestReleasesDataGrid.MultiSelect = false;
             this._latestReleasesDataGrid.Name = "_latestReleasesDataGrid";
             this._latestReleasesDataGrid.ReadOnly = true;
+            this._latestReleasesDataGrid.RowHeadersVisible = false;
             this._latestReleasesDataGrid.RowTemplate.Height = 25;
             this._latestReleasesDataGrid.Size = new System.Drawing.Size(229, 522);
             this._latestReleasesDataGrid.TabIndex = 1;
@@ -95,11 +124,24 @@
             // 
             this._upAndComignDataGrid.AllowUserToAddRows = false;
             this._upAndComignDataGrid.AllowUserToDeleteRows = false;
+            this._upAndComignDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this._upAndComignDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this._upAndComignDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._upAndComignDataGrid.ColumnHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this._upAndComignDataGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this._upAndComignDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this._upAndComignDataGrid.Location = new System.Drawing.Point(472, 36);
+            this._upAndComignDataGrid.MultiSelect = false;
             this._upAndComignDataGrid.Name = "_upAndComignDataGrid";
             this._upAndComignDataGrid.ReadOnly = true;
+            this._upAndComignDataGrid.RowHeadersVisible = false;
             this._upAndComignDataGrid.RowTemplate.Height = 25;
             this._upAndComignDataGrid.Size = new System.Drawing.Size(230, 522);
             this._upAndComignDataGrid.TabIndex = 2;

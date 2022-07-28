@@ -12,9 +12,11 @@ namespace TMDb.WinFormsClient.Views
 
         public IMainPageView MainPageView { get; set; }
         public IShowMovieView ShowMovieView { get; set; }
+        public ISearchResultsView SearchResultsView { get; set; }
 
         public void ShowOnlyMainPage();
         public void ShowOnlyShowMovie(string movieId);
+        public void ShowOnlySearchResults(string text);
 
     }
 }

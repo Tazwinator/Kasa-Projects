@@ -33,5 +33,11 @@ namespace TMDb.WinFormsClient.Presenters
             }
 
         }
+
+        internal void SearchForMovie(string text)
+        {
+
+            _indexView.ShowOnlySearchResults(text);
+        }
     }
 }

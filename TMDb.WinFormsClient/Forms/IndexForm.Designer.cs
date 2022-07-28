@@ -34,6 +34,7 @@ namespace TMDb.WinFormsClient.Forms
             this._showMovieBtn = new System.Windows.Forms.Button();
             this._mainPageBtn = new System.Windows.Forms.Button();
             this._mainContentSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._searchButton = new System.Windows.Forms.Button();
             this._movieSearchBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).BeginInit();
             this._sideBarSplitContainer.Panel1.SuspendLayout();
@@ -93,10 +94,21 @@ namespace TMDb.WinFormsClient.Forms
             // _mainContentSplitContainer.Panel1
             // 
             this._mainContentSplitContainer.Panel1.BackColor = System.Drawing.Color.BlueViolet;
+            this._mainContentSplitContainer.Panel1.Controls.Add(this._searchButton);
             this._mainContentSplitContainer.Panel1.Controls.Add(this._movieSearchBox);
             this._mainContentSplitContainer.Size = new System.Drawing.Size(705, 561);
             this._mainContentSplitContainer.SplitterDistance = 73;
             this._mainContentSplitContainer.TabIndex = 0;
+            // 
+            // _searchButton
+            // 
+            this._searchButton.Location = new System.Drawing.Point(394, 12);
+            this._searchButton.Name = "_searchButton";
+            this._searchButton.Size = new System.Drawing.Size(75, 23);
+            this._searchButton.TabIndex = 1;
+            this._searchButton.Text = "Search";
+            this._searchButton.UseVisualStyleBackColor = true;
+            this._searchButton.Click += new System.EventHandler(this._searchButton_Click);
             // 
             // _movieSearchBox
             // 
@@ -106,6 +118,7 @@ namespace TMDb.WinFormsClient.Forms
             this._movieSearchBox.Name = "_movieSearchBox";
             this._movieSearchBox.Size = new System.Drawing.Size(385, 23);
             this._movieSearchBox.TabIndex = 0;
+            this._movieSearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this._movieSearchBox_KeyDown);
             // 
             // IndexForm
             // 
@@ -134,5 +147,6 @@ namespace TMDb.WinFormsClient.Forms
         private TextBox _movieSearchBox;
         private Button _showMovieBtn;
         private Button _mainPageBtn;
+        private Button _searchButton;
     }
 }
