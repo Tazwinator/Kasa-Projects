@@ -36,6 +36,7 @@ namespace TMDb.WinFormsClient.Forms
             this._mainContentSplitContainer = new System.Windows.Forms.SplitContainer();
             this._searchButton = new System.Windows.Forms.Button();
             this._movieSearchBox = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this._sideBarSplitContainer)).BeginInit();
             this._sideBarSplitContainer.Panel1.SuspendLayout();
             this._sideBarSplitContainer.Panel2.SuspendLayout();
@@ -43,6 +44,7 @@ namespace TMDb.WinFormsClient.Forms
             ((System.ComponentModel.ISupportInitialize)(this._mainContentSplitContainer)).BeginInit();
             this._mainContentSplitContainer.Panel1.SuspendLayout();
             this._mainContentSplitContainer.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // _sideBarSplitContainer
@@ -53,9 +55,8 @@ namespace TMDb.WinFormsClient.Forms
             // 
             // _sideBarSplitContainer.Panel1
             // 
-            this._sideBarSplitContainer.Panel1.BackColor = System.Drawing.Color.DarkOrchid;
-            this._sideBarSplitContainer.Panel1.Controls.Add(this._showMovieBtn);
-            this._sideBarSplitContainer.Panel1.Controls.Add(this._mainPageBtn);
+            this._sideBarSplitContainer.Panel1.BackColor = System.Drawing.Color.SteelBlue;
+            this._sideBarSplitContainer.Panel1.Controls.Add(this.tableLayoutPanel1);
             // 
             // _sideBarSplitContainer.Panel2
             // 
@@ -66,21 +67,23 @@ namespace TMDb.WinFormsClient.Forms
             // 
             // _showMovieBtn
             // 
-            this._showMovieBtn.Location = new System.Drawing.Point(44, 161);
+            this._showMovieBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._showMovieBtn.Location = new System.Drawing.Point(3, 199);
             this._showMovieBtn.Name = "_showMovieBtn";
-            this._showMovieBtn.Size = new System.Drawing.Size(101, 23);
+            this._showMovieBtn.Size = new System.Drawing.Size(169, 22);
             this._showMovieBtn.TabIndex = 1;
-            this._showMovieBtn.Text = "OtherPageTest";
+            this._showMovieBtn.Text = "Current Movie";
             this._showMovieBtn.UseVisualStyleBackColor = true;
             this._showMovieBtn.Click += new System.EventHandler(this.NavBtn_Click);
             // 
             // _mainPageBtn
             // 
-            this._mainPageBtn.Location = new System.Drawing.Point(44, 111);
+            this._mainPageBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._mainPageBtn.Location = new System.Drawing.Point(3, 171);
             this._mainPageBtn.Name = "_mainPageBtn";
-            this._mainPageBtn.Size = new System.Drawing.Size(75, 23);
+            this._mainPageBtn.Size = new System.Drawing.Size(169, 22);
             this._mainPageBtn.TabIndex = 0;
-            this._mainPageBtn.Text = "Featured";
+            this._mainPageBtn.Text = "Featured Movies";
             this._mainPageBtn.UseVisualStyleBackColor = true;
             this._mainPageBtn.Click += new System.EventHandler(this.NavBtn_Click);
             // 
@@ -93,7 +96,7 @@ namespace TMDb.WinFormsClient.Forms
             // 
             // _mainContentSplitContainer.Panel1
             // 
-            this._mainContentSplitContainer.Panel1.BackColor = System.Drawing.Color.BlueViolet;
+            this._mainContentSplitContainer.Panel1.BackColor = System.Drawing.Color.SteelBlue;
             this._mainContentSplitContainer.Panel1.Controls.Add(this._searchButton);
             this._mainContentSplitContainer.Panel1.Controls.Add(this._movieSearchBox);
             this._mainContentSplitContainer.Size = new System.Drawing.Size(705, 561);
@@ -120,6 +123,27 @@ namespace TMDb.WinFormsClient.Forms
             this._movieSearchBox.TabIndex = 0;
             this._movieSearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this._movieSearchBox_KeyDown);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this._mainPageBtn, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this._showMovieBtn, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(175, 561);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
             // IndexForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -136,6 +160,7 @@ namespace TMDb.WinFormsClient.Forms
             this._mainContentSplitContainer.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._mainContentSplitContainer)).EndInit();
             this._mainContentSplitContainer.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -148,5 +173,6 @@ namespace TMDb.WinFormsClient.Forms
         private Button _showMovieBtn;
         private Button _mainPageBtn;
         private Button _searchButton;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
